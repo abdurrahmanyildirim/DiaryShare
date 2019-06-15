@@ -48,7 +48,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Concrete\EntityFramework\Contexts\EfContext.cs" />
+    <Compile Include="Abstract\IAccountDAL.cs" />
+    <Compile Include="Abstract\IDiaryDAL.cs" />
+    <Compile Include="Abstract\IDiaryStatusDAL.cs" />
+    <Compile Include="Abstract\IFollowerDAL.cs" />
+    <Compile Include="Abstract\IMessageDAL.cs" />
+    <Compile Include="Abstract\IMessageMapDAL.cs" />
+    <Compile Include="Abstract\IReviewDAL.cs" />
+    <Compile Include="Abstract\IRoleDAL.cs" />
+    <Compile Include="Concrete\EntityFramework\Context\EfContext.cs" />
+    <Compile Include="Concrete\EntityFramework\EfDiaryStatusDAL.cs" />
+    <Compile Include="Concrete\EntityFramework\EfAccountDAL.cs" />
+    <Compile Include="Concrete\EntityFramework\EfDiaryDAL.cs" />
+    <Compile Include="Concrete\EntityFramework\EfFollowerDAL.cs" />
+    <Compile Include="Concrete\EntityFramework\EfMessageDAL.cs" />
+    <Compile Include="Concrete\EntityFramework\EfMessageMapDAL.cs" />
+    <Compile Include="Concrete\EntityFramework\EfReviewDAL.cs" />
+    <Compile Include="Concrete\EntityFramework\EfRoleDAL.cs" />
     <Compile Include="Concrete\EntityFramework\Mapping\AccountMapping.cs" />
     <Compile Include="Concrete\EntityFramework\Mapping\DiaryMapping.cs" />
     <Compile Include="Concrete\EntityFramework\Mapping\FollowerMapping.cs" />
@@ -58,14 +74,16 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstract\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DiaryShare.Core\DiaryShare.Core.csproj">
+      <Project>{2daea145-29af-4bb0-a9b1-62d69bda828f}</Project>
+      <Name>DiaryShare.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DiaryShare.Entities\DiaryShare.Entities.csproj">
       <Project>{e6415743-3daa-4ad5-8073-2de8fb1fe286}</Project>
       <Name>DiaryShare.Entities</Name>
