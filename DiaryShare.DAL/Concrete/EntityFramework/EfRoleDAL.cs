@@ -1,6 +1,6 @@
 ﻿using DiaryShare.Core.DAL.EntityFramework;
 using DiaryShare.DAL.Abstract;
-using DiaryShare.DAL.Concrete.EntityFramework.Contexts;
+using DiaryShare.DAL.Concrete.EntityFramework.Context;
 using DiaryShare.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DiaryShare.DAL.Concrete.EntityFramework
 {
-    public class EfRoleDAL : EfEntityRepository<EfContext, Role>, IRoleDAL
+    public class EfRoleDal : EfEntityRepository<EfContext, Role>, IRoleDal
     {
     }
 }

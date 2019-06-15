@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DiaryShare.DAL.Abstract
 {
-    public interface IDiaryDAL : IEntityRepository<Diary>
+    public interface IDiaryDal : IEntityRepository<Diary>
     {
     }
 }

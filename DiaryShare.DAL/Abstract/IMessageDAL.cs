@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DiaryShare.DAL.Abstract
 {
-    public interface IMessageDAL : IEntityRepository<Message>
+    public interface IMessageDal : IEntityRepository<Message>
     {
     }
 }

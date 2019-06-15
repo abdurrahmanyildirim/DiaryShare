@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiaryShare.DAL.Concrete.EntityFramework.Contexts
+namespace DiaryShare.DAL.Concrete.EntityFramework.Context
 {
     public class EfContext : DbContext
     {

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiaryShare.DAL", "DiaryShar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiaryShare.BLL", "DiaryShare.BLL\DiaryShare.BLL.csproj", "{82D80734-F588-4895-85B5-7E57B6C2E869}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiaryShare.MVCWebUI", "DiaryShare.MVCWebUI\DiaryShare.MVCWebUI.csproj", "{52E9557D-4768-4104-A603-AF2834BD3B58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiaryShare.MVCWebUI", "DiaryShare.MVCWebUI\DiaryShare.MVCWebUI.csproj", "{1897EFAF-D141-405A-A831-A1F9BDE297CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{82D80734-F588-4895-85B5-7E57B6C2E869}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82D80734-F588-4895-85B5-7E57B6C2E869}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82D80734-F588-4895-85B5-7E57B6C2E869}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52E9557D-4768-4104-A603-AF2834BD3B58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52E9557D-4768-4104-A603-AF2834BD3B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52E9557D-4768-4104-A603-AF2834BD3B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52E9557D-4768-4104-A603-AF2834BD3B58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1897EFAF-D141-405A-A831-A1F9BDE297CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1897EFAF-D141-405A-A831-A1F9BDE297CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1897EFAF-D141-405A-A831-A1F9BDE297CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1897EFAF-D141-405A-A831-A1F9BDE297CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

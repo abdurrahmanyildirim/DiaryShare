@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +44,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAccountService.cs" />
+    <Compile Include="Abstract\IDiaryService.cs" />
+    <Compile Include="Abstract\IDiaryStatusService.cs" />
+    <Compile Include="Abstract\IFollowerService.cs" />
+    <Compile Include="Abstract\IMessageMapService.cs" />
+    <Compile Include="Abstract\IMessageService.cs" />
+    <Compile Include="Abstract\IReviewService.cs" />
+    <Compile Include="Abstract\IRoleService.cs" />
+    <Compile Include="Concrete\AccountManager.cs" />
+    <Compile Include="Concrete\DiaryManager.cs" />
+    <Compile Include="Concrete\DiaryStatusManager.cs" />
+    <Compile Include="Concrete\FollowerManager.cs" />
+    <Compile Include="Concrete\MessageManager.cs" />
+    <Compile Include="Concrete\MessageMapManager.cs" />
+    <Compile Include="Concrete\ReviewManager.cs" />
+    <Compile Include="Concrete\RoleManager.cs" />
+    <Compile Include="DependencyResolvers\Ninject\BusinessModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DiaryShare.Core\DiaryShare.Core.csproj">
+      <Project>{2DAEA145-29AF-4BB0-A9B1-62D69BDA828F}</Project>
+      <Name>DiaryShare.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DiaryShare.DAL\DiaryShare.DAL.csproj">
+      <Project>{281bc27e-56ea-4786-a282-ff3562f1f417}</Project>
+      <Name>DiaryShare.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DiaryShare.Entities\DiaryShare.Entities.csproj">
+      <Project>{E6415743-3DAA-4AD5-8073-2DE8FB1FE286}</Project>
+      <Name>DiaryShare.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

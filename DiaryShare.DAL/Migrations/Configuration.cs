@@ -5,14 +5,14 @@ namespace DiaryShare.DAL.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DiaryShare.DAL.Concrete.EntityFramework.Contexts.EfContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DiaryShare.DAL.Concrete.EntityFramework.Context.EfContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(DiaryShare.DAL.Concrete.EntityFramework.Contexts.EfContext context)
+        protected override void Seed(DiaryShare.DAL.Concrete.EntityFramework.Context.EfContext context)
         {
             //  This method will be called after migrating to the latest version.
 
