@@ -17,6 +17,6 @@ namespace DiaryShare.Entities.Concrete
         public int DiaryStatusID { get; set; }
         public string StatusName { get; set; }
 
-        public virtual ICollection<Diary> Diaries { get; set; }
+        public virtual List<Diary> Diaries { get; set; }
     }
 }

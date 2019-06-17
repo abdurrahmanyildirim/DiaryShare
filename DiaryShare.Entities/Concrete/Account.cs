@@ -24,15 +24,16 @@ namespace DiaryShare.Entities.Concrete
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public byte[] Password { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
         public DateTime MemberDate { get; set; }
         public bool IsActive { get; set; }
 
         public virtual Role Role { get; set; }
-        public virtual ICollection<Diary> Diaries { get; set; }
-        public virtual ICollection<Follower> FromFollowers { get; set; }
-        public virtual ICollection<Follower> ToFollowers { get; set; }
-        public virtual ICollection<MessageMap> FromMessageMaps { get; set; }
-        public virtual ICollection<MessageMap> ToMessageMaps { get; set; }
+        public virtual List<Diary> Diaries { get; set; }
+        public virtual List<Follower> FromFollowers { get; set; }
+        public virtual List<Follower> ToFollowers { get; set; }
+        public virtual List<MessageMap> FromMessageMaps { get; set; }
+        public virtual List<MessageMap> ToMessageMaps { get; set; }
     }
 }

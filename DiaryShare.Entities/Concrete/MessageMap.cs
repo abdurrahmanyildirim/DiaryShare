@@ -23,6 +23,6 @@ namespace DiaryShare.Entities.Concrete
 
         public virtual Account FromAccount { get; set; }
         public virtual Account ToAccount { get; set; }
-        public virtual ICollection<Message> Messages { get; set; }
+        public virtual List<Message> Messages { get; set; }
     }
 }

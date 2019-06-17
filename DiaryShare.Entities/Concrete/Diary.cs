@@ -23,6 +23,6 @@ namespace DiaryShare.Entities.Concrete
 
         public virtual Account Account { get; set; }
         public virtual DiaryStatus DiaryStatus { get; set; }
-        public virtual ICollection<Review> Reviews { get; set; }
+        public virtual List<Review> Reviews { get; set; }
     }
 }
