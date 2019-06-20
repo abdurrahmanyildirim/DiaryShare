@@ -22,10 +22,10 @@ namespace DiaryShare.MVCWebUI.Controllers
 
         public ActionResult Login()
         {
-            if (Request.Cookies[".ASPXAUTH"] != null)
-            {
-                return RedirectToAction("Index", "Product");
-            }
+            //if (Request.Cookies[".ASPXAUTH"] != null)
+            //{
+            //    return RedirectToAction("Index", "Product");
+            //}
             return View();
         }
 
@@ -35,14 +35,13 @@ namespace DiaryShare.MVCWebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userInDb = _accountService.Login(account.Email, account.Password);
-                if (userInDb != null)
+                var accountInDb = _accountService.Login(account.Email, account.Password);
+                if (accountInDb != null)
                 {
-                    FormsAuthentication.SetAuthCookie(userInDb.Email, false);
+                    FormsAuthentication.SetAuthCookie(accountInDb.Email, false);
                     Request.Cookies[".ASPXAUTH"].Expires = DateTime.Now.AddDays(5);
-                    Session["user"] = account;
+                    Session["userID"] = accountInDb.AccountID;
                     //userInDb.Cookie = Request.Cookies[".ASPXAUTH"].Value;
-                    //_userService.Update(userInDb);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -68,6 +67,7 @@ namespace DiaryShare.MVCWebUI.Controllers
 
             if (!ModelState.IsValid)
             {
+                TempData["RegisterMessage"] = "Bir hata meydana geldi";
                 return RedirectToAction("Register");
             }
 

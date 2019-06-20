@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComplexTypes\MainPageData.cs" />
     <Compile Include="Concrete\Account.cs" />
     <Compile Include="Concrete\Diary.cs" />
     <Compile Include="Concrete\DiaryStatus.cs" />

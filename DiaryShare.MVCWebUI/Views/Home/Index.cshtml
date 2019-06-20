@@ -1,8 +1,43 @@
-﻿
+﻿@model DiaryShare.MVCWebUI.ViewModels.MainPageViewModel
+
+
 @{
     ViewBag.Title = "Index";
-
 }
 
-<h2>Index</h2>
+<table class="table-hover col-md-6 col-md-offset-1">
 
+    @{
+        foreach (var item in Model.MainPageDatas)
+        {
+            <tr>
+                <td style="border-bottom:solid 1px black">
+                    <div class="col-md-12">
+                        @if (item.ProfilPhotoPath != null)
+                        {
+                            <img src="@item.ProfilPhotoPath" alt="Default" />
+                        }
+                        else
+                        {
+                            <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="~/Images/DefaultImage.jpg" alt="Default" />
+                        }
+                    </div>
+                </td>
+                <td style="border-bottom:solid 1px black">
+                    <div style="margin-top:18px;">
+                        <h4> @item.FirstName @item.LastName</h4>
+                    </div>
+                    <div>
+                        @item.DiaryContent
+                    </div>
+                    <br /> <br />
+                </td>
+            </tr>
+
+        }
+    }
+
+
+
+
+</table>

@@ -11,6 +11,7 @@ namespace DiaryShare.Entities.Concrete
     {
         public int ReviewID { get; set; }
         public int DiaryID { get; set; }
+        public int FromAccount { get; set; }
         public string Description { get; set; }
         public DateTime ReviewDate { get; set; }
 

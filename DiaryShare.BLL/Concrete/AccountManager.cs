@@ -19,6 +19,11 @@ namespace DiaryShare.BLL.Concrete
             _accountDAL = accountDAL;
         }
 
+        //public Account GetByID(int id)
+        //{
+        //    return _accountDAL.Get(x => x.AccountID == id);
+        //}
+
         public void Register(Account account, string password)
         {
             byte[] passwordHash, passwordSalt;
