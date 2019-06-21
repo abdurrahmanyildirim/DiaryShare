@@ -10,5 +10,6 @@ namespace DiaryShare.DAL.Abstract
 {
     public interface IAccountDal : IEntityRepository<Account>
     {
+        List<Account> GetTopAccounts();
     }
 }

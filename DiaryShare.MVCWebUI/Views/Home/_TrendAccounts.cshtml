@@ -1,0 +1,21 @@
+﻿@model DiaryShare.MVCWebUI.ViewModels.TrendAccountsViewModel
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>En Aktif Hesaplar</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table-hover">
+            @{
+                foreach (var item in Model.AccountForTrendPanelDtos)
+                {
+                    <tr  style="margin:5px 0 5px 2px;border-top:solid 1px black" >
+
+                        <td class="btn" style="font-size:medium;margin:5px 0 5px 2px">@item.FirstName @item.LastName</td>
+
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

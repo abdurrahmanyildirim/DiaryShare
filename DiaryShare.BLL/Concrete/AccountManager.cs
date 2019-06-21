@@ -19,10 +19,10 @@ namespace DiaryShare.BLL.Concrete
             _accountDAL = accountDAL;
         }
 
-        //public Account GetByID(int id)
-        //{
-        //    return _accountDAL.Get(x => x.AccountID == id);
-        //}
+        public List<Account> GetTrendAccounts()
+        {
+            return _accountDAL.GetTopAccounts().ToList();
+        }
 
         public void Register(Account account, string password)
         {

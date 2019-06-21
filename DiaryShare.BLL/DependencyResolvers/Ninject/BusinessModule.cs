@@ -3,11 +3,6 @@ using DiaryShare.BLL.Concrete;
 using DiaryShare.DAL.Abstract;
 using DiaryShare.DAL.Concrete.EntityFramework;
 using Ninject.Modules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiaryShare.BLL.DependencyResolvers.Ninject
 {
@@ -38,6 +33,7 @@ namespace DiaryShare.BLL.DependencyResolvers.Ninject
 
             Bind<IRoleDal>().To<EfRoleDal>().InSingletonScope();
             Bind<IRoleService>().To<RoleManager>().InSingletonScope();
+
         }
     }
 }

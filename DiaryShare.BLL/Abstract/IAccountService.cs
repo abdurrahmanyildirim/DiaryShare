@@ -13,5 +13,6 @@ namespace DiaryShare.BLL.Abstract
         bool UserExists(string email);
         Account Login(string email, string password);
         void Register(Account account, string password);
+        List<Account> GetTrendAccounts();
     }
 }

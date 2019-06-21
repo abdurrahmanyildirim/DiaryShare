@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">Link</a></li>
-               
+
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
@@ -26,8 +26,16 @@
                 <button type="submit" class="btn btn-default">ARA</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="@Url.Action("Logout","Account")">Çıkış Yap</a></li>
-                
+                @if (Request.Cookies[".ASPXAUTH"] == null)
+                {
+                    <li><a href="@Url.Action("Login","Account")">Giriş Yap</a></li>
+                    <li><a href="@Url.Action("Register","Account")">Üye Ol</a></li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("Logout","Account")">Çıkış Yap</a></li>
+                }
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
