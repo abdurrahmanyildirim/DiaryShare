@@ -19,9 +19,14 @@ namespace DiaryShare.BLL.Concrete
             _diaryDAL = diaryDal;
         }
 
-        public List<MainPageData> GetDiariesByAccount(List<int> followers)
+        public List<MainPageData> GetDiariesByAccount(List<Follower> followers)
         {
-            return _diaryDAL.GetDiariesByFollowers(followers);
+            return _diaryDAL.GetDiariesByFollowers(followers).OrderByDescending(x=>x.CreatedDate).ToList();
+        }
+
+        public DiaryDetailData GetChosenDiary(int id)
+        {
+            return _diaryDAL.GetDiaryDetail(id);
         }
     }
 }

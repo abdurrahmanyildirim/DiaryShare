@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace DiaryShare.Entities.ComplexTypes
 {
-    public class MainPageData
+    public  class DiaryDetailData
     {
         public int DiaryID { get; set; }
+        public int AccountID { get; set; }
+        public string DiaryContent { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string DiaryContent { get; set; }
+        public string ProfilePhotoPath { get; set; }  
         public DateTime CreatedDate { get; set; }
-        public string  ProfilPhotoPath { get; set; }
     }
 }

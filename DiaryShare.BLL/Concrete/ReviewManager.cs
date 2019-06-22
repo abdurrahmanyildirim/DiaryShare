@@ -1,5 +1,6 @@
 ﻿using DiaryShare.BLL.Abstract;
 using DiaryShare.DAL.Abstract;
+using DiaryShare.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace DiaryShare.BLL.Concrete
         public ReviewManager(IReviewDal reviewDal)
         {
             _reviewDal = reviewDal;
+        }
+
+        public List<Review> ReviewsByDiary(int id)
+        {
+            return _reviewDal.GetAll(x => x.DiaryID == id);
+
         }
     }
 }

@@ -14,5 +14,6 @@ namespace DiaryShare.BLL.Abstract
         Account Login(string email, string password);
         void Register(Account account, string password);
         List<Account> GetTrendAccounts();
+        Account GetAccount(int id);
     }
 }

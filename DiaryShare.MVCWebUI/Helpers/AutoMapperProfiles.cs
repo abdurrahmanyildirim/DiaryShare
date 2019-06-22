@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DiaryShare.Entities.ComplexTypes;
 using DiaryShare.Entities.Concrete;
 using DiaryShare.MVCWebUI.Dtos;
 using System;
@@ -14,6 +15,7 @@ namespace DiaryShare.MVCWebUI.Helpers
         {
             CreateMap<Account, AccountForTrendPanelDto>();
             CreateMap<AccountForTrendPanelDto, Account>();
+            CreateMap<DiaryDetailData, DiaryForDetailDto>();
         }
     }
 }

@@ -1,16 +1,29 @@
 ﻿
-.mainDiv{
-    margin-top:-10px 0 0 0;
-    border-top:solid 1px black;
-    
+/*.clikableDiv:hover {
+    background-color:lightblue;
+}*/
+
+
+/*.mainDiv {
+    margin-top: -10px 0 0 0;*/
+/*border-top:solid 1px black;*/
+/*}*/
+
+/*.mainDiv:hover {
+        background-color: lightblue;
+    }
+
+
+.mainPageDiaryLooking ul {
+    list-style: none;
+    margin: 0;
+    padding: 0
 }
 
-
-.mainDiv:hover {
-    background-color: lightblue;
-}
-
-.mainDiv:active{
-
-}
+    .mainPageDiaryLooking ul li a {
+        display: block;
+        width: auto;
+        height: auto;
+        text-decoration: none
+    }*/
 

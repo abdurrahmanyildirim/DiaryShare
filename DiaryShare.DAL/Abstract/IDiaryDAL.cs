@@ -11,6 +11,7 @@ namespace DiaryShare.DAL.Abstract
 {
     public interface IDiaryDal : IEntityRepository<Diary>
     {
-        List<MainPageData> GetDiariesByFollowers(List<int> followers);
+        List<MainPageData> GetDiariesByFollowers(List<Follower> followers);
+        DiaryDetailData GetDiaryDetail(int id);
     }
 }

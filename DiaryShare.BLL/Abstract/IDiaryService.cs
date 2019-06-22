@@ -6,6 +6,7 @@ namespace DiaryShare.BLL.Abstract
 {
     public interface IDiaryService
     {
-        List<MainPageData> GetDiariesByAccount(List<int> followers);
+        List<MainPageData> GetDiariesByAccount(List<Follower> followers);
+        DiaryDetailData GetChosenDiary(int id);
     }
 }

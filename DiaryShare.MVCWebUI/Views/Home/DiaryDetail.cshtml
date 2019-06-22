@@ -1,27 +1,47 @@
-﻿@model DiaryShare.MVCWebUI.ViewModels.MainPageViewModel
-
+﻿@model DiaryShare.MVCWebUI.ViewModels.DiaryDetailViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "DiaryDetail";
 }
 
 <div class="col-md-offset-1 col-md-8">
     <div class="panel panel-info">
-
-        <div class="panel-heading">
-            <h4 style="text-align:center">ANA SAYFA</h4>
-        </div>
-
         <div class="panel-body">
-            <table class="table table-hover">
+            <div>
+                @if (Model.Diary.ProfilPhotoPath != null)
+                {
+                    <img src="@Model.Diary.ProfilPhotoPath" alt="Default" />
+                }
+                else
+                {
+                    <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="~/Images/DefaultImage.jpg" alt="Default" />
+                }
+            </div>
+            <div style="margin-top:-15px;margin-left:80px">
+                <div>
+                    <h3> @Model.Diary.FirstName @Model.Diary.LastName</h3>
+                </div>
+                <div>
+                    <p> @Model.Diary.DiaryContent</p>
+                </div>
+                <br />
+            </div>
+            <small>@Model.Diary.CreatedDate</small>
+
+            <div class="alert alert-info">
+                <p>Yorumlar</p>
+            </div>
+
+            <table class="table table-hover" style="margin-top:-15px;">
+
                 @{
-                    foreach (var item in Model.MainPageDatas)
+                    foreach (var item in Model.Reviews)
                     {
 
                         <tr>
                             <td>
 
-                                <a class="clikableDiv" style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
+                                <a style="text-decoration:none;color:black" href="#">
                                     <div>
                                         @if (item.ProfilPhotoPath != null)
                                         {
@@ -37,11 +57,12 @@
                                             <h3> @item.FirstName @item.LastName</h3>
                                         </div>
                                         <div>
-                                            <p> @item.DiaryContent</p>
+                                            <p> @item.Description</p>
                                         </div>
                                         <br />
+
                                     </div>
-                                    <small>@item.CreatedDate</small>
+                                    <small>@item.ReviewDate</small>
                                 </a>
                             </td>
                         </tr>
@@ -51,8 +72,7 @@
         </div>
     </div>
 </div>
+
 <div class="col-md-3">
     @{Html.RenderAction("_TrendAccounts", "Home");}
 </div>
-
-

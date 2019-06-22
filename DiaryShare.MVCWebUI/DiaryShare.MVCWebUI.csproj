@@ -127,12 +127,15 @@
     <Compile Include="Dtos\AccountForLoginDto.cs" />
     <Compile Include="Dtos\AccountForRegisterDto.cs" />
     <Compile Include="Dtos\AccountForTrendPanelDto.cs" />
+    <Compile Include="Dtos\DiaryForDetailDto.cs" />
+    <Compile Include="Dtos\ReviewsForDiariesDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AutoMapperConfiguration.cs" />
     <Compile Include="Helpers\AutoMapperProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DiaryDetailViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\TrendAccountsViewModel.cs" />
   </ItemGroup>
@@ -149,6 +152,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\SuccessRegister.cshtml" />
     <Content Include="Views\Home\_TrendAccounts.cshtml" />
+    <Content Include="Views\Home\DiaryDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

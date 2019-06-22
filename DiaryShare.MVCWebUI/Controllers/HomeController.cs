@@ -18,24 +18,26 @@ namespace DiaryShare.MVCWebUI.Controllers
         private readonly IFollowerService _followerService;
         private readonly IDiaryService _diaryService;
         private readonly IAccountService _accountService;
+        private readonly IReviewService _reviewService;
 
         public HomeController(IFollowerService followerService,
             IDiaryService diaryService,
-            IAccountService accountService
+            IAccountService accountService,
+            IReviewService reviewService
             )
         {
             _followerService = followerService;
             _diaryService = diaryService;
             _accountService = accountService;
+            _reviewService = reviewService;
         }
 
-        // GET: Home
         public ActionResult Index()
         {
 
             int userID = (int)Session["userID"];
 
-            List<int> followers = _followerService.GetFollowers(userID).Select(x => x.FromAccountID).ToList();
+            List<Follower> followers = _followerService.GetFollowers(userID).ToList();
 
             MainPageViewModel mainPageViewModel = new MainPageViewModel
             {
@@ -47,13 +49,6 @@ namespace DiaryShare.MVCWebUI.Controllers
 
         public ActionResult _TrendAccounts()
         {
-            //List<AccountForTrendPanelDto> trendAccounts = _accountService.GetTrendAccounts().Select(x => new AccountForTrendPanelDto
-            //{
-            //    AccountID = x.AccountID,
-            //    FirstName = x.FirstName,
-            //    LastName = x.LastName
-            //}).ToList();
-
             List<AccountForTrendPanelDto> trendAccounts = Mapper.Map<List<AccountForTrendPanelDto>>(_accountService.GetTrendAccounts());
 
             TrendAccountsViewModel trendAccountsViewModel = new TrendAccountsViewModel
@@ -62,6 +57,40 @@ namespace DiaryShare.MVCWebUI.Controllers
             };
 
             return PartialView(trendAccountsViewModel);
+        }
+
+        public ActionResult DiaryDetail(int id)
+        {
+            if (id == 0)
+                return RedirectToAction("Index");
+
+            DiaryForDetailDto diaryForDetailDto = Mapper.Map<DiaryForDetailDto>(_diaryService.GetChosenDiary(id));
+
+            //Veri tabanındaki hatalı kurgulamadan dolayı aşağıdaki kötü kod yazılmıştır. Allah Affetsin :)
+            List<Review> reviews = _reviewService.ReviewsByDiary(id);
+            List<ReviewsForDiariesDto> reviewsForDiariesDto = new List<ReviewsForDiariesDto>();
+            foreach (var item in reviews)
+            {
+                Account account = _accountService.GetAccount(item.FromAccount);
+                ReviewsForDiariesDto addReviews = new ReviewsForDiariesDto
+                {
+                    AccountID = item.FromAccount,
+                    Description = item.Description,
+                    FirstName = account.FirstName,
+                    LastName = account.LastName,
+                    ReviewDate = item.ReviewDate,
+                    ProfilPhotoPath=account.ProfilPhotoPath
+                };
+                reviewsForDiariesDto.Add(addReviews);
+            }
+            reviewsForDiariesDto.OrderByDescending(x => x.ReviewDate);
+            DiaryDetailViewModel diaryDetailViewModel = new DiaryDetailViewModel
+            {
+                Diary = diaryForDetailDto,
+                Reviews = reviewsForDiariesDto
+            };
+
+            return View(diaryDetailViewModel);
         }
     }
 }

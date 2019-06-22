@@ -7,14 +7,17 @@
     <div class="panel-body">
         <table class="table-hover">
             @{
+                var sayi = 1;
                 foreach (var item in Model.AccountForTrendPanelDtos)
                 {
-                    <tr  style="margin:5px 0 5px 2px;border-top:solid 1px black" >
+                    <tr style="border-top:solid 1px black">
 
-                        <td class="btn" style="font-size:medium;margin:5px 0 5px 2px">@item.FirstName @item.LastName</td>
+                        <td><a href="#" class="btn" style="text-decoration:none;color:black;"> @sayi - @item.FirstName @item.LastName</a></td>
 
                     </tr>
+                    sayi++;
                 }
+
             }
         </table>
     </div>
