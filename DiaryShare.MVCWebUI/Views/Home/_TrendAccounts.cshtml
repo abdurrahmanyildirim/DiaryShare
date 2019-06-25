@@ -12,7 +12,7 @@
                 {
                     <tr style="border-top:solid 1px black">
 
-                        <td><a href="#" class="btn" style="text-decoration:none;color:black;"> @sayi - @item.FirstName @item.LastName</a></td>
+                        <td><a href="@Url.Action("Main","Profile",new {id=item.AccountID })" class="btn" style="text-decoration:none;color:black;"> @sayi - @item.FirstName @item.LastName</a></td>
 
                     </tr>
                     sayi++;

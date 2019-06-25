@@ -5,10 +5,9 @@ using System.Web;
 
 namespace DiaryShare.MVCWebUI.Dtos
 {
-    public class DiaryForDetailDto : AccountBaseDto
+    public class DiaryForProfileDto
     {
         public int DiaryID { get; set; }
-        public int AccountID { get; set; }
         public string DiaryContent { get; set; }
         public DateTime CreatedDate { get; set; }
     }

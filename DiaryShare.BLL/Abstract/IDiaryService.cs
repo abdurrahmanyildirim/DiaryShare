@@ -8,5 +8,6 @@ namespace DiaryShare.BLL.Abstract
     {
         List<MainPageData> GetDiariesByAccount(List<Follower> followers);
         DiaryDetailData GetChosenDiary(int id);
+        List<Diary> GetDiariesForProfile(int id);
     }
 }

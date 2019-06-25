@@ -124,10 +124,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Dtos\AccountBaseDto.cs" />
     <Compile Include="Dtos\AccountForLoginDto.cs" />
+    <Compile Include="Dtos\AccountForProfileDto.cs" />
     <Compile Include="Dtos\AccountForRegisterDto.cs" />
     <Compile Include="Dtos\AccountForTrendPanelDto.cs" />
     <Compile Include="Dtos\DiaryForDetailDto.cs" />
+    <Compile Include="Dtos\DiaryForProfileDto.cs" />
     <Compile Include="Dtos\ReviewsForDiariesDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -137,6 +141,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DiaryDetailViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\TrendAccountsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +158,7 @@
     <Content Include="Views\Account\SuccessRegister.cshtml" />
     <Content Include="Views\Home\_TrendAccounts.cshtml" />
     <Content Include="Views\Home\DiaryDetail.cshtml" />
+    <Content Include="Views\Profile\Main.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
