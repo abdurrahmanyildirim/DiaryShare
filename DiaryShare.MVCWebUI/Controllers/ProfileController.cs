@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace DiaryShare.MVCWebUI.Controllers
 {
+    [Authorize(Roles ="Admin,Client")]
     public class ProfileController : Controller
     {
         private readonly IAccountService _accountService;

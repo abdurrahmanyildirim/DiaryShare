@@ -83,9 +83,10 @@ namespace DiaryShare.MVCWebUI.Controllers
                 LastName = account.LastName,
                 Email = account.Email,
                 RoleID = 2,
-                IsActive=true,
-                MemberDate=DateTime.Now,
-                UserName=account.Email
+                IsActive = true,
+                MemberDate = DateTime.Now,
+                ProfilPhotoPath = "~/Images/DefaultImage.jpg",
+                UserName = account.Email
             };
 
             _accountService.Register(newAccount, account.Password);
