@@ -128,6 +128,7 @@
     <Compile Include="Dtos\AccountBaseDto.cs" />
     <Compile Include="Dtos\AccountForLoginDto.cs" />
     <Compile Include="Dtos\AccountForProfileDto.cs" />
+    <Compile Include="Dtos\AccountForProfilePictureDto.cs" />
     <Compile Include="Dtos\AccountForRegisterDto.cs" />
     <Compile Include="Dtos\AccountForTrendPanelDto.cs" />
     <Compile Include="Dtos\DiaryForDetailDto.cs" />

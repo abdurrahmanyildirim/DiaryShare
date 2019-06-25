@@ -20,29 +20,33 @@
 
                         <tr>
                             <td>
-
-                                <a class="clikableDiv" style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
-                                    <div>
+                                <div>
+                                    <a href="@Url.Action("Main","Profile",new { id=item.AccountID})" style="text-decoration:none;color:black">
                                         @if (item.ProfilPhotoPath != null)
                                         {
-                                            <img src="@item.ProfilPhotoPath" alt="Default" />
+                                            <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(item.ProfilPhotoPath)" alt="Default" />
                                         }
                                         else
                                         {
                                             <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="~/Images/DefaultImage.jpg" alt="Default" />
                                         }
-                                    </div>
-                                    <div style="margin-top:-15px;margin-left:80px">
+                                    </a>
+                                </div>
+                                <div style="margin-top:-15px;margin-left:80px">
+                                    <a id="aHover" href="@Url.Action("Main","Profile",new { id=item.AccountID})" style="text-decoration:none;color:black">
                                         <div>
                                             <h3> @item.FirstName @item.LastName</h3>
                                         </div>
+                                    </a>
+                                    <a style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
                                         <div>
                                             <p> @item.DiaryContent</p>
                                         </div>
                                         <br />
-                                    </div>
-                                    <small>@item.CreatedDate</small>
-                                </a>
+                                    </a>
+                                </div>
+                                <small>@item.CreatedDate</small>
+
                             </td>
                         </tr>
                     }

@@ -13,7 +13,7 @@
                 <div class="col-md-1">
                     @if (Model.AccountInfo.ProfilPhotoPath != null)
                     {
-                        <img src="@Model.AccountInfo.ProfilPhotoPath" alt="Default" />
+                        <img class="thumbnail pull-left" style="width:120px;height:120px;border-radius:60px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName" />
                     }
                     else
                     {
@@ -32,8 +32,24 @@
             </div>
             <br />
             <div class="col-md-12">
-                <small>@Model.AccountInfo.MemberDate Tarihinde Katıldı.</small>
+                <small>@Model.AccountInfo.MemberDate.ToShortDateString() Tarihinde Katıldı.</small>
                 <hr />
+
+                @if (Model.IsOwnProfile)
+                {
+                    using (Html.BeginForm("ChangeProfilePhoto", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        @*@Html.LabelFor(x => x.accountForProfilePictureDto.ImagePath, new { @class = "btn btn-default", @for = "ImageFile" })*@
+
+                        <label class="btn btn-primary">
+                            <i class="glyphicon glyphicon-picture"></i> Resim Yükle<input type="file" name="ImageFile" style="display:none" required />
+                        </label>
+
+                        <input type="submit" value="Resmi Değiştir" class="btn btn-info" />
+                    }
+                }
+
             </div>
 
 
@@ -58,7 +74,7 @@
                                         <div>
                                             @if (Model.AccountInfo.ProfilPhotoPath != null)
                                             {
-                                                <img src="@Model.AccountInfo.ProfilPhotoPath" alt="Default" />
+                                                <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@item.CreatedDate" />
                                             }
                                             else
                                             {
@@ -86,3 +102,34 @@
         </div>
     </div>
 </div>
+<div class="col-md-3">
+    @{Html.RenderAction("_TrendAccounts", "Home");}
+</div>
+
+@section scripts {
+
+    <script>
+        $(document).ready(function () {
+
+            $("#files").change(function () {
+                filename = this.files[0].name;
+                alert(filename);
+            })
+
+            //$("#changePicture").click(function () {
+            //    $.ajax({
+            //        url: "~/Profile/ChangeProfilePhoto",
+            //        success: function () {
+            //            alert('Hello');
+            //        },
+            //        error: function (jqXHR, textStatus, errorThrown) {
+            //            alert('Error: ' + jqXHR.status);
+            //        },
+            //    })
+            //})
+        })
+
+
+    </script>
+
+}

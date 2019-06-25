@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using DiaryShare.BLL.Abstract;
+using DiaryShare.Entities.Concrete;
 using DiaryShare.MVCWebUI.Dtos;
 using DiaryShare.MVCWebUI.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -44,6 +46,28 @@ namespace DiaryShare.MVCWebUI.Controllers
             };
 
             return View(profileViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeProfilePhoto(AccountForProfilePictureDto accountForProfilePictureDto)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Main");
+            }
+            string fileName = Path.GetFileNameWithoutExtension(accountForProfilePictureDto.ImageFile.FileName);
+            string extension = Path.GetExtension(accountForProfilePictureDto.ImageFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            accountForProfilePictureDto.ImagePath = "~/Images/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+            accountForProfilePictureDto.ImageFile.SaveAs(fileName);
+
+            Account account = _accountService.GetAccount((int)Session["userID"]);
+            account.ProfilPhotoPath = accountForProfilePictureDto.ImagePath;
+            _accountService.Update(account);
+
+            return RedirectToAction("Main");
         }
     }
 }

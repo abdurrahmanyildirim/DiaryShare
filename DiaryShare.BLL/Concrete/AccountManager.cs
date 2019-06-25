@@ -19,6 +19,11 @@ namespace DiaryShare.BLL.Concrete
             _accountDAL = accountDAL;
         }
 
+        public void Update(Account account)
+        {
+            _accountDAL.Update(account);
+        }
+
         public Account GetAccount(int id)
         {
             return _accountDAL.Get(x => x.AccountID == id);

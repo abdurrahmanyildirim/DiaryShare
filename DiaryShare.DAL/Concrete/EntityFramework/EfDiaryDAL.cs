@@ -29,7 +29,9 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                                                      FirstName = a.FirstName,
                                                      LastName = a.LastName,
                                                      CreatedDate = d.CreatedDate,
-                                                     DiaryID = d.DiaryID
+                                                     DiaryID = d.DiaryID,
+                                                     AccountID = a.AccountID,
+                                                     ProfilPhotoPath = a.ProfilPhotoPath
                                                  };
                 return query.ToList();
             }
