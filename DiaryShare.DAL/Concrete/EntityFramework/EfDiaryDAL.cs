@@ -31,7 +31,8 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                                                      CreatedDate = d.CreatedDate,
                                                      DiaryID = d.DiaryID,
                                                      AccountID = a.AccountID,
-                                                     ProfilPhotoPath = a.ProfilPhotoPath
+                                                     ProfilPhotoPath = a.ProfilPhotoPath,
+                                                     Title = d.Title
                                                  };
                 return query.ToList();
             }
@@ -53,7 +54,7 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                                                                   CreatedDate = d.CreatedDate,
                                                                   FirstName = a.FirstName,
                                                                   LastName = a.LastName,
-                                                                  ProfilePhotoPath = a.ProfilPhotoPath
+                                                                  ProfilPhotoPath = a.ProfilPhotoPath
                                                               };
                 return diaryDetailData.ToList()[0];
 

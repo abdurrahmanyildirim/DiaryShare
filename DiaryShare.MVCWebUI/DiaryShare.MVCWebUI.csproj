@@ -128,7 +128,7 @@
     <Compile Include="Dtos\AccountBaseDto.cs" />
     <Compile Include="Dtos\AccountForLoginDto.cs" />
     <Compile Include="Dtos\AccountForProfileDto.cs" />
-    <Compile Include="Dtos\AccountForProfilePictureDto.cs" />
+    <Compile Include="Dtos\AccountForModifyDto.cs" />
     <Compile Include="Dtos\AccountForRegisterDto.cs" />
     <Compile Include="Dtos\AccountForTrendPanelDto.cs" />
     <Compile Include="Dtos\DiaryForDetailDto.cs" />
@@ -160,6 +160,7 @@
     <Content Include="Views\Home\_TrendAccounts.cshtml" />
     <Content Include="Views\Home\DiaryDetail.cshtml" />
     <Content Include="Views\Profile\Main.cshtml" />
+    <Content Include="Views\Profile\ChangeToPhotoOrPersonelInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

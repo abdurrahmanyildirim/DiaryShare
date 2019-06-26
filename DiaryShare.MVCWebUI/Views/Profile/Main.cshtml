@@ -27,19 +27,11 @@
             <br />
             <div class="col-md-12">
                 <small>@Model.AccountInfo.MemberDate.ToShortDateString() Tarihinde Katıldı.</small>
-                <hr />
+
 
                 @if (Model.IsOwnProfile)
                 {
-                    using (Html.BeginForm("ChangeProfilePhoto", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-
-                        <label class="btn btn-info">
-                            <i class="glyphicon glyphicon-picture"></i> Resim Yükle<input type="file" name="ImageFile" style="display:none" required />
-                        </label>
-
-                        <input type="submit" value="Resmi Değiştir" class="btn btn-success" required />
-                    }
+                    @Html.ActionLink("Profili Düzenle","ChangeToPhotoOrPersonelInfo","Profile",new { @class="btn btn-info form-control"})
                 }
 
             </div>
@@ -72,6 +64,7 @@
                                                 <h3> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</h3>
                                             </div>
                                             <div>
+                                                @*<h4>@item.</h4>*@
                                                 <p> @item.DiaryContent</p>
                                             </div>
                                             <br />
@@ -97,10 +90,10 @@
     <script>
         $(document).ready(function () {
 
-            $("#files").change(function () {
-                filename = this.files[0].name;
-                alert(filename);
-            })
+            //$("#files").change(function () {
+            //    filename = this.files[0].name;
+            //    alert(filename);
+            //})
 
             //$("#changePicture").click(function () {
             //    $.ajax({

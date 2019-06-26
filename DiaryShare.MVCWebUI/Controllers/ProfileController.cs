@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace DiaryShare.MVCWebUI.Controllers
 {
-    [Authorize(Roles ="Admin,Client")]
+    [Authorize(Roles = "Admin,Client")]
     public class ProfileController : Controller
     {
         private readonly IAccountService _accountService;
@@ -49,23 +49,37 @@ namespace DiaryShare.MVCWebUI.Controllers
             return View(profileViewModel);
         }
 
+        [HttpGet]
+        public ActionResult ChangeToPhotoOrPersonelInfo()
+        {
+            int id = (int)Session["userID"];
+            AccountForModifyDto accountForModifyDto = Mapper.Map<AccountForModifyDto>(_accountService.GetAccount(id));
+
+            return View(accountForModifyDto);
+        }
+
         [HttpPost]
-        public ActionResult ChangeProfilePhoto(AccountForProfilePictureDto accountForProfilePictureDto)
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeToPhotoOrPersonelInfo(AccountForModifyDto accountForModify)
         {
 
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Main");
             }
-            string fileName = Path.GetFileNameWithoutExtension(accountForProfilePictureDto.ImageFile.FileName);
-            string extension = Path.GetExtension(accountForProfilePictureDto.ImageFile.FileName);
+
+            string fileName = Path.GetFileNameWithoutExtension(accountForModify.ImageFile.FileName);
+            string extension = Path.GetExtension(accountForModify.ImageFile.FileName);
             fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-            accountForProfilePictureDto.ImagePath = "~/Images/" + fileName;
+            accountForModify.ImagePath = "~/Images/" + fileName;
             fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
-            accountForProfilePictureDto.ImageFile.SaveAs(fileName);
+            accountForModify.ImageFile.SaveAs(fileName);
 
             Account account = _accountService.GetAccount((int)Session["userID"]);
-            account.ProfilPhotoPath = accountForProfilePictureDto.ImagePath;
+            account.ProfilPhotoPath = accountForModify.ImagePath;
+            account.PersonelInfo = accountForModify.PersonelInfo;
+            account.FirstName = accountForModify.FirstName;
+            account.LastName = accountForModify.LastName;
             _accountService.Update(account);
 
             return RedirectToAction("Main");

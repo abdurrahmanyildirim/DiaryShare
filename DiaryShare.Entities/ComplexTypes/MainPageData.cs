@@ -8,6 +8,7 @@ namespace DiaryShare.Entities.ComplexTypes
 {
     public class MainPageData
     {
+        public string Title { get; set; }
         public int AccountID { get; set; }
         public int DiaryID { get; set; }
         public string FirstName { get; set; }

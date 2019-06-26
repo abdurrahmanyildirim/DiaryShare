@@ -1,0 +1,44 @@
+﻿@model DiaryShare.MVCWebUI.Dtos.AccountForModifyDto
+
+@{
+    ViewBag.Title = "ChangeToPhotoOrPersonelInfo";
+}
+
+
+<div class="col-md-8 col-md-offset-1">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <p style="text-align:center">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </p>
+        </div>
+
+        <div class="panel-body">
+            @using (Html.BeginForm("ChangeProfilePhoto", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken();
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "İsim", required = "required" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Soyisim", required = "required" })
+                </div>
+                <div class="form-group">
+                    @Html.TextAreaFor(m => m.PersonelInfo, new { @class = "form-control", placeholder = "Kişisel Bilgiler", required = "required", style = "resize:none;height:80px" })
+                </div>
+                <div class="form-group">
+                    <label class="btn btn-info form-control">
+                        <i class="glyphicon glyphicon-picture"></i> Resim Yükle<input type="file" name="ImageFile" style="display:none" required />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Değişiklikleri Kaydet" class="btn btn-success form-control" required />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="col-md-3">
+    @{Html.RenderAction("_TrendAccounts", "Home");}
+</div>

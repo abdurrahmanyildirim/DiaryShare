@@ -8,14 +8,9 @@
     <div class="panel panel-info">
         <div class="panel-body">
             <div>
-                @if (Model.Diary.ProfilPhotoPath != null)
-                {
-                    <img src="@Model.Diary.ProfilPhotoPath" alt="Default" />
-                }
-                else
-                {
-                    <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="~/Images/DefaultImage.jpg" alt="Default" />
-                }
+
+                <img class="thumbnail pull-left" style="width:80px;height:80px;border-radius:40px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.Diary.ProfilPhotoPath)" alt="Default" />
+
             </div>
             <div style="margin-top:-15px;margin-left:80px">
                 <div>
@@ -43,14 +38,7 @@
 
                                 <a style="text-decoration:none;color:black" href="#">
                                     <div>
-                                        @if (item.ProfilPhotoPath != null)
-                                        {
-                                            <img src="@item.ProfilPhotoPath" alt="Default" />
-                                        }
-                                        else
-                                        {
-                                            <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="~/Images/DefaultImage.jpg" alt="Default" />
-                                        }
+                                        <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(item.ProfilPhotoPath)" alt="Default" />
                                     </div>
                                     <div style="margin-top:-15px;margin-left:80px">
                                         <div>
