@@ -73,7 +73,7 @@ namespace DiaryShare.MVCWebUI.Controllers
         }
 
         [HttpGet]
-        public ActionResult ChangeToPhotoOrPersonelInfo()
+        public ActionResult ProfilSettings()
         {
             int id = (int)Session["userID"];
             AccountForModifyDto accountForModifyDto = Mapper.Map<AccountForModifyDto>(_accountService.GetAccount(id));
@@ -83,29 +83,37 @@ namespace DiaryShare.MVCWebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeToPhotoOrPersonelInfo(AccountForModifyDto accountForModify)
+        public ActionResult ProfilSettings(AccountForModifyDto accountForModify)
         {
+            Account account = _accountService.GetAccount((int)Session["userID"]);
 
-            if (accountForModify.FirstName.Trim() == null || accountForModify.LastName.Trim() == null)
+            string lastName = accountForModify.LastName.Trim();
+            if (accountForModify.FirstName.Trim() == "" || accountForModify.LastName.Trim() == "")
             {
-                return RedirectToAction("Main");
+                ViewBag.Info = "İsim veya Soyisim boş bırakılamaz.";
+                return View();
             }
 
-            string fileName = Path.GetFileNameWithoutExtension(accountForModify.ImageFile.FileName);
-            string extension = Path.GetExtension(accountForModify.ImageFile.FileName);
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-            accountForModify.ImagePath = "~/Images/" + fileName;
-            fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
-            accountForModify.ImageFile.SaveAs(fileName);
+            if (accountForModify.ImageFile != null)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(accountForModify.ImageFile.FileName);
+                string extension = Path.GetExtension(accountForModify.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                accountForModify.ImagePath = "~/Images/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                accountForModify.ImageFile.SaveAs(fileName);
+                account.ProfilPhotoPath = accountForModify.ImagePath;
+            }
 
-            Account account = _accountService.GetAccount((int)Session["userID"]);
-            account.ProfilPhotoPath = accountForModify.ImagePath;
+
             account.PersonelInfo = accountForModify.PersonelInfo;
             account.FirstName = accountForModify.FirstName;
             account.LastName = accountForModify.LastName;
             _accountService.Update(account);
 
-            return RedirectToAction("Main");
+            ViewBag.Info = "Profil ayarları değiştirildi.";
+
+            return View();
         }
     }
 }

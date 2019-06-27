@@ -6,6 +6,12 @@
 
 
 <div class="col-md-8 col-md-offset-1">
+    @if (ViewBag.Info != null)
+    {
+        <div class="alert alert-info">
+            @ViewBag.Info
+        </div>
+    }
     <div class="panel panel-info">
         <div class="panel-heading">
             <p style="text-align:center">
@@ -14,7 +20,7 @@
         </div>
 
         <div class="panel-body">
-            @using (Html.BeginForm("ChangeToPhotoOrPersonelInfo", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("ProfilSettings", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken();
                 <div class="form-group">
@@ -24,11 +30,11 @@
                     @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Soyisim", required = "required" })
                 </div>
                 <div class="form-group">
-                    @Html.TextAreaFor(m => m.PersonelInfo, new { @class = "form-control", placeholder = "Kişisel Bilgiler", required = "required", style = "resize:none;height:80px" })
+                    @Html.TextAreaFor(m => m.PersonelInfo, new { @class = "form-control", placeholder = "Kişisel Bilgiler", style = "resize:none;height:80px" })
                 </div>
                 <div class="form-group">
                     <label class="btn btn-info form-control">
-                        <i class="glyphicon glyphicon-picture"></i> Resim Yükle<input type="file" name="ImageFile" style="display:none" required />
+                        <i class="glyphicon glyphicon-picture"></i> Resim Yükle<input type="file" name="ImageFile" style="display:none" />
                     </label>
                 </div>
                 <div class="form-group">

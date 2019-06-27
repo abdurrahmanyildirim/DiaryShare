@@ -162,7 +162,7 @@
     <Content Include="Views\Home\_TrendAccounts.cshtml" />
     <Content Include="Views\Home\DiaryDetail.cshtml" />
     <Content Include="Views\Profile\Main.cshtml" />
-    <Content Include="Views\Profile\ChangeToPhotoOrPersonelInfo.cshtml" />
+    <Content Include="Views\Profile\ProfilSettings.cshtml" />
     <Content Include="Views\Diary\DiaryPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
