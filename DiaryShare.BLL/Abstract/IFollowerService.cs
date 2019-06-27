@@ -5,7 +5,7 @@ namespace DiaryShare.BLL.Abstract
 {
     public interface IFollowerService
     {
-        List<Diary> GetDiariesByAccount(int userID);
         List<Follower> GetFollowers(int userID);
+        bool IsFollower(int fromAccount, int toAccount);
     }
 }

@@ -24,36 +24,38 @@
                 </div>
                 <small>@Model.Diary.CreatedDate</small>
             </div>
-            
+
             <hr />
-            <table class="table table-hover" style="margin-top:-15px;">
-                <thead>
-                    <tr>
-                        <th>
-                            @*<div class="alert alert-info">*@
+            @if (Model.Reviews.Count > 0)
+            {
+                <table class="table table-hover" style="margin-top:-15px;">
+                    <thead>
+                        <tr>
+                            <th>
                                 Yorumlar
-                            @*</div>*@
-                        </th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.Reviews)
+                            {
 
-                    </tr>
-
-                </thead>
-                <tbody>
-                    @{
-                        foreach (var item in Model.Reviews)
-                        {
-
-                            <tr>
-                                <td>
-
-                                    <a style="text-decoration:none;color:black" href="#">
+                                <tr>
+                                    <td>
                                         <div>
-                                            <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(item.ProfilPhotoPath)" alt="Default" />
+                                            <a href="@Url.Action("Main","Profile",new { id=item.AccountID})" style="text-decoration:none;color:black">
+                                                <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(item.ProfilPhotoPath)" alt="@item.FirstName-@item.LastName" />
+
+                                            </a>
                                         </div>
                                         <div style="margin-top:-15px;margin-left:80px">
-                                            <div>
-                                                <h3> @item.FirstName @item.LastName</h3>
-                                            </div>
+                                            <a id="aHover" href="@Url.Action("Main","Profile",new { id=item.AccountID})" style="text-decoration:none;color:black">
+                                                <div>
+                                                    <h3> @item.FirstName @item.LastName</h3>
+                                                </div>
+                                            </a>
+
                                             <div>
                                                 <p> @item.Description</p>
                                             </div>
@@ -61,13 +63,14 @@
 
                                         </div>
                                         <small>@item.ReviewDate</small>
-                                    </a>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+
         </div>
     </div>
 </div>

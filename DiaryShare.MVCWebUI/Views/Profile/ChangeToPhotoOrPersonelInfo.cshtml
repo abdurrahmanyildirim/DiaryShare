@@ -14,7 +14,7 @@
         </div>
 
         <div class="panel-body">
-            @using (Html.BeginForm("ChangeProfilePhoto", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("ChangeToPhotoOrPersonelInfo", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken();
                 <div class="form-group">

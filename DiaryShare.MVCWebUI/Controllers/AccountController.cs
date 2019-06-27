@@ -102,6 +102,7 @@ namespace DiaryShare.MVCWebUI.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session["userID"] = null;
             return RedirectToAction("Login");
         }
     }

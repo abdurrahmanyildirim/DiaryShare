@@ -31,14 +31,15 @@
 
                 @if (Model.IsOwnProfile)
                 {
-                    @Html.ActionLink("Profili Düzenle","ChangeToPhotoOrPersonelInfo","Profile",new { @class="btn btn-info form-control"})
+                    @Html.ActionLink("Profili Düzenle", "ChangeToPhotoOrPersonelInfo", "Profile", new { @class = "btn btn-info form-control" })
                 }
 
             </div>
+            <br />
+
 
 
             <table class="table table-hover" style="margin-top:-20px;">
-
                 <thead>
                     <tr>
                         <th>Günlükler</th>
@@ -46,38 +47,57 @@
 
                 </thead>
                 <tbody>
+                    @if (Model.DiariesInfo.Count <= 0)
+                    {
+                        <tr>
+                            <td>
+                                <div class="alert alert-info">
+                                    Henüz bir günlük paylaşmadınız.
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
 
-                    @{
+
                         foreach (var item in Model.DiariesInfo)
                         {
 
                             <tr>
                                 <td>
 
-                                    <a style="text-decoration:none;color:black" href="#">
-                                        <div>
-                                            <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName-@Model.AccountInfo.LastName" />
-  
-                                        </div>
-                                        <div style="margin-top:-15px;margin-left:80px">
+                                    <div>
+                                        <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName-@Model.AccountInfo.LastName" />
+
+                                    </div>
+                                    <div style="margin-top:-15px;margin-left:80px">
+                                        <a id="aHover" href="@Url.Action("Main","Profile",new { id=Model.AccountInfo.AccountID})" style="text-decoration:none;color:black">
                                             <div>
                                                 <h3> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</h3>
                                             </div>
-                                            <div>
-                                                @*<h4>@item.</h4>*@
-                                                <p> @item.DiaryContent</p>
-                                            </div>
-                                            <br />
+                                        </a>
 
+                                        <div>
+                                            <a style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
+                                                <div>
+                                                    <h4>@item.Title</h4>
+                                                    <p> @item.DiaryContent</p>
+                                                </div>
+                                                <br />
+                                            </a>
                                         </div>
-                                        <small>@item.CreatedDate</small>
-                                    </a>
+                                        <br />
+                                    </div>
+                                    <small>@item.CreatedDate</small>
                                 </td>
                             </tr>
                         }
+
                     }
                 </tbody>
             </table>
+
         </div>
     </div>
 </div>

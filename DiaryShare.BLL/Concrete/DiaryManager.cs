@@ -24,11 +24,20 @@ namespace DiaryShare.BLL.Concrete
             _diaryDAL.Add(diary);
         }
 
-        public List<Diary> GetDiariesForProfile(int id)
+        public List<Diary> GetDiariesForOwnAccount(int id)
         {
-            return _diaryDAL.GetAll(x => x.AccountID == id);
+            return _diaryDAL.GetAll(x => x.AccountID == id).OrderByDescending(x=>x.CreatedDate).ToList();
         }
 
+        public List<Diary> GetDiariesForFollower(int id)
+        {
+            return _diaryDAL.GetAll(x => x.AccountID == id && (x.DiaryStatus.StatusName == "Public" || x.DiaryStatus.StatusName == "Protected")).OrderByDescending(x => x.CreatedDate).ToList();
+        }
+
+        public List<Diary> GetDiariesForPublic(int id)
+        {
+            return _diaryDAL.GetAll(x => x.AccountID == id && x.DiaryStatus.StatusName == "Public" ).OrderByDescending(x => x.CreatedDate).ToList();
+        }
 
         public List<MainPageData> GetDiariesByAccount(List<Follower> followers)
         {

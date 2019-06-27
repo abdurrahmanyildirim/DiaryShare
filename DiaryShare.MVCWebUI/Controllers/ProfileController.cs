@@ -17,27 +17,50 @@ namespace DiaryShare.MVCWebUI.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly IDiaryService _diaryService;
+        private readonly IFollowerService _followerService;
 
         public ProfileController(IAccountService accountService,
-            IDiaryService diaryService
+            IDiaryService diaryService,
+            IFollowerService followerService
             )
         {
             _accountService = accountService;
             _diaryService = diaryService;
+            _followerService = followerService;
         }
 
         public ActionResult Main(int id = 0)
         {
             bool isMain = false;
+            bool isFollower = false;
             int accountID = (int)Session["userID"];
+            List<DiaryForProfileDto> diariesForProfileDto;
 
             if (id == 0 || accountID == id)
                 isMain = true;
             else
                 accountID = id;
 
+            if (!isMain)
+            {
+                isFollower = _followerService.IsFollower((int)Session["userID"], accountID);
+            }
+
+            if (isMain)
+            {
+                diariesForProfileDto = Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForOwnAccount(accountID));
+            }
+            else if (isFollower)
+            {
+                diariesForProfileDto = Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForFollower(accountID));
+            }
+            else
+            {
+                diariesForProfileDto = Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForPublic(accountID));
+            }
+
             AccountForProfileDto accountForProfileDto = Mapper.Map<AccountForProfileDto>(_accountService.GetAccount(accountID));
-            List<DiaryForProfileDto> diariesForProfileDto = Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForProfile(accountID));
+
 
             ProfileViewModel profileViewModel = new ProfileViewModel
             {
@@ -63,7 +86,7 @@ namespace DiaryShare.MVCWebUI.Controllers
         public ActionResult ChangeToPhotoOrPersonelInfo(AccountForModifyDto accountForModify)
         {
 
-            if (!ModelState.IsValid)
+            if (accountForModify.FirstName.Trim() == null || accountForModify.LastName.Trim() == null)
             {
                 return RedirectToAction("Main");
             }

@@ -17,24 +17,32 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
         {
             using (EfContext context = new EfContext())
             {
-                List<int> fromFollow = followers.Select(x => x.FromAccountID).ToList();
-                int userID = followers[0].ToAccountID;
-                IQueryable<MainPageData> query = from d in context.Diaries
-                                                 join a in context.Accounts
-                                                 on d.AccountID equals a.AccountID
-                                                 where (fromFollow.Contains(d.AccountID) || d.AccountID == userID) && a.IsActive == true && (d.DiaryStatusID == 1 || d.DiaryStatusID == 3)
-                                                 select new MainPageData
-                                                 {
-                                                     DiaryContent = d.DiaryContent,
-                                                     FirstName = a.FirstName,
-                                                     LastName = a.LastName,
-                                                     CreatedDate = d.CreatedDate,
-                                                     DiaryID = d.DiaryID,
-                                                     AccountID = a.AccountID,
-                                                     ProfilPhotoPath = a.ProfilPhotoPath,
-                                                     Title = d.Title
-                                                 };
-                return query.ToList();
+                try
+                {
+                    List<int> fromFollow = followers.Select(x => x.FromAccountID).ToList();
+                    int userID = followers[0].ToAccountID;
+                    IQueryable<MainPageData> query = from d in context.Diaries
+                                                     join a in context.Accounts
+                                                     on d.AccountID equals a.AccountID
+                                                     where (fromFollow.Contains(d.AccountID) || d.AccountID == userID) && a.IsActive == true && (d.DiaryStatusID == 1 || d.DiaryStatusID == 3)
+                                                     select new MainPageData
+                                                     {
+                                                         DiaryContent = d.DiaryContent,
+                                                         FirstName = a.FirstName,
+                                                         LastName = a.LastName,
+                                                         CreatedDate = d.CreatedDate,
+                                                         DiaryID = d.DiaryID,
+                                                         AccountID = a.AccountID,
+                                                         ProfilPhotoPath = a.ProfilPhotoPath,
+                                                         Title = d.Title
+                                                     };
+                    return query.ToList();
+                }
+                catch
+                {
+                    return new List<MainPageData>();
+                }
+
             }
         }
 
