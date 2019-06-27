@@ -1,0 +1,108 @@
+﻿@model DiaryShare.MVCWebUI.Dtos.DiaryForInsertDto
+
+@{
+    ViewBag.Title = "DiaryPage";
+}
+
+
+
+<div class="col-md-8 col-md-offset-1">
+    @if (ViewBag.Info != null)
+    {
+        <div class="alert alert-info">
+            @ViewBag.Info
+        </div>
+    }
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <p style="text-align:center">
+                <span class="glyphicon glyphicon-pencil pull-left">
+
+                </span>
+                <span class="glyphicon glyphicon-arrow-down">
+
+                </span>
+                <span class="glyphicon glyphicon-pencil pull-right">
+
+                </span>
+            </p>
+        </div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm("DiaryPage", "Diary", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control", placeholder = "Başlık", required = "required" })
+                </div>
+
+                <div class="form-group">
+                    @Html.TextAreaFor(x => x.DiaryContent, new { @class = "form-control", placeholder = "Günlük", required = "required", style = "resize:none;height:300px" })
+                </div>
+
+                <div class="form-group">
+                    <div class="container-fluid">
+                        <div class="col-md-4 pull-left">
+                            <div id="public" style="background-color:red;color:white;" class="btn btn-default btn-lg form-control">
+                                Public
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div id="private" class="btn btn-default btn-lg form-control">
+                                Private
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div id="protected" class="btn btn-default btn-lg form-control">
+                                Protected
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="DiaryStatusID" value="1" id="statusID" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success form-control" value="Günlüğü Kaydet" />
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+</div>
+
+<div class="col-md-3">
+    @{Html.RenderAction("_TrendAccounts", "Home");}
+</div>
+
+@section scripts{
+
+    <script>
+
+        $(function () {
+            $("#private").click(function () {
+                $('#statusID').attr('value', 2);
+                $("#private").css({ "background-color": "red", "color": "white" })
+                $("#public").css({ "background-color": "white", "color": "black" })
+                $("#protected").css({ "background-color": "white", "color": "black" })
+            })
+            $("#public").click(function () {
+                $('#statusID').attr('value', 1);
+                $("#public").css({ "background-color": "red", "color": "white" })
+                $("#private").css({ "background-color": "white", "color": "black" })
+                $("#protected").css({ "background-color": "white", "color": "black" })
+            })
+
+            $("#protected").click(function () {
+                $('#statusID').attr('value', 3);
+                $("#protected").css({ "background-color": "red", "color": "white" })
+                $("#private").css({ "background-color": "white", "color": "black" })
+                $("#public").css({ "background-color": "white", "color": "black" })
+            })
+        })
+
+    </script>
+
+}

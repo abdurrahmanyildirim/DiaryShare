@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DiaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Dtos\AccountBaseDto.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Dtos\AccountForRegisterDto.cs" />
     <Compile Include="Dtos\AccountForTrendPanelDto.cs" />
     <Compile Include="Dtos\DiaryForDetailDto.cs" />
+    <Compile Include="Dtos\DiaryForInsertDto.cs" />
     <Compile Include="Dtos\DiaryForProfileDto.cs" />
     <Compile Include="Dtos\ReviewsForDiariesDto.cs" />
     <Compile Include="Global.asax.cs">
@@ -161,6 +163,7 @@
     <Content Include="Views\Home\DiaryDetail.cshtml" />
     <Content Include="Views\Profile\Main.cshtml" />
     <Content Include="Views\Profile\ChangeToPhotoOrPersonelInfo.cshtml" />
+    <Content Include="Views\Diary\DiaryPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

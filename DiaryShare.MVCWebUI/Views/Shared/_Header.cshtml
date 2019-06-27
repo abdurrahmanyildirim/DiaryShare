@@ -9,22 +9,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>*@
-            <a class="navbar-brand" href="#">DiaryShare</a>
+            <a class="navbar-brand" href="#"> DiaryShare </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 @*<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>*@
-                <li><a href="@Url.Action("Index","Home")" class="btn">Ana Sayfa</a></li>
-
+                <li><a href="@Url.Action("Index","Home")" class="btn"><span style="font-size:20px" class="glyphicon glyphicon-home"></span></a></li>
+                <li><a href="@Url.Action("DiaryPage","Diary")" class="btn"><span style="font-size:20px" class="glyphicon glyphicon-book"></span></a></li>
             </ul>
-            <form class="navbar-form navbar-left">
+            @*<form class="navbar-form navbar-left">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
                 <button type="submit" class="btn btn-default">ARA</button>
-            </form>
+            </form>*@
             <ul class="nav navbar-nav navbar-right">
                 @if (Request.Cookies[".ASPXAUTH"] == null)
                 {
@@ -39,8 +39,8 @@
                         accountID = (int)Session["userID"];
                     }
 
-                    <li><a href="@Url.Action("Main", "Profile",new {id=accountID })">Profil Sayfam</a></li>
-                    <li><a href="@Url.Action("Logout","Account")">Çıkış Yap</a></li>
+                    <li><a href="@Url.Action("Main", "Profile",new {id=accountID })"><span style="font-size:20px" class="glyphicon glyphicon-user"></span></a></li>
+                    <li><a href="@Url.Action("Logout","Account")"><span style="font-size:20px" class="glyphicon glyphicon-log-out"></span></a></li>
                 }
 
             </ul>

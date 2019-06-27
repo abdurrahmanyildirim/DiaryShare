@@ -19,6 +19,11 @@ namespace DiaryShare.BLL.Concrete
             _diaryDAL = diaryDal;
         }
 
+        public void Add(Diary diary)
+        {
+            _diaryDAL.Add(diary);
+        }
+
         public List<Diary> GetDiariesForProfile(int id)
         {
             return _diaryDAL.GetAll(x => x.AccountID == id);
@@ -27,7 +32,7 @@ namespace DiaryShare.BLL.Concrete
 
         public List<MainPageData> GetDiariesByAccount(List<Follower> followers)
         {
-            return _diaryDAL.GetDiariesByFollowers(followers).OrderByDescending(x=>x.CreatedDate).ToList();
+            return _diaryDAL.GetDiariesByFollowers(followers).OrderByDescending(x => x.CreatedDate).ToList();
         }
 
         public DiaryDetailData GetChosenDiary(int id)
