@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace DiaryShare.MVCWebUI.Controllers
 {
+    [Authorize(Roles ="Admin,Client")]
     public class DiaryController : Controller
     {
         private readonly IDiaryService _diaryService;
@@ -20,7 +21,7 @@ namespace DiaryShare.MVCWebUI.Controllers
 
         public ActionResult DiaryPage()
         {
-            return View();
+            return View(new DiaryForInsertDto());
         }
 
         [HttpPost]
@@ -28,7 +29,7 @@ namespace DiaryShare.MVCWebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Info = string.Format("Bir hata meydana geldi. Lütfen herşeyi doldurduğunuzdan emin olunuz!!");
+                ViewBag.Info = string.Format("Bir hata meydana geldi.");
                 return View();
             }
 
@@ -43,7 +44,7 @@ namespace DiaryShare.MVCWebUI.Controllers
 
             _diaryService.Add(diary);
 
-            ViewBag.Info = string.Format($"{diary.Title} günlüğü başarıyla kaydedildi.");
+            ViewBag.Info = string.Format($"{diary.Title} isimli günlük başarıyla kaydedildi.");
 
             return View();
         }

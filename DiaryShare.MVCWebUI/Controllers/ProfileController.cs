@@ -66,7 +66,8 @@ namespace DiaryShare.MVCWebUI.Controllers
             {
                 AccountInfo = accountForProfileDto,
                 DiariesInfo = diariesForProfileDto,
-                IsOwnProfile = isMain
+                IsOwnProfile = isMain,
+                IsFollower = isFollower
             };
 
             return View(profileViewModel);
@@ -114,6 +115,32 @@ namespace DiaryShare.MVCWebUI.Controllers
             ViewBag.Info = "Profil ayarları değiştirildi.";
 
             return View();
+        }
+
+        [HttpPost]
+        public void ChangeToFollower(int id)
+        {
+            int fromAccountID = (int)Session["userID"];
+            Follower follower = _followerService.GetFollower(fromAccountID, id);
+
+            if (follower == null)
+            {
+                _followerService.Add(new Follower
+                {
+                    FollowDate = DateTime.Now,
+                    FromAccountID = fromAccountID,
+                    ToAccountID = id
+                });
+
+                //return Json(Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForFollower(id)), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                _followerService.Delete(follower);
+
+                //return Json(Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForPublic(id)), JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

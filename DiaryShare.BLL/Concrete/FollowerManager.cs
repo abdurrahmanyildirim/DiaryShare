@@ -18,13 +18,25 @@ namespace DiaryShare.BLL.Concrete
             _followerDal = followerDal;
         }
 
+        public void Add(Follower follower)
+        {
+            _followerDal.Add(follower);
+        }
+
+        public void Delete(Follower follower)
+        {
+            _followerDal.Delete(follower);
+        }
 
         public List<Follower> GetFollowers(int userID)
         {
             return _followerDal.GetAll(x => x.ToAccountID == userID);
         }
 
-        
+        public Follower GetFollower(int fromAccountID,int toAccountID)
+        {
+            return _followerDal.Get(x => x.FromAccountID == fromAccountID && x.ToAccountID == toAccountID);
+        }
 
         public bool IsFollower(int fromAccount, int toAccount)
         {

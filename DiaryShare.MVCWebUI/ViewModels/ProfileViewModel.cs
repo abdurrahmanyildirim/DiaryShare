@@ -7,6 +7,7 @@ namespace DiaryShare.MVCWebUI.ViewModels
     {
         public AccountForProfileDto AccountInfo { get; set; }
         public List<DiaryForProfileDto> DiariesInfo { get; set; }
-        public bool IsOwnProfile { get; internal set; }
+        public bool IsOwnProfile { get; set; }
+        public bool IsFollower { get; set; }
     }
 }

@@ -4,8 +4,6 @@
     ViewBag.Title = "DiaryPage";
 }
 
-
-
 <div class="col-md-8 col-md-offset-1">
     @if (ViewBag.Info != null)
     {
@@ -33,10 +31,13 @@
             {
                 <div class="form-group">
                     @Html.TextBoxFor(x => x.Title, new { @class = "form-control", placeholder = "Başlık", required = "required" })
+                    @Html.ValidationMessageFor(x => x.Title)
                 </div>
 
                 <div class="form-group">
+                    @*<textarea class="form-control" placeholder="Günlük" required></textarea>*@
                     @Html.TextAreaFor(x => x.DiaryContent, new { @class = "form-control", placeholder = "Günlük", required = "required", style = "resize:none;height:300px" })
+                    @Html.ValidationMessageFor(x => x.DiaryContent)
                 </div>
 
                 <div class="form-group">
@@ -79,6 +80,8 @@
 
 @section scripts{
 
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script>
 
         $(function () {

@@ -3,6 +3,21 @@
 
 @{
     ViewBag.Title = "Profile";
+    string btnStyle;
+    string statu;
+    var colorOfBtn = 1;
+    if (Model.IsFollower && !Model.IsOwnProfile)
+    {
+        btnStyle = "color:white;background-color:red";
+        statu = "Takipten Çık";
+
+    }
+    else
+    {
+        btnStyle = null;
+        statu = "Takip Et";
+        colorOfBtn = 2;
+    }
 }
 
 <div class="col-md-offset-1 col-md-8">
@@ -26,9 +41,15 @@
             <br />
             <div class="col-md-12">
                 <small>@Model.AccountInfo.MemberDate.ToShortDateString() Tarihinde Katıldı.</small>
+
                 @if (Model.IsOwnProfile)
                 {
                     @Html.ActionLink("Hesap Ayarları", "ProfilSettings", "Profile", new { @class = "btn btn-info form-control" })
+                }
+                else
+                {
+                    <div id="followBtn" style="@btnStyle" class="btn btn-default form-control">@statu</div>
+                    <input type="hidden" id="statusInfo" value="@colorOfBtn" />
                 }
             </div>
             <br />
@@ -38,9 +59,8 @@
                     <tr>
                         <th>Günlükler</th>
                     </tr>
-
                 </thead>
-                <tbody>
+                <tbody id="profileDiaries">
                     @if (Model.DiariesInfo.Count <= 0)
                     {
                         <tr>
@@ -53,14 +73,10 @@
                     }
                     else
                     {
-
-
                         foreach (var item in Model.DiariesInfo)
                         {
-
                             <tr>
                                 <td>
-
                                     <div>
                                         <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName-@Model.AccountInfo.LastName" />
 
@@ -71,7 +87,6 @@
                                                 <h3> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</h3>
                                             </div>
                                         </a>
-
                                         <div>
                                             <a style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
                                                 <div>
@@ -87,7 +102,6 @@
                                 </td>
                             </tr>
                         }
-
                     }
                 </tbody>
             </table>
@@ -104,24 +118,24 @@
     <script>
         $(document).ready(function () {
 
-            //$("#files").change(function () {
-            //    filename = this.files[0].name;
-            //    alert(filename);
-            //})
+            $("#followBtn").click(function () {
+                if ($("#statusInfo").val() == 2) {
+                    $('#statusInfo').attr('value', 1);
+                    $("#followBtn").css({ "background-color": "red", "color": "white" });
+                    $("#followBtn").html("Takipten Çık");
+                } else {
+                    $("#followBtn").css({ "background-color": "white", "color": "black" });
+                    $("#followBtn").html("Takip Et");
+                    $('#statusInfo').attr('value', 2);
+                }
 
-            //$("#changePicture").click(function () {
-            //    $.ajax({
-            //        url: "~/Profile/ChangeProfilePhoto",
-            //        success: function () {
-            //            alert('Hello');
-            //        },
-            //        error: function (jqXHR, textStatus, errorThrown) {
-            //            alert('Error: ' + jqXHR.status);
-            //        },
-            //    })
-            //})
+                $.ajax({
+                    method: "post",
+                    url: "/Profile/ChangeToFollower/" +@Model.AccountInfo.AccountID,
+                    dataType: "json"
+                })
+            })
         })
-
 
     </script>
 
