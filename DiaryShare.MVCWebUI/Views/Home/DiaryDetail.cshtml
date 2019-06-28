@@ -26,6 +26,14 @@
             </div>
 
             <hr />
+            <div>
+                <div id="warning" style="display:none" class="alert alert-info"></div>
+                <textarea id="reviewContent" style="resize:none;height:100px" class="form-control" placeholder="Yorum Yaz" required></textarea>
+                <br />
+                <div id="btnReview" class="btn btn-success pull-right">Gönder</div>
+            </div>
+            <br />
+            <hr />
             @if (Model.Reviews.Count > 0)
             {
                 <table class="table table-hover" style="margin-top:-15px;">
@@ -36,7 +44,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="reviews">
                         @{
                             foreach (var item in Model.Reviews)
                             {
@@ -78,3 +86,42 @@
 <div class="col-md-3">
     @{Html.RenderAction("_TrendAccounts", "Home");}
 </div>
+
+@section scripts{
+
+    <script>
+        $(function () {
+
+            $("#btnReview").click(function () {
+                if ($.trim($("#reviewContent").val()) == "") {
+                    $("#warning").show();
+                    $("#warning").html("Boş yorum gönderemezsiniz!");
+                    $("#reviewContent").focus();
+                } else {
+                    $.ajax({
+                        method: "post",
+                        url: "/Home/RequestToReview",
+                        dataType: "json",
+                        data: {
+                            DiaryID:@Model.Diary.DiaryID,
+                            Description: $("#reviewContent").val()
+                        },
+                        success: (function (response) {
+                            $("#reviews").html("");
+                            $.each(response, function (index, value) {
+                                $("#reviews").append(
+                                    "<tr><td><div><a href=/Profile/Main/" + value.AccountID + " style='text - decoration: none; color: black'><img class='thumbnail pull-left' style='width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;' src=" + value.ProfilPhotoPath + " alt=" + value.FirstName + "-" + value.LastName + " /></a></div><div style='margin-top:-15px;margin-left:80px'><a id='aHover' href=/Profile/Main/" + value.AccountID + " style='text-decoration:none;color:black'><div><h3>" + value.FirstName + " " + value.LastName + "</h3></div></a><div><p>" + value.Description + "</p> </div><br /> </div><small>" +value.ReviewDate +"</small></td ></tr > ");
+                            });
+                        })
+                    }).then(function () {
+                        $("#reviewContent").val("");
+                    });
+                }
+            });
+        });
+
+
+    </script>
+
+
+}

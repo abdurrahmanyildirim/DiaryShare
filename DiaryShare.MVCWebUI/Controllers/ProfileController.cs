@@ -99,8 +99,8 @@ namespace DiaryShare.MVCWebUI.Controllers
                 string fileName = Path.GetFileNameWithoutExtension(accountForModify.ImageFile.FileName);
                 string extension = Path.GetExtension(accountForModify.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                accountForModify.ImagePath = "~/Images/" + fileName;
-                fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                accountForModify.ImagePath = "/Images/" + fileName;
+                fileName = Path.Combine(Server.MapPath("/Images/"), fileName);
                 accountForModify.ImageFile.SaveAs(fileName);
                 account.ProfilPhotoPath = accountForModify.ImagePath;
             }

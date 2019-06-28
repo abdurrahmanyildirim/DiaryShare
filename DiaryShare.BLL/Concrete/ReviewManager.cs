@@ -23,5 +23,10 @@ namespace DiaryShare.BLL.Concrete
             return _reviewDal.GetAll(x => x.DiaryID == id);
 
         }
+
+        public void Add(Review review)
+        {
+            _reviewDal.Add(review);
+        }
     }
 }

@@ -5,7 +5,6 @@
     ViewBag.Title = "Profile";
 }
 
-
 <div class="col-md-offset-1 col-md-8">
     <div class="panel panel-info">
         <div class="panel-body">
@@ -27,17 +26,12 @@
             <br />
             <div class="col-md-12">
                 <small>@Model.AccountInfo.MemberDate.ToShortDateString() Tarihinde Katıldı.</small>
-
-
                 @if (Model.IsOwnProfile)
                 {
-                    @Html.ActionLink("Profili Düzenle", "ProfilSettings", "Profile", new { @class = "btn btn-info form-control" })
+                    @Html.ActionLink("Hesap Ayarları", "ProfilSettings", "Profile", new { @class = "btn btn-info form-control" })
                 }
-
             </div>
             <br />
-
-
 
             <table class="table table-hover" style="margin-top:-20px;">
                 <thead>
@@ -52,7 +46,7 @@
                         <tr>
                             <td>
                                 <div class="alert alert-info">
-                                    Henüz bir günlük paylaşmadınız.
+                                    Henüz günlük paylaşımı yapılmadı.
                                 </div>
                             </td>
                         </tr>

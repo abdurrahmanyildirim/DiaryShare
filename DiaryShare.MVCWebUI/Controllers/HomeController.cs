@@ -68,7 +68,30 @@ namespace DiaryShare.MVCWebUI.Controllers
             DiaryForDetailDto diaryForDetailDto = Mapper.Map<DiaryForDetailDto>(_diaryService.GetChosenDiary(id));
 
             //Veri tabanındaki hatalı kurgulamadan dolayı aşağıdaki kötü kod yazılmıştır. Allah Affetsin :)
-            List<Review> reviews = _reviewService.ReviewsByDiary(id);
+            List<ReviewsForDiariesDto> reviewsForDiariesDto = GetReviews(id);
+
+            DiaryDetailViewModel diaryDetailViewModel = new DiaryDetailViewModel
+            {
+                Diary = diaryForDetailDto,
+                Reviews = reviewsForDiariesDto
+            };
+
+            return View(diaryDetailViewModel);
+        }
+
+        public JsonResult RequestToReview(Review review)
+        {
+            review.FromAccount = (int)Session["userID"];
+            review.ReviewDate = DateTime.Now;
+            _reviewService.Add(review);
+
+            return Json(GetReviews(review.DiaryID), JsonRequestBehavior.AllowGet);
+        }
+
+
+        private List<ReviewsForDiariesDto> GetReviews(int id)
+        {
+            List<Review> reviews = _reviewService.ReviewsByDiary(id).OrderBy(x => x.ReviewDate).ToList();
             List<ReviewsForDiariesDto> reviewsForDiariesDto = new List<ReviewsForDiariesDto>();
             foreach (var item in reviews)
             {
@@ -80,18 +103,12 @@ namespace DiaryShare.MVCWebUI.Controllers
                     FirstName = account.FirstName,
                     LastName = account.LastName,
                     ReviewDate = item.ReviewDate,
-                    ProfilPhotoPath=account.ProfilPhotoPath
+                    ProfilPhotoPath = account.ProfilPhotoPath
                 };
                 reviewsForDiariesDto.Add(addReviews);
             }
-            reviewsForDiariesDto.OrderByDescending(x => x.ReviewDate);
-            DiaryDetailViewModel diaryDetailViewModel = new DiaryDetailViewModel
-            {
-                Diary = diaryForDetailDto,
-                Reviews = reviewsForDiariesDto
-            };
 
-            return View(diaryDetailViewModel);
+            return reviewsForDiariesDto;
         }
     }
 }

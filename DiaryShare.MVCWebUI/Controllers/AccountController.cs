@@ -85,7 +85,7 @@ namespace DiaryShare.MVCWebUI.Controllers
                 RoleID = 2,
                 IsActive = true,
                 MemberDate = DateTime.Now,
-                ProfilPhotoPath = "~/Images/DefaultImage.jpg",
+                ProfilPhotoPath = "/Images/DefaultImage.jpg",
                 UserName = account.Email
             };
 
