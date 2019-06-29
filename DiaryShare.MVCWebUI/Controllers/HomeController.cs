@@ -88,7 +88,6 @@ namespace DiaryShare.MVCWebUI.Controllers
             return Json(GetReviews(review.DiaryID), JsonRequestBehavior.AllowGet);
         }
 
-
         private List<ReviewsForDiariesDto> GetReviews(int id)
         {
             List<Review> reviews = _reviewService.ReviewsByDiary(id).OrderBy(x => x.ReviewDate).ToList();

@@ -19,8 +19,8 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
             {
                 try
                 {
-                    List<int> fromFollow = followers.Select(x => x.FromAccountID).ToList();
-                    int userID = followers[0].ToAccountID;
+                    List<int> fromFollow = followers.Select(x => x.ToAccountID).ToList();
+                    int userID = followers[0].FromAccountID;
                     IQueryable<MainPageData> query = from d in context.Diaries
                                                      join a in context.Accounts
                                                      on d.AccountID equals a.AccountID
