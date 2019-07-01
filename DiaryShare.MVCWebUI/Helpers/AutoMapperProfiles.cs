@@ -19,6 +19,7 @@ namespace DiaryShare.MVCWebUI.Helpers
             CreateMap<Account, AccountForProfileDto>();
             CreateMap<Diary, DiaryForProfileDto>();
             CreateMap<Account, AccountForModifyDto>();
+            CreateMap<MessagingContentForMessagePage, MessageForMessageContentDto>();
         }
     }
 }

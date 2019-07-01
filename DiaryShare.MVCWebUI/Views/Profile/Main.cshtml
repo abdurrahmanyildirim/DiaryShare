@@ -48,13 +48,15 @@
                 }
                 else
                 {
+                    //using (Ajax.BeginForm("ChangeToFollower", "Profile", new { id = Model.AccountInfo.AccountID }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "diaryList" }))
+                    //{
                     <div id="followBtn" style="@btnStyle" class="btn btn-default form-control">@statu</div>
                     <input type="hidden" id="statusInfo" value="@colorOfBtn" />
                 }
             </div>
             <br />
 
-            <table class="table table-hover" style="margin-top:-20px;">
+            <table class="table table-hover" style="margin-top:-20px;" id="diaryList">
                 <thead>
                     <tr>
                         <th>Günlükler</th>

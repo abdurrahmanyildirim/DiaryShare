@@ -1,0 +1,51 @@
+﻿@model DiaryShare.MVCWebUI.ViewModels.MessagePageViewModel
+
+@{
+    ViewBag.Title = "MessagingPage";
+}
+
+<div class="col-md-3 col-md-offset-2" style="height:500px;overflow:auto;border:solid 1px black;padding:0 0 0 0;background-color:ButtonFace">
+    <table class="table table-hover">
+        @foreach (var item in Model.AccountsOfMessages)
+        {
+            <tr>
+                <td>
+                    <input type="hidden" value="@item.AccountID" />
+                    <a href="#" style="text-decoration:none;color:black" onclick="loadMessagingContent(@item.AccountID)">
+                        @item.FirstName @item.LastName
+                        @if (item.CountOfIsNotReadMessage > 0)
+                        {
+                            <span class="badge">@item.CountOfIsNotReadMessage</span>
+                        }
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div id="messagingContent" class="col-md-6" style="height:500px;overflow:auto;border-top:solid 1px black;border-right:solid 1px black;border-bottom:solid 1px black;padding:0 0 0 0;background-color:ButtonFace;">
+    <h4 style="text-align:center">Bir mesaj seçiniz <span class="glyphicon glyphicon-send"></span> </h4>
+</div>
+
+@section scripts{
+
+    <script>
+
+        function loadMessagingContent(id) {
+            $("#messagingContent").html("");
+            $.ajax({
+                method: "Post",
+                url: "/Message/RequestMessagingContent/" + id,
+                dataType: "json",
+                success: (function (response) {
+                    $("#messagingContent").html("");
+                    $.each(response, function (index, value) {
+                        $("#messagingContent").append("<span class='" + value.MessagePosition + "' style='background-color:limegreen;margin-top:3px;border-radius:3px 3px 3px 3px;text-align:'" + value.MessageTextPosition + "' >" + value.MessageContent + "</span>");
+                    });
+                })
+            })
+        }
+
+    </script>
+
+}

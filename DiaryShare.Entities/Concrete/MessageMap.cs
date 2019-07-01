@@ -13,6 +13,7 @@ namespace DiaryShare.Entities.Concrete
         public MessageMap()
         {
             Messages = new List<Message>();
+            //CountOfIsNotReadMessage = Messages.Where(x => x.IsRead == false).Count();
         }
 
         public int MessageMapID { get; set; }
@@ -20,6 +21,8 @@ namespace DiaryShare.Entities.Concrete
         public int FromAccountID { get; set; }
         [ForeignKey("ToAccount")]
         public int ToAccountID { get; set; }
+        public DateTime LastMessageDate { get; set; }
+        //public int CountOfIsNotReadMessage { get; set; }
 
         public virtual Account FromAccount { get; set; }
         public virtual Account ToAccount { get; set; }

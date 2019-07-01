@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="ComplexTypes\DiaryDetailData.cs" />
     <Compile Include="ComplexTypes\MainPageData.cs" />
+    <Compile Include="ComplexTypes\MessagePageData.cs" />
+    <Compile Include="ComplexTypes\MessagingContentForMessagePage.cs" />
     <Compile Include="Concrete\Account.cs" />
     <Compile Include="Concrete\Diary.cs" />
     <Compile Include="Concrete\DiaryStatus.cs" />
