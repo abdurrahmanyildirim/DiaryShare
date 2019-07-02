@@ -19,6 +19,11 @@ namespace DiaryShare.BLL.Concrete
             _messageDal = messageDal;
         }
 
+        public void Add(Message message)
+        {
+            _messageDal.Add(message);
+        }
+
         public List<MessagingContentForMessagePage> GetMessages(int ownID, int anotherAccountID)
         {
             List<MessagingContentForMessagePage> messages = _messageDal.GetMessages(ownID, anotherAccountID);

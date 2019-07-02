@@ -19,6 +19,11 @@ namespace DiaryShare.BLL.Concrete
             _messageMapDal = messageMapDal;
         }
 
+        public MessageMap GetMap(int ownID, int targetID)
+        {
+            return _messageMapDal.Get(x => x.FromAccountID == ownID && x.ToAccountID == targetID);
+        }
+
         public List<MessagePageData> GetMessages(int id)
         {
             return _messageMapDal.GetMessages(id);
@@ -27,6 +32,16 @@ namespace DiaryShare.BLL.Concrete
         public List<MessageMap> GetAccounts(int id)
         {
             return _messageMapDal.GetAll(x => x.FromAccountID == id || x.ToAccountID == id);
+        }
+
+        public void Add(MessageMap messageMap)
+        {
+            _messageMapDal.Add(messageMap);
+        }
+
+        public void Update(MessageMap messageMap)
+        {
+            _messageMapDal.Update(messageMap);
         }
     }
 }

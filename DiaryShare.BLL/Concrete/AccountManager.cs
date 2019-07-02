@@ -19,6 +19,11 @@ namespace DiaryShare.BLL.Concrete
             _accountDAL = accountDAL;
         }
 
+        public Account GetAccountByEmailWithRole(string email)
+        {
+            return _accountDAL.GetAccountByEmailWithRole(email);
+        }
+
         public void Update(Account account)
         {
             _accountDAL.Update(account);

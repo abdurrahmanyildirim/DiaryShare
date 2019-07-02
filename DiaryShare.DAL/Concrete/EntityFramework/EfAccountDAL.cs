@@ -20,5 +20,13 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                 return accounts.ToList();
             }
         }
+
+        public Account GetAccountByEmailWithRole(string email)
+        {
+            using (EfContext context=new EfContext())
+            {
+               return context.Accounts.Include("Role").FirstOrDefault(x => x.Email == email);
+            }
+        }
     }
 }

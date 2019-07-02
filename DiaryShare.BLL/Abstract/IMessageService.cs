@@ -7,5 +7,6 @@ namespace DiaryShare.BLL.Abstract
     public interface IMessageService
     {
         List<MessagingContentForMessagePage> GetMessages(int ownID, int anotherAccountID);
+        void Add(Message message);
     }
 }

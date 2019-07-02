@@ -1,15 +1,20 @@
-﻿using DiaryShare.DAL.Concrete.EntityFramework.Context;
+﻿using DiaryShare.BLL.Abstract;
+using DiaryShare.BLL.DependencyResolvers.Ninject;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Security;
 
-namespace DiaryShare.BLL.Security
+namespace DiaryShare.MVCWebUI.Security
 {
     public class UserProvider : RoleProvider
     {
+
+        private IAccountService _accountService;
+
+        public UserProvider()
+        {
+            _accountService = InstanceFactory.GetInstance<IAccountService>();
+        }
+
         public override string ApplicationName
         {
             get { throw new NotImplementedException(); }
@@ -43,11 +48,8 @@ namespace DiaryShare.BLL.Security
 
         public override string[] GetRolesForUser(string username)
         {
-            using (EfContext efContext = new EfContext())
-            {
-                var kullanici = efContext.Accounts.FirstOrDefault(x => x.Email == username);
-                return new string[] { kullanici.Role.RoleName };
-            }
+            var kullanici = _accountService.GetAccountByEmailWithRole(username);
+            return new string[] { kullanici.Role.RoleName };
         }
 
         public override string[] GetUsersInRole(string roleName)

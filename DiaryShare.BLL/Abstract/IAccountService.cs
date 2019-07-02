@@ -16,5 +16,6 @@ namespace DiaryShare.BLL.Abstract
         List<Account> GetTrendAccounts();
         Account GetAccount(int id);
         void Update(Account account);
+        Account GetAccountByEmailWithRole(string email);
     }
 }

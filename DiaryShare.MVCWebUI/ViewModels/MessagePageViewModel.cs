@@ -9,5 +9,6 @@ namespace DiaryShare.MVCWebUI.ViewModels
     public class MessagePageViewModel
     {
         public List<MessagePageData> AccountsOfMessages { get; set; }
+        public int MainAccountID { get; internal set; }
     }
 }

@@ -4,18 +4,22 @@
     ViewBag.Title = "MessagingPage";
 }
 
+<div id="messageWarning" style="display:none" class="col-md-9 alert alert-info col-md-offset-2">
+
+</div>
 <div class="col-md-3 col-md-offset-2" style="height:400px;overflow:auto;border:solid 1px black;padding:0 0 0 0;background-color:ButtonFace">
     <table class="table table-hover">
         @foreach (var item in Model.AccountsOfMessages)
         {
             <tr>
                 <td class="messagingAccount">
-                    <input id="accountInfo" type="hidden" value="@item.AccountID" />
-                    <a class="ısClick" href="#" style="text-decoration:none;color:black" onclick="loadMessagingContent(@item.AccountID)">
+
+                    <a class="ısClick" data-id="@item.AccountID" href="#" style="text-decoration:none;color:black" onclick="loadMessagingContent(@item.AccountID)">
                         @item.FirstName @item.LastName
                         @if (item.CountOfIsNotReadMessage > 0)
                         {
                             <span class="badge">@item.CountOfIsNotReadMessage</span>
+                            <input id="@item.AccountID" type="hidden" value="@item.CountOfIsNotReadMessage" />
                         }
                     </a>
                 </td>
@@ -23,16 +27,19 @@
         }
     </table>
 </div>
+<input id="mainAccountID" type="hidden" value="@Model.MainAccountID" />
+<input id="activeAccountID" type="hidden" value="null" />
+
 <div class="col-md-6" style="height:400px;border-top:solid 1px black;border-right:solid 1px black;border-bottom:solid 1px black;padding:0 0 0 0;background-color:ButtonFace">
     <div id="messagingContent" style="height:361px;overflow-y:auto">
         <h4 style="text-align:center">Bir mesaj seçiniz <span class="glyphicon glyphicon-send"></span> </h4>
     </div>
     <div id="messagePlace" style="height:39px;border-top:solid 1px black">
         <div class="col-md-8">
-            <input type="text" class="form-control" />
+            <input id="message" type="text" class="form-control" />
         </div>
         <div class="col-md-4">
-            <div class="btn btn-success form-control glyphicon glyphicon-send"></div>
+            <div id="messageSender" class="btn btn-success form-control glyphicon glyphicon-send"></div>
         </div>
     </div>
 </div>
@@ -40,18 +47,46 @@
 
 
 @section scripts{
-
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="~/SignalR/Hubs"></script>
     <script>
 
         $(document).ready(function () {
             $(".ısClick").click(function () {
                 $(".messagingAccount").css("background-color", "ButtonFace");
                 $(this).parent().css("background-color", "white");
+                $("#messageWarning").hide();
+                var id = this.getAttribute("data-id");
+                $("#activeAccountID").attr("value", id);
             })
+
+            var chat = $.connection.chat;
+            chat.client.addMessage = function (message, ownID) {
+                if ($("#activeAccountID").val() === ownID) {
+                    $("#messagingContent").append("<div class='col-md-7 pull-left alert alert-success' style='height:auto;' >" + message + "</div>"); 
+                } else {
+                    var nonReadMessages = $("#ownID").val();
+                    nonReadMessages = nonReadMessages + 1;
+                    $(".badge").append(nonReadMessages);
+                }
+            }
+
+            $("#messageSender").click(function () {
+                if ($("#activeAccountID").val() === "null") {
+                    $("#messageWarning").html("Lütfen bir mesajlaşma konusu seçiniz.");
+                    $("#messageWarning").show();
+                } else {
+                    $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;' >" + $("#message").val() + "</div>"); 
+                    chat.server.sendMessage($("#message").val(), $("#activeAccountID").val(), $("#mainAccountID").val());
+                }
+            })
+            $.connection.hub.start();
+            
         })
 
         function loadMessagingContent(id) {
             $("#messagingContent").html("");
+
             $.ajax({
                 method: "Post",
                 url: "/Message/RequestMessagingContent/" + id,

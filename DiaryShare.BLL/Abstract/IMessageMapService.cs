@@ -8,5 +8,8 @@ namespace DiaryShare.BLL.Abstract
     {
         List<MessagePageData> GetMessages(int id);
         List<MessageMap> GetAccounts(int id);
+        MessageMap GetMap(int ownID, int targetID);
+        void Add(MessageMap messageMap);
+        void Update(MessageMap messageMap);
     }
 }
