@@ -1,4 +1,16 @@
 ﻿
+/*#messagingContent {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 500px;
+    border-top: solid 1px black;
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+    padding: 0 0 0 0;
+    background-color: ButtonFace;
+}*/
+
+
 #aHover :hover {
     text-decoration: underline;
 }
@@ -9,9 +21,9 @@
     color: black;
 }
 
-#protected:hover {
+/*#protected:hover {
     color: red;
-}
+}*/
 
 
 
