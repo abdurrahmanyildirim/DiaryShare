@@ -43,7 +43,7 @@ namespace DiaryShare.MVCWebUI
                 SendDate = DateTime.Now
             });
 
-            Clients.All.addMessage(message, ownID);
+            Clients.All.addMessage(message, targetID,ownID);
         }
 
         public void Update(string message, int targetID, int ownID)

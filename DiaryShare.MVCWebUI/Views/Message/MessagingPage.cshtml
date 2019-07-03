@@ -18,7 +18,7 @@
                         @item.FirstName @item.LastName
                         @if (item.CountOfIsNotReadMessage > 0)
                         {
-                            <span class="badge">@item.CountOfIsNotReadMessage</span>
+                            <span id="nonReadCount" class="badge">@item.CountOfIsNotReadMessage</span>
                             <input id="@item.AccountID" type="hidden" value="@item.CountOfIsNotReadMessage" />
                         }
                     </a>
@@ -61,13 +61,15 @@
             })
 
             var chat = $.connection.chat;
-            chat.client.addMessage = function (message, ownID) {
-                if ($("#activeAccountID").val() === ownID) {
-                    $("#messagingContent").append("<div class='col-md-7 pull-left alert alert-success' style='height:auto;' >" + message + "</div>"); 
+            chat.client.addMessage = function (message, targetID, ownID) {
+                if ($("#activeAccountID").val() == ownID) {
+                    $("#messagingContent").append("<div class='col-md-7 pull-left alert alert-success' style='height:auto;' >" + message + "</div>");
+                    focus(message);
                 } else {
-                    var nonReadMessages = $("#ownID").val();
+                    var nonReadMessages = document.getElementById(ownID).value;
                     nonReadMessages = nonReadMessages + 1;
-                    $(".badge").append(nonReadMessages);
+                    alert(nonReadMessages);
+                    $("#nonReadCount").html(nonReadMessages);
                 }
             }
 
@@ -75,13 +77,21 @@
                 if ($("#activeAccountID").val() === "null") {
                     $("#messageWarning").html("Lütfen bir mesajlaşma konusu seçiniz.");
                     $("#messageWarning").show();
+                } else if ($.trim($("#message").val()) == "") {
+                    $("#messageWarning").html("Boş mesaj gönderemezsiniz.");
+                    $("#messageWarning").show();
+                    $("#message").focus();
                 } else {
-                    $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;' >" + $("#message").val() + "</div>"); 
-                    chat.server.sendMessage($("#message").val(), $("#activeAccountID").val(), $("#mainAccountID").val());
+                    $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;' >" + $("#message").val() + "</div>");
+                    var messageContent = $("#message").val();
+                    $("#message").val("");
+                    $("#messageWarning").hide();
+                    chat.server.sendMessage(messageContent, $("#activeAccountID").val(), $("#mainAccountID").val());
+
                 }
             })
             $.connection.hub.start();
-            
+
         })
 
         function loadMessagingContent(id) {
