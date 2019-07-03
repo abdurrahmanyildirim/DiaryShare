@@ -13,13 +13,12 @@
         {
             <tr>
                 <td class="messagingAccount">
-
-                    <a class="ısClick" data-id="@item.AccountID" href="#" style="text-decoration:none;color:black" onclick="loadMessagingContent(@item.AccountID)">
+                    <a class="ısClick" data-id="@item.AccountID" href="#" style="text-decoration:none;color:black">
                         @item.FirstName @item.LastName
                         @if (item.CountOfIsNotReadMessage > 0)
                         {
-                            <span id="nonReadCount" class="badge">@item.CountOfIsNotReadMessage</span>
-                            <input id="@item.AccountID" type="hidden" value="@item.CountOfIsNotReadMessage" />
+                            <span id="countOfNonReadMessage" data-count="@item.CountOfIsNotReadMessage" class="badge">@item.CountOfIsNotReadMessage</span>
+                            <input type="hidden" value="@item.CountOfIsNotReadMessage" />
                         }
                     </a>
                 </td>
@@ -52,24 +51,20 @@
     <script>
 
         $(document).ready(function () {
-            $(".ısClick").click(function () {
-                $(".messagingAccount").css("background-color", "ButtonFace");
-                $(this).parent().css("background-color", "white");
-                $("#messageWarning").hide();
-                var id = this.getAttribute("data-id");
-                $("#activeAccountID").attr("value", id);
-            })
 
             var chat = $.connection.chat;
             chat.client.addMessage = function (message, targetID, ownID) {
                 if ($("#activeAccountID").val() == ownID) {
                     $("#messagingContent").append("<div class='col-md-7 pull-left alert alert-success' style='height:auto;' >" + message + "</div>");
-                    focus(message);
+                    slideDown();
+                } else if ($("#mainAccountID").val() == ownID) {
+                    $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;' >" + message + "</div>");
+                    slideDown();
                 } else {
-                    var nonReadMessages = document.getElementById(ownID).value;
+                    var nonReadMessages = $("#countOfNonReadMessage").getAttribute("data-count");
                     nonReadMessages = nonReadMessages + 1;
                     alert(nonReadMessages);
-                    $("#nonReadCount").html(nonReadMessages);
+                    $("#countOfNonReadMessage").html(nonReadMessages);
                 }
             }
 
@@ -82,32 +77,40 @@
                     $("#messageWarning").show();
                     $("#message").focus();
                 } else {
-                    $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;' >" + $("#message").val() + "</div>");
                     var messageContent = $("#message").val();
                     $("#message").val("");
                     $("#messageWarning").hide();
                     chat.server.sendMessage(messageContent, $("#activeAccountID").val(), $("#mainAccountID").val());
-
                 }
             })
-            $.connection.hub.start();
 
-        })
+            $(".ısClick").click(function () {
+                $(".messagingAccount").css("background-color", "ButtonFace");
+                $(this).parent().css("background-color", "white");
+                $("#messageWarning").hide();
+                var targetID = this.getAttribute("data-id");
+                $("#activeAccountID").attr("value", targetID);
+                chat.server.loadMessages($("#mainAccountID").val(), targetID);
+            })
 
-        function loadMessagingContent(id) {
-            $("#messagingContent").html("");
-
-            $.ajax({
-                method: "Post",
-                url: "/Message/RequestMessagingContent/" + id,
-                dataType: "json",
-                success: (function (response) {
+            chat.client.loadMessagingContent = function (response, ownID) {
+                if (ownID == $("#mainAccountID").val()) {
                     $("#messagingContent").html("");
                     $.each(response, function (index, value) {
                         $("#messagingContent").append("<div class='" + value.MessagePosition + " alert alert-success' style='height:auto;' >" + value.MessageContent + "</div>");
                     });
-                })
-            })
+                    slideDown();
+                    $("#countOfNonReadMessage").html("");
+                }
+            }
+
+            $.connection.hub.start();
+
+        })
+
+        function slideDown() {
+            var $chat = $("#messagingContent");
+            $chat.scrollTop($chat.height() * 10000);
         }
 
     </script>

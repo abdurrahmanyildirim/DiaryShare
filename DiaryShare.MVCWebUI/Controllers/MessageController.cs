@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using DiaryShare.BLL.Abstract;
+﻿using DiaryShare.BLL.Abstract;
 using DiaryShare.Entities.ComplexTypes;
 using DiaryShare.Entities.Concrete;
-using DiaryShare.MVCWebUI.Dtos;
 using DiaryShare.MVCWebUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,11 +24,11 @@ namespace DiaryShare.MVCWebUI.Controllers
             _messageService = messageService;
         }
 
-        public ActionResult MessagingPage(int id=0)
+        public ActionResult MessagingPage(int id = 0)
         {
             int ownID = (int)Session["userID"];
 
-            if (id != 0 || id != ownID)
+            if (id != 0 && id != ownID)
             {
                 if (_messageMapService.GetMap(ownID, id) == null)
                 {
@@ -57,17 +55,7 @@ namespace DiaryShare.MVCWebUI.Controllers
 
             return View(new MessagePageViewModel { AccountsOfMessages = messageMaps.OrderByDescending(x => x.LastMessageDate).ToList(), MainAccountID = (int)Session["userID"] });
         }
-
-        [HttpPost]
-        public JsonResult RequestMessagingContent(int id)
-        {
-            int ownID = (int)Session["userID"];
-
-            List<MessageForMessageContentDto> messages = Mapper.Map<List<MessageForMessageContentDto>>(_messageService.GetMessages(ownID, id));
-
-            return Json(messages, JsonRequestBehavior.AllowGet);
-        }
     }
 }
 
-    
+

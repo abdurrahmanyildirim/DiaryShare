@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
 using DiaryShare.BLL.Abstract;
 using DiaryShare.BLL.DependencyResolvers.Ninject;
 using DiaryShare.Entities.Concrete;
+using DiaryShare.MVCWebUI.Dtos;
 using Microsoft.AspNet.SignalR;
 
 namespace DiaryShare.MVCWebUI
@@ -44,6 +47,12 @@ namespace DiaryShare.MVCWebUI
             });
 
             Clients.All.addMessage(message, targetID,ownID);
+        }
+
+        public void LoadMessages(int ownID,int targetID)
+        {
+            List<MessageForMessageContentDto> messages = Mapper.Map<List<MessageForMessageContentDto>>(_messageService.GetMessages(ownID, targetID));
+            Clients.All.loadMessagingContent(messages,ownID);
         }
 
         public void Update(string message, int targetID, int ownID)
