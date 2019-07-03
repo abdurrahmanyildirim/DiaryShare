@@ -52,6 +52,8 @@
                     //{
                     <div id="followBtn" style="@btnStyle" class="btn btn-default form-control">@statu</div>
                     <input type="hidden" id="statusInfo" value="@colorOfBtn" />
+                    <hr />
+                    @Html.ActionLink("Sohbet Başlat", "MessagingPage", "Message", new { id = Model.AccountInfo.AccountID }, new { @class = "btn btn-info form-control" })
                 }
             </div>
             <br />

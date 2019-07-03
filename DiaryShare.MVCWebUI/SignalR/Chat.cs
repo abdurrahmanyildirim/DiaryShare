@@ -20,7 +20,7 @@ namespace DiaryShare.MVCWebUI
 
         public void SendMessage(string message, int targetID, int ownID)
         {
-            MessageMap messageMap3 = _messageMapService.GetMap(ownID, targetID);
+            
             if (_messageMapService.GetMap(ownID, targetID) == null)
             {
                 _messageMapService.Add(new MessageMap { FromAccountID = ownID, LastMessageDate = DateTime.Now, ToAccountID = targetID });
