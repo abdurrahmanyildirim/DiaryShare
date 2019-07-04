@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace DiaryShare.MVCWebUI.Controllers
 {
+    [Authorize(Roles = "Admin,Client")]
     public class MessageController : Controller
     {
         private readonly IMessageMapService _messageMapService;

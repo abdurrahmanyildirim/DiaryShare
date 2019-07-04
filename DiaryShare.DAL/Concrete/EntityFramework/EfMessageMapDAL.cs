@@ -29,8 +29,6 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                                                               CountOfIsNotReadMessage = map.Messages.Where(x => x.IsRead == false && x.MessageMap.FromAccountID != id).Count(),
                                                               FromAccountID=map.FromAccountID,
                                                               LastMessageDate=map.LastMessageDate
-                                                              //FromAccountID = map.FromAccountID,
-                                                              //ToAccountID = map.ToAccountID
                                                           };
                 return messageMaps.ToList();
 

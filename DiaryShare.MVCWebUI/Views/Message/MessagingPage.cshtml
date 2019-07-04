@@ -15,11 +15,17 @@
                 <td class="messagingAccount">
                     <a class="ısClick" data-id="@item.AccountID" href="#" style="text-decoration:none;color:black">
                         @item.FirstName @item.LastName
+
                         @if (item.CountOfIsNotReadMessage > 0)
                         {
-                            <span id="countOfNonReadMessage" data-count="@item.CountOfIsNotReadMessage" class="badge">@item.CountOfIsNotReadMessage</span>
-                            <input type="hidden" value="@item.CountOfIsNotReadMessage" />
+                            <span id="count-@item.AccountID" class="badge">@item.CountOfIsNotReadMessage</span>
                         }
+                        else
+                        {
+                            <span id="count-@item.AccountID" class="badge"></span>
+                        }
+
+                        <input id="countOfNonReadMessage-@item.AccountID" type="hidden" value="@item.CountOfIsNotReadMessage" />
                     </a>
                 </td>
             </tr>
@@ -53,6 +59,7 @@
         $(document).ready(function () {
 
             var chat = $.connection.chat;
+
             chat.client.addMessage = function (message, targetID, ownID) {
                 if ($("#activeAccountID").val() == ownID) {
                     $("#messagingContent").append("<div class='col-md-7 pull-left alert alert-success' style='height:auto;' >" + message + "</div>");
@@ -60,11 +67,16 @@
                 } else if ($("#mainAccountID").val() == ownID) {
                     $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;' >" + message + "</div>");
                     slideDown();
-                } else {
-                    var nonReadMessages = $("#countOfNonReadMessage").getAttribute("data-count");
-                    nonReadMessages = nonReadMessages + 1;
-                    alert(nonReadMessages);
-                    $("#countOfNonReadMessage").html(nonReadMessages);
+                } else if ($("#mainAccountID").val() == targetID && $("#activeAccountID").val() != ownID) {
+                    var quantity = $("#countOfNonReadMessage-" + ownID).val();
+                    if (quantity == 0) {
+                        $("#count-" + ownID).html(1);
+                        $("#countOfNonReadMessage-" + ownID).attr("value", 1);
+                    } else {
+                        quantity++
+                        $("#countOfNonReadMessage-" + ownID).attr("value", quantity);
+                        $("#count-" + ownID).html(quantity);
+                    }
                 }
             }
 
@@ -90,6 +102,7 @@
                 $("#messageWarning").hide();
                 var targetID = this.getAttribute("data-id");
                 $("#activeAccountID").attr("value", targetID);
+                $(this).children(this.firstChild).html("");
                 chat.server.loadMessages($("#mainAccountID").val(), targetID);
             })
 
@@ -100,7 +113,6 @@
                         $("#messagingContent").append("<div class='" + value.MessagePosition + " alert alert-success' style='height:auto;' >" + value.MessageContent + "</div>");
                     });
                     slideDown();
-                    $("#countOfNonReadMessage").html("");
                 }
             }
 

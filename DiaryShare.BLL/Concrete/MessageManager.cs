@@ -28,7 +28,7 @@ namespace DiaryShare.BLL.Concrete
         {
             List<MessagingContentForMessagePage> messages = _messageDal.GetMessages(ownID, anotherAccountID);
 
-            foreach (var item in messages.Where(x => x.IsRead == false))
+            foreach (var item in messages.Where(x => x.IsRead == false && x.MessageTextPosition == "left"))
             {
                 _messageDal.Update(new Message
                 {
@@ -39,17 +39,6 @@ namespace DiaryShare.BLL.Concrete
                     SendDate = item.SendDate,
                     MessageMapID = item.MessageMapID
                 });
-            }
-
-            for (int i = 0; i < messages.Count; i++)
-            {
-                if (!messages[i].IsRead)
-                {
-                    if (messages[i].MessageTextPosition == "left")
-                    {
-                        messages[i].IsRead = true;
-                    }
-                }
             }
 
             return messages.OrderBy(x => x.SendDate).ToList();

@@ -16,26 +16,22 @@ namespace DiaryShare.MVCWebUI
 
         public Chat() : base()
         {
-
             _messageMapService = InstanceFactory.GetInstance<IMessageMapService>();
             _messageService = InstanceFactory.GetInstance<IMessageService>();
         }
 
         public void SendMessage(string message, int targetID, int ownID)
         {
-            
-            if (_messageMapService.GetMap(ownID, targetID) == null)
-            {
-                _messageMapService.Add(new MessageMap { FromAccountID = ownID, LastMessageDate = DateTime.Now, ToAccountID = targetID });
-                MessageMap updateMessageMap = _messageMapService.GetMap(targetID, ownID);
-                if (updateMessageMap != null)
-                {
-                    updateMessageMap.LastMessageDate = DateTime.Now;
-                    _messageMapService.Update(updateMessageMap);
-                }
-            }
-
             MessageMap messageMap = _messageMapService.GetMap(ownID, targetID);
+            messageMap.LastMessageDate = DateTime.Now;
+
+            MessageMap updateMessageMap = _messageMapService.GetMap(targetID, ownID);
+            if (updateMessageMap != null)
+            {
+                updateMessageMap.LastMessageDate = DateTime.Now;
+                _messageMapService.Update(updateMessageMap);
+            }
+            _messageMapService.Update(messageMap);
 
             _messageService.Add(new Message
             {
@@ -46,13 +42,13 @@ namespace DiaryShare.MVCWebUI
                 SendDate = DateTime.Now
             });
 
-            Clients.All.addMessage(message, targetID,ownID);
+            Clients.All.addMessage(message, targetID, ownID);
         }
 
-        public void LoadMessages(int ownID,int targetID)
+        public void LoadMessages(int ownID, int targetID)
         {
             List<MessageForMessageContentDto> messages = Mapper.Map<List<MessageForMessageContentDto>>(_messageService.GetMessages(ownID, targetID));
-            Clients.All.loadMessagingContent(messages,ownID);
+            Clients.All.loadMessagingContent(messages, ownID);
         }
 
         public void Update(string message, int targetID, int ownID)
