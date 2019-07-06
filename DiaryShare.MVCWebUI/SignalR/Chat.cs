@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using DiaryShare.BLL.Abstract;
 using DiaryShare.BLL.DependencyResolvers.Ninject;
+using DiaryShare.Entities.ComplexTypes;
 using DiaryShare.Entities.Concrete;
 using DiaryShare.MVCWebUI.Dtos;
 using Microsoft.AspNet.SignalR;
@@ -51,10 +53,20 @@ namespace DiaryShare.MVCWebUI
             Clients.All.loadMessagingContent(messages, ownID);
         }
 
-        public void Update(string message, int targetID, int ownID)
+        public void Update(int targetID)
         {
+            List<MessagePageData> messageMaps = _messageMapService.GetMessages(targetID);
 
-            Clients.All.addMessage(message, ownID);
+            for (int i = 0; i < messageMaps.Count; i++)
+            {
+                int otherAccountID = messageMaps[i].AccountID;
+                if (messageMaps.Where(x => x.AccountID == otherAccountID).ToList().Count > 1 && messageMaps[i].FromAccountID == targetID)
+                {
+                    messageMaps.Remove(messageMaps[i]);
+                }
+            }
+
+            Clients.All.updateMessageMaps(messageMaps,targetID);
         }
     }
 }

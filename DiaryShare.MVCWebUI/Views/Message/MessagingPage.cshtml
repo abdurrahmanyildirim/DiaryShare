@@ -8,21 +8,21 @@
 
 </div>
 <div class="col-md-3 col-md-offset-2" style="height:400px;overflow:auto;border:solid 1px black;padding:0 0 0 0;background-color:ButtonFace">
-    <table class="table table-hover">
+    <table id="messagingMaps" class="table table-hover">
         @foreach (var item in Model.AccountsOfMessages)
         {
             <tr>
                 <td class="messagingAccount">
-                    <a class="ısClick" data-id="@item.AccountID" href="#" style="text-decoration:none;color:black">
+                    <a class="isClick" data-id="@item.AccountID" href="#" style="text-decoration:none;color:black">
                         @item.FirstName @item.LastName
 
                         @if (item.CountOfIsNotReadMessage > 0)
                         {
-                            <span id="count-@item.AccountID" class="badge">@item.CountOfIsNotReadMessage</span>
+                            <span id="count-@item.AccountID" class="badge progress-bar-danger">@item.CountOfIsNotReadMessage</span>
                         }
                         else
                         {
-                            <span id="count-@item.AccountID" class="badge"></span>
+                            <span id="count-@item.AccountID" class="badge progress-bar-danger"></span>
                         }
 
                         <input id="countOfNonReadMessage-@item.AccountID" type="hidden" value="@item.CountOfIsNotReadMessage" />
@@ -78,10 +78,28 @@
                         $("#count-" + ownID).html(quantity);
                     }
                 }
+                //if ($("#mainAccountID").val() == targetID) {
+                //    chat.server.update(targetID);
+                //}
             }
 
+            //chat.client.updateMessageMaps = function (response, targetID) {
+            //    if ($("#mainAccountID").val() == targetID) {
+            //        $("#messagingMaps").html("");
+            //        $.each(response, function (index, value) {
+            //            var countNonReadMessages = "";
+            //            if (value.CountOfIsNotReadMessage > 0) {
+            //                countNonReadMessages = value.CountOfIsNotReadMessage;
+            //            }
+            //            $("#messagingMaps").append("<tr><td class='messagingAccount'><a class='isClick' data-id='" + value.AccountID + "' href='#' style='text-decoration:none;color:black'>" + value.FirstName + " " + value.LastName + "<span id='count-" + value.AccountID + "' class='badge progress-bar-danger'>" + value.CountOfIsNotReadMessage + "</span><input id='countOfNonReadMessage-" + value.AccountID + "' type='hidden' value=" + countNonReadMessages + " /></a></td></tr>");
+            //        });
+            //    }
+            //}
+
             $("#messageSender").click(function () {
-                if ($("#activeAccountID").val() === "null") {
+                var ownID = $("#mainAccountID").val();
+                var targetID = $("#activeAccountID").val();
+                if (targetID === "null") {
                     $("#messageWarning").html("Lütfen bir mesajlaşma konusu seçiniz.");
                     $("#messageWarning").show();
                 } else if ($.trim($("#message").val()) == "") {
@@ -92,17 +110,18 @@
                     var messageContent = $("#message").val();
                     $("#message").val("");
                     $("#messageWarning").hide();
-                    chat.server.sendMessage(messageContent, $("#activeAccountID").val(), $("#mainAccountID").val());
+                    chat.server.sendMessage(messageContent, targetID, ownID);
                 }
             })
 
-            $(".ısClick").click(function () {
+            $(".isClick").click(function () {
                 $(".messagingAccount").css("background-color", "ButtonFace");
                 $(this).parent().css("background-color", "white");
                 $("#messageWarning").hide();
                 var targetID = this.getAttribute("data-id");
                 $("#activeAccountID").attr("value", targetID);
                 $(this).children(this.firstChild).html("");
+                $("#countOfNonReadMessage-" + targetID).attr("value", 0)
                 chat.server.loadMessages($("#mainAccountID").val(), targetID);
             })
 

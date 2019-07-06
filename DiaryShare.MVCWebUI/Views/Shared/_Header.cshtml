@@ -30,6 +30,7 @@
                     {
                         accountID = (int)Session["userID"];
                     }
+
                     <li><a href="@Url.Action("MessagingPage", "Message" ,new {id=accountID })"><span style="font-size:20px" class="glyphicon glyphicon-envelope"></span></a></li>
                     <li><a href="@Url.Action("Main", "Profile",new {id=accountID })"><span style="font-size:20px" class="glyphicon glyphicon-user"></span></a></li>
                     <li><a href="@Url.Action("Logout","Account")"><span style="font-size:20px" class="glyphicon glyphicon-log-out"></span></a></li>

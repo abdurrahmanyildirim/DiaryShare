@@ -50,14 +50,7 @@ namespace DiaryShare.MVCWebUI.Controllers
 
         public ActionResult _TrendAccounts()
         {
-            List<AccountForTrendPanelDto> trendAccounts = Mapper.Map<List<AccountForTrendPanelDto>>(_accountService.GetTrendAccounts());
-
-            TrendAccountsViewModel trendAccountsViewModel = new TrendAccountsViewModel
-            {
-                AccountForTrendPanelDtos = trendAccounts
-            };
-
-            return PartialView(trendAccountsViewModel);
+            return PartialView(new TrendAccountsViewModel { AccountForTrendPanelDtos = Mapper.Map<List<AccountForTrendPanelDto>>(_accountService.GetTrendAccounts()) });
         }
 
         public ActionResult DiaryDetail(int id)
