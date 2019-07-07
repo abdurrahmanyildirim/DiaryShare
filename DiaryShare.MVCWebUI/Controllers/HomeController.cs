@@ -38,7 +38,7 @@ namespace DiaryShare.MVCWebUI.Controllers
 
             int userID = (int)Session["userID"];
 
-            List<Follower> followers = _followerService.GetFollowers(userID).ToList();
+            List<Follower> followers = _followerService.GetFollowings(userID).ToList();
 
             MainPageViewModel mainPageViewModel = new MainPageViewModel
             {

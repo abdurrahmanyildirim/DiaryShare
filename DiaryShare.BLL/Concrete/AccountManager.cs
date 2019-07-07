@@ -19,6 +19,16 @@ namespace DiaryShare.BLL.Concrete
             _accountDAL = accountDAL;
         }
 
+        public List<Account> GetFollowerAccounts(int id)
+        {
+            return _accountDAL.GetFollowerAccounts(id);
+        }
+
+        public List<Account> GetFollowingAccounts(int id)
+        {
+            return _accountDAL.GetFollowingAccounts(id);
+        }
+
         public Account GetAccountByEmailWithRole(string email)
         {
             return _accountDAL.GetAccountByEmailWithRole(email);
@@ -103,5 +113,7 @@ namespace DiaryShare.BLL.Concrete
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+
+
     }
 }

@@ -20,96 +20,127 @@
     }
 }
 
+
 <div class="col-md-offset-1 col-md-8">
+
     <div class="panel panel-info">
+        <div class="panel panel-heading">
+            <a id="backButton" style="display:none" href="@Url.Action("Main","Profile",new {id=Model.AccountInfo.AccountID })">
+                <div  class="backButton" style="width:40px;height:40px;border-radius:20px;text-align:center;vertical-align:middle;padding-top:8px;">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+
+                </div>
+            </a>
+            <h4 id="mainLook" style="text-align:center">Profil Sayfası</h4>
+        </div>
         <div class="panel-body">
-            <div>
-                <div class="col-md-1">
-                    <img class="thumbnail pull-left" style="width:120px;height:120px;border-radius:60px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName-@Model.AccountInfo.LastName" />
-
+            <div id="followContent" style="display:none">
+                <div class="col-md-6" style="text-align:center">
+                    <a class="followAccountButton" href="#" onclick="loadFollowers()">Takipçiler</a>
                 </div>
-                <div class="col-md-7" style="margin-top:-15px;margin-left:80px">
-                    <div>
-                        <h3> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</h3>
-                    </div>
-                    <div>
-                        <p> @Model.AccountInfo.PersonelInfo </p>
-                    </div>
-                    <br />
+
+                <div class="col-md-6" style="text-align:center">
+                    <a class="followAccountButton" href="#" onclick="loadFollowings()">Takip Edilenler</a>
                 </div>
             </div>
-            <br />
-            <div class="col-md-12">
-                <small>@Model.AccountInfo.MemberDate.ToShortDateString() Tarihinde Katıldı.</small>
+            <div id="mainProfileContent">
+                <div>
+                    <div class="col-md-1">
+                        <img class="thumbnail pull-left" style="width:120px;height:120px;border-radius:60px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName-@Model.AccountInfo.LastName" />
 
-                @if (Model.IsOwnProfile)
-                {
-                    @Html.ActionLink("Hesap Ayarları", "ProfilSettings", "Profile", new { @class = "btn btn-info form-control" })
-                }
-                else
-                {
-                    //using (Ajax.BeginForm("ChangeToFollower", "Profile", new { id = Model.AccountInfo.AccountID }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "diaryList" }))
-                    //{
-                    <div id="followBtn" style="@btnStyle" class="btn btn-default form-control">@statu</div>
-                    <input type="hidden" id="statusInfo" value="@colorOfBtn" />
-                    <hr />
-                    @Html.ActionLink("Sohbet Başlat", "MessagingPage", "Message", new { id = Model.AccountInfo.AccountID }, new { @class = "btn btn-info form-control" })
-                }
-            </div>
-            <br />
+                    </div>
+                    <div class="col-md-7" style="margin-top:-15px;margin-left:80px">
+                        <div>
+                            <h3> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</h3>
+                        </div>
+                        <div>
+                            <p> @Model.AccountInfo.PersonelInfo </p>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+                <br />
+                <div class="col-md-12">
+                    <small>@Model.AccountInfo.MemberDate.ToShortDateString() Tarihinde Katıldı.</small>
 
-            <table class="table table-hover" style="margin-top:-20px;" id="diaryList">
-                <thead>
-                    <tr>
-                        <th>Günlükler</th>
-                    </tr>
-                </thead>
-                <tbody id="profileDiaries">
-                    @if (Model.DiariesInfo.Count <= 0)
+                    @if (Model.IsOwnProfile)
                     {
-                        <tr>
-                            <td>
-                                <div class="alert alert-info">
-                                    Henüz günlük paylaşımı yapılmadı.
-                                </div>
-                            </td>
-                        </tr>
+                        @Html.ActionLink("Hesap Ayarları", "ProfilSettings", "Profile", new { @class = "btn btn-info form-control" })
                     }
                     else
                     {
-                        foreach (var item in Model.DiariesInfo)
+                        <div id="followBtn" style="@btnStyle" class="btn btn-default form-control">@statu</div>
+                        <input type="hidden" id="statusInfo" value="@colorOfBtn" />
+                        <hr />
+                        @Html.ActionLink("Sohbet Başlat", "MessagingPage", "Message", new { id = Model.AccountInfo.AccountID }, new { @class = "btn btn-info form-control" })
+                    }
+                </div>
+                <div class="col-md-12">
+                    <br />
+                    <div class="col-md-3">
+                        <a id="followingsMain" href="#" style="text-decoration:none;color:black">
+                            <b>  @Model.FollowingCount  Takip Edilen</b>
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a id="followersMain" href="#" style="text-decoration:none;color:black">
+                            <b>   @Model.FollowerCount Takipçi</b>
+                        </a>
+                    </div>
+                </div>
+                <br />
+                <table class="table table-hover" style="margin-top:-20px;" id="diaryList">
+                    <thead>
+                        <tr>
+                            <th>Günlükler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="profileDiaries">
+                        @if (Model.DiariesInfo.Count <= 0)
                         {
                             <tr>
                                 <td>
-                                    <div>
-                                        <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName-@Model.AccountInfo.LastName" />
-
+                                    <div class="alert alert-info">
+                                        Henüz günlük paylaşımı yapılmadı.
                                     </div>
-                                    <div style="margin-top:-15px;margin-left:80px">
-                                        <a id="aHover" href="@Url.Action("Main","Profile",new { id=Model.AccountInfo.AccountID})" style="text-decoration:none;color:black">
-                                            <div>
-                                                <h3> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</h3>
-                                            </div>
-                                        </a>
-                                        <div>
-                                            <a style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
-                                                <div>
-                                                    <h4>@item.Title</h4>
-                                                    <p> @item.DiaryContent</p>
-                                                </div>
-                                                <br />
-                                            </a>
-                                        </div>
-                                        <br />
-                                    </div>
-                                    <small>@item.CreatedDate</small>
                                 </td>
                             </tr>
                         }
-                    }
-                </tbody>
-            </table>
+                        else
+                        {
+                            foreach (var item in Model.DiariesInfo)
+                            {
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName-@Model.AccountInfo.LastName" />
 
+                                        </div>
+                                        <div style="margin-top:-15px;margin-left:80px">
+                                            <a id="aHover" href="@Url.Action("Main","Profile",new { id=Model.AccountInfo.AccountID})" style="text-decoration:none;color:black">
+                                                <div>
+                                                    <h3> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</h3>
+                                                </div>
+                                            </a>
+                                            <div>
+                                                <a style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
+                                                    <div>
+                                                        <h4>@item.Title</h4>
+                                                        <p> @item.DiaryContent</p>
+                                                    </div>
+                                                    <br />
+                                                </a>
+                                            </div>
+                                            <br />
+                                        </div>
+                                        <small>@item.CreatedDate</small>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -121,6 +152,14 @@
 
     <script>
         $(document).ready(function () {
+            $("#followingsMain").click(function () {
+                loadFollowings();
+            })
+
+            $("#followersMain").click(function () {
+                loadFollowers();
+            })
+
 
             $("#followBtn").click(function () {
                 if ($("#statusInfo").val() == 2) {
@@ -140,6 +179,48 @@
                 })
             })
         })
+
+        function loadFollowers() {
+            $.ajax({
+                    method: "post",
+                    url: "/Profile/GetListOfFollowers/" + @Model.AccountInfo.AccountID,
+                    dataType: "json",
+                    success: (function (response) {
+                        $("#mainProfileContent").html("");
+                        $("#followContent").show();
+                        $("#backButton").show();
+                        $("#mainLook").hide();
+                        if (response[0] == null) {
+                            $("#mainProfileContent").append("<table class='table table-hover'><tr><td><div class='alert alert-info'>Bu hesabın henüz takipçisi yok.</div></td></tr></table>");
+                        } else {
+                            $.each(response, function (index, value) {
+                                $("#mainProfileContent").append("<table class='table table-hover'><tr><td><a style='text-decoration:none;color:black' href='/Profile/Main/" + value.AccountID + "' ><div class='col-md-2'><img class='thumbnail' style='width:80px;height:80px;border-radius:40px;' src='" + value.ProfilPhotoPath + "' alt='" + value.FirstName + "' ></img></div><div class='col-md-10'>" + value.FirstName + " " + value.LastName + "</br>" + value.PersonelInfo + "</div></a></td></tr></table>");
+                            })
+                        }
+                    })
+                })
+        }
+
+        function loadFollowings() {
+            $.ajax({
+                    method: "post",
+                    url: "/Profile/GetListOfFollowings/" + @Model.AccountInfo.AccountID,
+                    dataType: "json",
+                    success: (function (response) {
+                        $("#mainProfileContent").html("");
+                        $("#followContent").show();
+                        $("#backButton").show();
+                        $("#mainLook").hide();
+                        if (response[0] == null) {
+                            $("#mainProfileContent").append("<table class='table table-hover'><tr><td><div class='alert alert-info'>Bu hesap kimseyi takip etmiyor.</div></td></tr></table>");
+                        } else {
+                            $.each(response, function (index, value) {
+                                $("#mainProfileContent").append("<table class='table table-hover'><tr><td><a style='text-decoration:none;color:black' href='/Profile/Main/" + value.AccountID + "' ><div class='col-md-2'><img class='thumbnail' style='width:80px;height:80px;border-radius:40px;' src='" + value.ProfilPhotoPath + "' alt='" + value.FirstName + "' ></img></div><div class='col-md-10'>" + value.FirstName + " " + value.LastName + "</br>" + value.PersonelInfo + "</div></a></td></tr></table>");
+                            })
+                        }
+                    })
+                })
+        }
 
     </script>
 

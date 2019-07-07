@@ -60,17 +60,36 @@ namespace DiaryShare.MVCWebUI.Controllers
             }
 
             AccountForProfileDto accountForProfileDto = Mapper.Map<AccountForProfileDto>(_accountService.GetAccount(accountID));
-
+            int followerCount = _followerService.GetFollowerCount(accountID);
+            int followingCount = _followerService.GetFollowingCount(accountID);
 
             ProfileViewModel profileViewModel = new ProfileViewModel
             {
                 AccountInfo = accountForProfileDto,
                 DiariesInfo = diariesForProfileDto,
                 IsOwnProfile = isMain,
-                IsFollower = isFollower
+                IsFollower = isFollower,
+                FollowerCount = followerCount,
+                FollowingCount = followingCount
             };
 
             return View(profileViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult GetListOfFollowers(int id)
+        {
+            List<AccountForFollowerListDto> accounts = Mapper.Map<List<AccountForFollowerListDto>>(_accountService.GetFollowerAccounts(id));
+
+            return Json(accounts,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetListOfFollowings(int id)
+        {
+            List<AccountForFollowerListDto> accounts = Mapper.Map<List<AccountForFollowerListDto>>(_accountService.GetFollowingAccounts(id));
+
+            return Json(accounts,JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

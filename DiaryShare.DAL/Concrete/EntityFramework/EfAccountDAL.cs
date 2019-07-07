@@ -23,9 +23,35 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
 
         public Account GetAccountByEmailWithRole(string email)
         {
-            using (EfContext context=new EfContext())
+            using (EfContext context = new EfContext())
             {
-               return context.Accounts.Include("Role").FirstOrDefault(x => x.Email == email);
+                return context.Accounts.Include("Role").FirstOrDefault(x => x.Email == email);
+            }
+        }
+
+        public List<Account> GetFollowerAccounts(int id)
+        {
+            using (EfContext context = new EfContext())
+            {
+                IQueryable<Account> accounts = from a in context.Accounts
+                                               join f in context.Followers
+                                               on a.AccountID equals f.FromAccountID
+                                               where f.ToAccountID == id
+                                               select a;
+                return accounts.ToList();
+            }
+        }
+
+        public List<Account> GetFollowingAccounts(int id)
+        {
+            using (EfContext context = new EfContext())
+            {
+                IQueryable<Account> accounts = from a in context.Accounts
+                                               join f in context.Followers
+                                               on a.AccountID equals f.ToAccountID
+                                               where f.FromAccountID == id
+                                               select a;
+                return accounts.ToList();
             }
         }
     }

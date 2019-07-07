@@ -15,6 +15,7 @@ namespace DiaryShare.MVCWebUI.Helpers
         {
             CreateMap<Account, AccountForTrendPanelDto>();
             CreateMap<AccountForTrendPanelDto, Account>();
+            CreateMap<Account, AccountForFollowerListDto>();
             CreateMap<DiaryDetailData, DiaryForDetailDto>();
             CreateMap<Account, AccountForProfileDto>();
             CreateMap<Diary, DiaryForProfileDto>();

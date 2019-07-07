@@ -1,10 +1,5 @@
-﻿using DiaryShare.DAL.Abstract;
-using DiaryShare.Entities.Concrete;
-using System;
+﻿using DiaryShare.Entities.Concrete;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiaryShare.BLL.Abstract
 {
@@ -17,5 +12,7 @@ namespace DiaryShare.BLL.Abstract
         Account GetAccount(int id);
         void Update(Account account);
         Account GetAccountByEmailWithRole(string email);
+        List<Account> GetFollowerAccounts(int id);
+        List<Account> GetFollowingAccounts(int id);
     }
 }

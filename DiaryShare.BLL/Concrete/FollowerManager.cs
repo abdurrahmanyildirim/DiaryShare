@@ -28,12 +28,27 @@ namespace DiaryShare.BLL.Concrete
             _followerDal.Delete(follower);
         }
 
-        public List<Follower> GetFollowers(int userID)
+        public int GetFollowingCount(int userID)
+        {
+            return _followerDal.GetAll(x => x.FromAccountID == userID).Count;
+        }
+
+        public int GetFollowerCount(int userID)
+        {
+            return _followerDal.GetAll(x => x.ToAccountID == userID).Count;
+        }
+
+        public List<Follower> GetFollowings(int userID)
         {
             return _followerDal.GetAll(x => x.FromAccountID == userID);
         }
 
-        public Follower GetFollower(int fromAccountID,int toAccountID)
+        public List<Follower> GetFollowers(int userID)
+        {
+            return _followerDal.GetAll(x => x.ToAccountID == userID);
+        }
+
+        public Follower GetFollower(int fromAccountID, int toAccountID)
         {
             return _followerDal.Get(x => x.FromAccountID == fromAccountID && x.ToAccountID == toAccountID);
         }

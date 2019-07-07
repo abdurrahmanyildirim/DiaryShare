@@ -12,5 +12,7 @@ namespace DiaryShare.DAL.Abstract
     {
         List<Account> GetTopAccounts();
         Account GetAccountByEmailWithRole(string email);
+        List<Account> GetFollowerAccounts(int id);
+        List<Account> GetFollowingAccounts(int id);
     }
 }

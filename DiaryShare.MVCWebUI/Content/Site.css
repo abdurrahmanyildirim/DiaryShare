@@ -17,10 +17,18 @@
     color: black;
 }
 
-/*#protected:hover {
-    color: red;
-}*/
+.backButton {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
 
+    .backButton:hover {
+        background-color: white;
+        color: dodgerblue;
+    }
 
-
-
+.followAccountButton:hover {
+    color: blue;
+    font-weight: bold;
+}
