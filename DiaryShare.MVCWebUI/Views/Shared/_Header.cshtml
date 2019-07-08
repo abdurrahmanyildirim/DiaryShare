@@ -11,10 +11,22 @@
             @if (Session["userID"] != null)
             {
                 <ul class="nav navbar-nav">
-                    @*<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>*@
-                    <li><a href="@Url.Action("Index","Home")" class="btn"><span style="font-size:20px" class="glyphicon glyphicon-home"></span></a></li>
-                    <li><a href="@Url.Action("DiaryPage","Diary")" class="btn"><span style="font-size:20px" class="glyphicon glyphicon-book"></span></a></li>
+                    <li><a href="@Url.Action("Index","Home")"><span style="font-size:20px" class="glyphicon glyphicon-home"></span></a></li>
+                    <li><a href="@Url.Action("DiaryPage","Diary")"><span style="font-size:20px" class="glyphicon glyphicon-book"></span></a></li>
                 </ul>
+                <div class="nav navbar-nav" style="margin-top:10px;padding-bottom:-20px">
+                    @using (Html.BeginForm("Search", "Explore", FormMethod.Get))
+                    {
+
+                        <div class="col-md-10">
+                            <input type="search" name="key" class="form-control mr-sm-2" />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" value="Ara" class="btn btn-default" />
+                        </div>
+
+                    }
+                </div>
             }
 
             <ul class="nav navbar-nav navbar-right">

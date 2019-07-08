@@ -43,11 +43,6 @@ namespace DiaryShare.BLL.Concrete
             return _followerDal.GetAll(x => x.FromAccountID == userID);
         }
 
-        public List<Follower> GetFollowers(int userID)
-        {
-            return _followerDal.GetAll(x => x.ToAccountID == userID);
-        }
-
         public Follower GetFollower(int fromAccountID, int toAccountID)
         {
             return _followerDal.Get(x => x.FromAccountID == fromAccountID && x.ToAccountID == toAccountID);

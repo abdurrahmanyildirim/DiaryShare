@@ -184,6 +184,7 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MessagePageViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\TrendAccountsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +205,7 @@
     <Content Include="Views\Profile\ProfilSettings.cshtml" />
     <Content Include="Views\Diary\DiaryPage.cshtml" />
     <Content Include="Views\Message\MessagingPage.cshtml" />
+    <Content Include="Views\Explore\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -214,7 +216,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Explore\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DiaryShare.BLL\DiaryShare.BLL.csproj">
