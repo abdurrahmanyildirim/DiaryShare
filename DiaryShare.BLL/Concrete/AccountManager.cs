@@ -19,6 +19,11 @@ namespace DiaryShare.BLL.Concrete
             _accountDAL = accountDAL;
         }
 
+        public List<Account> GetAccountsHasMostFollowers()
+        {
+            return _accountDAL.GetAccountsHasMostFollowers();
+        }
+
         public List<Account> GetAccountsBySearchKey(string key)
         {
             return _accountDAL.GetAll(x => x.FirstName.ToLower().Contains(key.ToLower()) || x.LastName.ToLower().Contains(key.ToLower()) || x.Email.ToLower().Contains(key.ToLower()) || key.ToLower().Contains(x.FirstName.ToLower()) || key.ToLower().Contains(x.LastName.ToLower()) || (key.ToLower().Contains(x.FirstName.ToLower()) && key.ToLower().Contains(x.LastName.ToLower())));
@@ -108,7 +113,6 @@ namespace DiaryShare.BLL.Concrete
             }
             return false;
         }
-
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {

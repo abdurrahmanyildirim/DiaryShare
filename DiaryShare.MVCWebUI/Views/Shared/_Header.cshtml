@@ -13,6 +13,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="@Url.Action("Index","Home")"><span style="font-size:20px" class="glyphicon glyphicon-home"></span></a></li>
                     <li><a href="@Url.Action("DiaryPage","Diary")"><span style="font-size:20px" class="glyphicon glyphicon-book"></span></a></li>
+                    <li><a href="@Url.Action("Bests","Explore")"><span style="font-size:20px" class="glyphicon glyphicon-globe"></span></a></li>
                 </ul>
                 <div class="nav navbar-nav" style="margin-top:10px;padding-bottom:-20px">
                     @using (Html.BeginForm("Search", "Explore", FormMethod.Get))

@@ -11,25 +11,34 @@
         </div>
 
         <div class="panel-body">
-            <table class="table table-hover">
-                @foreach (var item in Model.Accounts)
-                {
-                    <tr>
-                        <td>
-                            <a style="text-decoration:none;color:black" href="@Url.Action("Main","Profile",new {id=item.AccountID })">
-                                <div class="col-md-2">
-                                    <img class="thumbnail" style="width:80px;height:80px;border-radius:40px;" src="@item.ProfilPhotoPath" alt="@item.FirstName" />
-                                </div>
+            @if (Model.Accounts.Count <= 0)
+            {
+                <div class="alert alert-info">
+                    <p>Arama kriterinize göre herhangi bir sonuç yoktur.</p>
+                </div>
+            }
+            else
+            {
+                <table class="table table-hover">
+                    @foreach (var item in Model.Accounts)
+                    {
+                        <tr>
+                            <td>
+                                <a style="text-decoration:none;color:black" href="@Url.Action("Main","Profile",new {id=item.AccountID })">
+                                    <div class="col-md-2">
+                                        <img class="thumbnail" style="width:80px;height:80px;border-radius:40px;" src="@item.ProfilPhotoPath" alt="@item.FirstName" />
+                                    </div>
 
-                                <div class='col-md-10'>
-                                    @item.FirstName @item.LastName <br />
-                                    @item.PersonelInfo
-                                </div>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </table>
+                                    <div class='col-md-10'>
+                                        @item.FirstName @item.LastName <br />
+                                        @item.PersonelInfo
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
         </div>
     </div>
 </div>

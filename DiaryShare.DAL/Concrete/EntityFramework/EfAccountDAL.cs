@@ -54,5 +54,16 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                 return accounts.ToList();
             }
         }
+
+        public List<Account> GetAccountsHasMostFollowers()
+        {
+            using (EfContext context = new EfContext())
+            {
+                IQueryable<Account> accounts = (from a in context.Accounts
+                                                orderby a.ToFollowers.Count descending
+                                                select a).Take(10);
+                return accounts.ToList();
+            }
+        }
     }
 }

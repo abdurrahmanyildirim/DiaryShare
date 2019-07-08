@@ -24,9 +24,14 @@ namespace DiaryShare.BLL.Concrete
             _diaryDAL.Add(diary);
         }
 
+        public List<MainPageData> GetHasMostReviewDiaries()
+        {
+            return _diaryDAL.GetHasMostReviewDiaries();
+        }
+
         public List<Diary> GetDiariesForOwnAccount(int id)
         {
-            return _diaryDAL.GetAll(x => x.AccountID == id).OrderByDescending(x=>x.CreatedDate).ToList();
+            return _diaryDAL.GetAll(x => x.AccountID == id).OrderByDescending(x => x.CreatedDate).ToList();
         }
 
         public List<Diary> GetDiariesForFollower(int id)
@@ -36,7 +41,7 @@ namespace DiaryShare.BLL.Concrete
 
         public List<Diary> GetDiariesForPublic(int id)
         {
-            return _diaryDAL.GetAll(x => x.AccountID == id && x.DiaryStatus.StatusName == "Public" ).OrderByDescending(x => x.CreatedDate).ToList();
+            return _diaryDAL.GetAll(x => x.AccountID == id && x.DiaryStatus.StatusName == "Public").OrderByDescending(x => x.CreatedDate).ToList();
         }
 
         public List<MainPageData> GetDiariesByAccount(List<Follower> followers)

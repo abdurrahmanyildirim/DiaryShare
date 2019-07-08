@@ -65,7 +65,29 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                                                                   ProfilPhotoPath = a.ProfilPhotoPath
                                                               };
                 return diaryDetailData.ToList()[0];
+            }
+        }
 
+        public List<MainPageData> GetHasMostReviewDiaries()
+        {
+            using (EfContext context = new EfContext())
+            {
+                IQueryable<MainPageData> diaries = (from d in context.Diaries
+                                                    join a in context.Accounts
+                                                    on d.AccountID equals a.AccountID
+                                                    orderby d.Reviews.Count descending
+                                                    select new MainPageData
+                                                    {
+                                                        DiaryContent = d.DiaryContent,
+                                                        FirstName = a.FirstName,
+                                                        LastName = a.LastName,
+                                                        CreatedDate = d.CreatedDate,
+                                                        DiaryID = d.DiaryID,
+                                                        AccountID = a.AccountID,
+                                                        ProfilPhotoPath = a.ProfilPhotoPath,
+                                                        Title = d.Title
+                                                    }).Take(10);
+                return diaries.ToList();
             }
         }
     }

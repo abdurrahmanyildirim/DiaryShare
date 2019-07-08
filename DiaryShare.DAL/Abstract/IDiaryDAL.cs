@@ -13,5 +13,6 @@ namespace DiaryShare.DAL.Abstract
     {
         List<MainPageData> GetDiariesByFollowers(List<Follower> followers);
         DiaryDetailData GetDiaryDetail(int id);
+        List<MainPageData> GetHasMostReviewDiaries();
     }
 }

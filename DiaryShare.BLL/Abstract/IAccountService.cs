@@ -15,5 +15,6 @@ namespace DiaryShare.BLL.Abstract
         List<Account> GetFollowerAccounts(int id);
         List<Account> GetFollowingAccounts(int id);
         List<Account> GetAccountsBySearchKey(string key);
+        List<Account> GetAccountsHasMostFollowers();
     }
 }

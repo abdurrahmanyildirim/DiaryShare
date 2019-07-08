@@ -1,0 +1,141 @@
+﻿@model DiaryShare.MVCWebUI.ViewModels.BestPageViewModel
+
+@{
+    ViewBag.Title = "Bests";
+}
+
+
+<div class="col-md-8 col-md-offset-1">
+    <div class="panel panel-info">
+        <div class="panel-heading" style="text-align:center">
+            <h4>Keşfet</h4>
+        </div>
+        <div style="background-color:white;width:auto;height:28px;padding-top:5px;">
+            <div class="col-md-4" style="text-align:center">
+                <a id="mostFollower" class="mostButton" href="#" style="text-decoration:none;color:dodgerblue;font-weight:bold;">
+                    <p>En Yüksek Takipçili Hesaplar</p>
+                </a>
+            </div>
+            <div class="col-md-4" style="text-align:center;border-left:1px solid black;border-right:1px solid black;">
+                <a id="mostReview" class="mostButton" href="#" style="text-decoration:none;color:black">
+                    <p>En Çok Konuşulanlar</p>
+                </a>
+            </div>
+            <div class="col-md-4" style="text-align:center">
+                <a id="mostActive" class="mostButton" href="#" style="text-decoration:none;color:black">
+                    <p>En Aktif Hesaplar</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <table id="mostFollowerAccountsContent" class="table table-hover">
+                @foreach (var item in Model.HasMostFollowerAccounts)
+                {
+                    <tr>
+                        <td>
+                            <a style="text-decoration:none;color:black" href="@Url.Action("Main","Profile",new {id=item.AccountID })">
+                                <div class="col-md-2">
+                                    <img class="thumbnail" style="width:80px;height:80px;border-radius:40px;" src="@item.ProfilPhotoPath" alt="@item.FirstName" />
+                                </div>
+
+                                <div class='col-md-10'>
+                                    @item.FirstName @item.LastName <br />
+                                    @item.PersonelInfo
+                                </div>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <table id="mostReviewDiaries" class="table table-hover" style="display:none">
+                @foreach (var item in Model.HasMostReviewDiaries)
+                {
+                    <tr>
+                        <td>
+                            <div>
+                                <a href="@Url.Action("Main","Profile",new { id=item.AccountID})" style="text-decoration:none;color:black">
+                                    <img class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(item.ProfilPhotoPath)" alt="@item.FirstName-@item.LastName" />
+                                </a>
+                            </div>
+                            <div style="margin-top:-15px;margin-left:80px">
+                                <a id="aHover" href="@Url.Action("Main","Profile",new { id=item.AccountID})" style="text-decoration:none;color:black">
+                                    <div>
+                                        <h3> @item.FirstName @item.LastName</h3>
+                                    </div>
+                                </a>
+                                <a style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
+                                    <div>
+                                        <h4>@item.Title</h4>
+                                        <p> @item.DiaryContent</p>
+                                    </div>
+                                    <br />
+                                </a>
+                            </div>
+                            <small>@item.CreatedDate</small>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <table id="mostActiveAccountsContent" class="table table-hover" style="display:none">
+                @foreach (var item in Model.MostActiveAccounts)
+                {
+                    <tr>
+                        <td>
+                            <a style="text-decoration:none;color:black" href="@Url.Action("Main","Profile",new {id=item.AccountID })">
+                                <div class="col-md-2">
+                                    <img class="thumbnail" style="width:80px;height:80px;border-radius:40px;" src="@item.ProfilPhotoPath" alt="@item.FirstName" />
+                                </div>
+
+                                <div class='col-md-10'>
+                                    @item.FirstName @item.LastName <br />
+                                    @item.PersonelInfo
+                                </div>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-3">
+    @{Html.RenderAction("_TrendAccounts", "Home");}
+</div>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".mostButton").click(function () {
+                $(".mostButton").css("font-weight", "");
+                $(".mostButton").css("color", "black");
+                $(this).css("font-weight", "bold");
+                $(this).css("color", "dodgerblue");
+            })
+
+            $("#mostFollower").click(function () {
+                $("#mostReviewDiaries").hide();
+                $("#mostActiveAccountsContent").hide();
+                $("#mostFollowerAccountsContent").show().delay(100);
+            })
+
+            $("#mostReview").click(function () {
+                $("#mostFollowerAccountsContent").hide();
+                $("#mostActiveAccountsContent").hide();
+                $("#mostReviewDiaries").show().delay(100);
+            })
+
+            $("#mostActive").click(function () {
+                $("#mostReviewDiaries").hide();
+                $("#mostFollowerAccountsContent").hide();
+                $("#mostActiveAccountsContent").show().delay(100);
+            })
+
+        })
+    </script>
+
+}

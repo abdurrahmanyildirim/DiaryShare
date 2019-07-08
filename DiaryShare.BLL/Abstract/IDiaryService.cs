@@ -12,5 +12,6 @@ namespace DiaryShare.BLL.Abstract
         List<Diary> GetDiariesForPublic(int id);
         List<Diary> GetDiariesForFollower(int id);
         void Add(Diary diary);
+        List<MainPageData> GetHasMostReviewDiaries();
     }
 }

@@ -180,6 +180,7 @@
     <Compile Include="Helpers\AutoMapperConfiguration.cs" />
     <Compile Include="Helpers\AutoMapperProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BestPageViewModel.cs" />
     <Compile Include="ViewModels\DiaryDetailViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MessagePageViewModel.cs" />
@@ -206,6 +207,7 @@
     <Content Include="Views\Diary\DiaryPage.cshtml" />
     <Content Include="Views\Message\MessagingPage.cshtml" />
     <Content Include="Views\Explore\Search.cshtml" />
+    <Content Include="Views\Explore\Bests.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
