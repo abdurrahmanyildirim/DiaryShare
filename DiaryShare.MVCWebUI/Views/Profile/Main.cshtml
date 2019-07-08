@@ -8,7 +8,7 @@
     var colorOfBtn = 1;
     if (Model.IsFollower && !Model.IsOwnProfile)
     {
-        btnStyle = "color:white;background-color:red";
+        btnStyle = "color:white;background-color:darkred";
         statu = "Takipten Çık";
 
     }
@@ -63,19 +63,16 @@
                 <div class="col-md-12">
                     <small>@Model.AccountInfo.MemberDate.ToShortDateString() Tarihinde Katıldı.</small>
 
-                    @if (Model.IsOwnProfile)
+                    @if (!Model.IsOwnProfile)
                     {
-                        @Html.ActionLink("Hesap Ayarları", "ProfilSettings", "Profile", new { @class = "btn btn-info form-control" })
-                    }
-                    else
-                    {
-                        <div id="followBtn" style="@btnStyle" class="btn btn-default form-control">@statu</div>
+                        <div id="followBtn" style="@btnStyle" class="btn btn-danger form-control">@statu</div>
                         <input type="hidden" id="statusInfo" value="@colorOfBtn" />
                         <hr />
                         @Html.ActionLink("Sohbet Başlat", "MessagingPage", "Message", new { id = Model.AccountInfo.AccountID }, new { @class = "btn btn-info form-control" })
                     }
+
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" style="padding:0 0 0 0">
                     <br />
                     <div class="col-md-3">
                         <a id="followingsMain" href="#" style="text-decoration:none;color:black">
@@ -160,11 +157,10 @@
                 loadFollowers();
             })
 
-
             $("#followBtn").click(function () {
                 if ($("#statusInfo").val() == 2) {
                     $('#statusInfo').attr('value', 1);
-                    $("#followBtn").css({ "background-color": "red", "color": "white" });
+                    $("#followBtn").css({ "background-color": "darkred", "color": "white" });
                     $("#followBtn").html("Takipten Çık");
                 } else {
                     $("#followBtn").css({ "background-color": "white", "color": "black" });
