@@ -29,7 +29,6 @@
                     Ana Sayfa Görünümü <br />
                     <img id="imageMainPage" class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.ProfilPhotoPath)" alt="@Model.FirstName-@Model.LastName" />
                 </div>
-                <br />
             </div>
 
             @using (Html.BeginForm("ProfilSettings", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -68,6 +67,8 @@
 
 
 @section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script>
         function uploadImage(ımageFile) {
             $('#imageProfile')[0].src = window.URL.createObjectURL(ımageFile);
@@ -75,5 +76,5 @@
         }
 
     </script>
-    
-    }
+
+}

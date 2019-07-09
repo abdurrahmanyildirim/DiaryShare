@@ -23,13 +23,12 @@
 <div class="col-md-offset-1 col-md-8">
 
     <div class="panel panel-info">
-        <div class="panel panel-heading">
-            <a id="backButton" style="display:none" href="@Url.Action("Main","Profile",new {id=Model.AccountInfo.AccountID })">
+        <div id="backButton" class="panel panel-heading" style="display:none">
+            <a  href="@Url.Action("Main","Profile",new {id=Model.AccountInfo.AccountID })">
                 <div class="backButton" style="width:40px;height:40px;border-radius:20px;text-align:center;vertical-align:middle;padding-top:10px;">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                 </div>
             </a>
-            <h4 id="mainLook" style="text-align:center">Profil Sayfası</h4>
         </div>
         <div class="panel-body">
             <div id="followContent" style="display:none">
