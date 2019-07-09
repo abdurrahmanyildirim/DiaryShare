@@ -20,23 +20,40 @@
         </div>
 
         <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-4">
+                    Profil Görünümü <br />
+                    <img id="imageProfile" class="thumbnail pull-left" style="width:120px;height:120px;border-radius:60px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.ProfilPhotoPath)" alt="@Model.FirstName-@Model.LastName" />
+                </div>
+                <div class="col-md-4">
+                    Ana Sayfa Görünümü <br />
+                    <img id="imageMainPage" class="thumbnail pull-left" style="width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.ProfilPhotoPath)" alt="@Model.FirstName-@Model.LastName" />
+                </div>
+                <br />
+            </div>
+
             @using (Html.BeginForm("ProfilSettings", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken();
+
+                <div class="form-group">
+                    <label class="btn btn-info form-control">
+                        <i class="glyphicon glyphicon-picture"></i> Resim Yükle<input type="file" name="ImageFile" style="display:none" onchange="uploadImage(this.files[0])" />
+                    </label>
+                </div>
                 <div class="form-group">
                     @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "İsim", required = "required" })
+                    @Html.ValidationMessageFor(x => x.FirstName)
                 </div>
                 <div class="form-group">
                     @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Soyisim", required = "required" })
+                    @Html.ValidationMessageFor(x => x.LastName)
                 </div>
                 <div class="form-group">
                     @Html.TextAreaFor(m => m.PersonelInfo, new { @class = "form-control", placeholder = "Kişisel Bilgiler", style = "resize:none;height:80px" })
+                    @Html.ValidationMessageFor(x => x.PersonelInfo)
                 </div>
-                <div class="form-group">
-                    <label class="btn btn-info form-control">
-                        <i class="glyphicon glyphicon-picture"></i> Resim Yükle<input type="file" name="ImageFile" style="display:none" />
-                    </label>
-                </div>
+
                 <div class="form-group">
                     <input type="submit" value="Değişiklikleri Kaydet" class="btn btn-success form-control" required />
                 </div>
@@ -48,3 +65,15 @@
 <div class="col-md-3">
     @{Html.RenderAction("_TrendAccounts", "Home");}
 </div>
+
+
+@section scripts{
+    <script>
+        function uploadImage(ımageFile) {
+            $('#imageProfile')[0].src = window.URL.createObjectURL(ımageFile);
+            $('#imageMainPage')[0].src = window.URL.createObjectURL(ımageFile);
+        }
+
+    </script>
+    
+    }

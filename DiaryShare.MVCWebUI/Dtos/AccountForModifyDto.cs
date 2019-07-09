@@ -25,5 +25,7 @@ namespace DiaryShare.MVCWebUI.Dtos
 
         [Required(ErrorMessage ="Lütfen bir resim yükleyiniz.")]
         public HttpPostedFileBase ImageFile { get; set; }
+
+        public string ProfilPhotoPath { get; set; }
     }
 }

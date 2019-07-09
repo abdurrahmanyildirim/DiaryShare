@@ -137,6 +137,15 @@
 
             $.connection.hub.start();
 
+
+            $("#message").keypress(function (e) {
+                var key = e.which;
+                if (key == 13) 
+                {
+                    $("#messageSender").click();
+                    return false;
+                }
+            })
         })
 
         function slideDown() {

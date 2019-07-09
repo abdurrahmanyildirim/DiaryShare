@@ -81,7 +81,7 @@ namespace DiaryShare.MVCWebUI.Controllers
         {
             List<AccountForFollowerListDto> accounts = Mapper.Map<List<AccountForFollowerListDto>>(_accountService.GetFollowerAccounts(id));
 
-            return Json(accounts,JsonRequestBehavior.AllowGet);
+            return Json(accounts, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -89,7 +89,7 @@ namespace DiaryShare.MVCWebUI.Controllers
         {
             List<AccountForFollowerListDto> accounts = Mapper.Map<List<AccountForFollowerListDto>>(_accountService.GetFollowingAccounts(id));
 
-            return Json(accounts,JsonRequestBehavior.AllowGet);
+            return Json(accounts, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -133,7 +133,7 @@ namespace DiaryShare.MVCWebUI.Controllers
 
             ViewBag.Info = "Profil ayarları değiştirildi.";
 
-            return View();
+            return View(Mapper.Map<AccountForModifyDto>(account));
         }
 
         [HttpPost]
