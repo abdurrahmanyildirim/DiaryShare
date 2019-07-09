@@ -1,6 +1,5 @@
 ﻿@model DiaryShare.MVCWebUI.ViewModels.ProfileViewModel
 
-
 @{
     ViewBag.Title = "Profile";
     string btnStyle;
@@ -28,19 +27,18 @@
             <a id="backButton" style="display:none" href="@Url.Action("Main","Profile",new {id=Model.AccountInfo.AccountID })">
                 <div class="backButton" style="width:40px;height:40px;border-radius:20px;text-align:center;vertical-align:middle;padding-top:10px;">
                     <span class="glyphicon glyphicon-arrow-left"></span>
-
                 </div>
             </a>
             <h4 id="mainLook" style="text-align:center">Profil Sayfası</h4>
         </div>
         <div class="panel-body">
             <div id="followContent" style="display:none">
-                <div class="col-md-6" style="text-align:center">
-                    <a class="followAccountButton" href="#" onclick="loadFollowers()">Takipçiler</a>
+                <div id="followerButton" class="col-md-6" style="text-align:center;height:40px;padding-top:13px;">
+                    <a style="text-decoration:none;color:black" class="followAccountButton" href="#" onclick="loadFollowers()">Takipçiler</a>
                 </div>
 
-                <div class="col-md-6" style="text-align:center">
-                    <a class="followAccountButton" href="#" onclick="loadFollowings()">Takip Edilenler</a>
+                <div id="followingButton" class="col-md-6" style="text-align:center;height:40px;padding-top:13px;">
+                    <a style="text-decoration:none;color:black" class="followAccountButton" href="#" onclick="loadFollowings()">Takip Edilenler</a>
                 </div>
             </div>
             <div id="mainProfileContent">
@@ -65,7 +63,7 @@
 
                     @if (!Model.IsOwnProfile)
                     {
-                        <div id="followBtn" style="@btnStyle" class="btn btn-danger form-control">@statu</div>
+                        <div id="followBtn" style="@btnStyle" class="btn form-control">@statu</div>
                         <input type="hidden" id="statusInfo" value="@colorOfBtn" />
                         <hr />
                         @Html.ActionLink("Sohbet Başlat", "MessagingPage", "Message", new { id = Model.AccountInfo.AccountID }, new { @class = "btn btn-info form-control" })
@@ -151,11 +149,23 @@
         $(document).ready(function () {
             $("#followingsMain").click(function () {
                 loadFollowings();
+                $("#followerButton").css({ "background-color": "dodgerblue", "font-weight": "bold" });
+                $("#followerButton").children().css("color", "white");
             })
 
             $("#followersMain").click(function () {
                 loadFollowers();
+                $("#followingButton").css({ "background-color": "dodgerblue", "font-weight": "bold" });
+                $("#followingButton").children().css("color", "white");
             })
+
+            $(".followAccountButton").click(function () {
+                $(".followAccountButton").parent().css({ "background-color": "", "font-weight": "" });
+                $(".followAccountButton").css("color","black")
+                $(this).parent().css({ "background-color": "dodgerblue", "font-weight": "bold" });
+                $(this).css("color","white")
+            })
+
 
             $("#followBtn").click(function () {
                 if ($("#statusInfo").val() == 2) {
