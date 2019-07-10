@@ -16,5 +16,6 @@ namespace DiaryShare.BLL.Abstract
         List<Account> GetFollowingAccounts(int id);
         List<Account> GetAccountsBySearchKey(string key);
         List<Account> GetAccountsHasMostFollowers();
+        bool ChangePassword(Account account, string password);
     }
 }

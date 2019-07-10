@@ -59,6 +59,25 @@ namespace DiaryShare.BLL.Concrete
             return _accountDAL.GetTopAccounts().ToList();
         }
 
+        public bool ChangePassword(Account account, string password)
+        {
+            byte[] passwordHash, passwordSalt;
+
+            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+
+            if (VerifyPasswordHash(password, account.PasswordHash, account.PasswordSalt))
+            {
+                return false;
+            }
+
+            account.PasswordHash = passwordHash;
+            account.PasswordSalt = passwordSalt;
+
+            _accountDAL.Update(account);
+
+            return true;
+        }
+
         public void Register(Account account, string password)
         {
             byte[] passwordHash, passwordSalt;

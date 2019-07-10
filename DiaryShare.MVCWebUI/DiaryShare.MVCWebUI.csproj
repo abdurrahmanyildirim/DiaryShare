@@ -165,6 +165,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\ExploreController.cs" />
+    <Compile Include="Dtos\AccountForChangePasswordDto.cs" />
     <Compile Include="Dtos\AccountForFollowerListDto.cs" />
     <Compile Include="Security\UserProvider.cs" />
     <Compile Include="SignalR\Chat.cs" />
@@ -219,6 +220,7 @@
     <Content Include="Views\Message\MessagingPage.cshtml" />
     <Content Include="Views\Explore\Search.cshtml" />
     <Content Include="Views\Explore\Bests.cshtml" />
+    <Content Include="Views\Account\ChangeToPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

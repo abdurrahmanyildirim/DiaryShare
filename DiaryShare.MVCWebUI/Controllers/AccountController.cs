@@ -22,10 +22,6 @@ namespace DiaryShare.MVCWebUI.Controllers
 
         public ActionResult Login()
         {
-            //if (Request.Cookies[".ASPXAUTH"] != null)
-            //{
-            //    return RedirectToAction("Index", "Product");
-            //}
             return View();
         }
 
@@ -41,7 +37,6 @@ namespace DiaryShare.MVCWebUI.Controllers
                     FormsAuthentication.SetAuthCookie(accountInDb.Email, false);
                     Request.Cookies[".ASPXAUTH"].Expires = DateTime.Now.AddDays(5);
                     Session["userID"] = accountInDb.AccountID;
-                    //userInDb.Cookie = Request.Cookies[".ASPXAUTH"].Value;
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -104,6 +99,33 @@ namespace DiaryShare.MVCWebUI.Controllers
             FormsAuthentication.SignOut();
             Session["userID"] = null;
             return RedirectToAction("Login");
+        }
+
+        [Authorize(Roles = "Admin,Client")]
+        public ActionResult ChangeToPassword()
+        {
+            int id = (int)Session["userID"];
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeToPassword(AccountForChangePasswordDto account)
+        {
+            if (account.Password != account.RePassword)
+            {
+                ViewBag.Info = "Yazdığınız şifreler eşleşmemektedir! Lütfen Tekrar Deneyiniz";
+                return View();
+            }
+            int id = (int)Session["userID"];
+            if (!_accountService.ChangePassword(_accountService.GetAccount(id),account.Password))
+            {
+                ViewBag.Info = "Yeni şifre eski şifre ile aynı olamaz!";
+                return View();
+            }
+            ViewBag.Info = "Şifreniz başarıyla değiştirildi.";
+            return View();
         }
     }
 }
