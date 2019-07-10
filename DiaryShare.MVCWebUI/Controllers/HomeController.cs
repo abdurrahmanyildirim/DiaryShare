@@ -53,7 +53,7 @@ namespace DiaryShare.MVCWebUI.Controllers
             return PartialView(new TrendAccountsViewModel { AccountForTrendPanelDtos = Mapper.Map<List<AccountForTrendPanelDto>>(_accountService.GetTrendAccounts()) });
         }
 
-        public ActionResult DiaryDetail(int id)
+        public ActionResult DiaryDetail(int id = 0)
         {
             if (id == 0)
                 return RedirectToAction("Index");
@@ -61,12 +61,12 @@ namespace DiaryShare.MVCWebUI.Controllers
             DiaryForDetailDto diaryForDetailDto = Mapper.Map<DiaryForDetailDto>(_diaryService.GetChosenDiary(id));
 
             //Veri tabanındaki hatalı kurgulamadan dolayı aşağıdaki kötü kod yazılmıştır. Allah Affetsin :)
-            List<ReviewsForDiariesDto> reviewsForDiariesDto = GetReviews(id);
+            //List<ReviewsForDiariesDto> reviewsForDiariesDto =GetReviews(id) ;
 
             DiaryDetailViewModel diaryDetailViewModel = new DiaryDetailViewModel
             {
                 Diary = diaryForDetailDto,
-                Reviews = reviewsForDiariesDto
+                Reviews = GetReviews(id)
             };
 
             return View(diaryDetailViewModel);

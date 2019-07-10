@@ -1,7 +1,9 @@
 ﻿using DiaryShare.BLL.DependencyResolvers.Ninject;
 using DiaryShare.Core.Utilities.Mvc.Infrasturucture.Ninject;
+using DiaryShare.MVCWebUI.App_Start;
 using DiaryShare.MVCWebUI.Helpers;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace DiaryShare.MVCWebUI
@@ -15,6 +17,8 @@ namespace DiaryShare.MVCWebUI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(new BusinessModule()));
             AutoMapperConfiguration.Configure();
+
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }

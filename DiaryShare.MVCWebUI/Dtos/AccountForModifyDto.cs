@@ -13,7 +13,7 @@ namespace DiaryShare.MVCWebUI.Dtos
         [MaxLength(40)]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "İsim Alanı Boş Bırakılamaz")]
+        [Required(ErrorMessage = "Soyisim Alanı Boş Bırakılamaz")]
         [MaxLength(40)]
         public string LastName { get; set; }
 

@@ -62,7 +62,8 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                                                                   CreatedDate = d.CreatedDate,
                                                                   FirstName = a.FirstName,
                                                                   LastName = a.LastName,
-                                                                  ProfilPhotoPath = a.ProfilPhotoPath
+                                                                  ProfilPhotoPath = a.ProfilPhotoPath,
+                                                                  Title=d.Title
                                                               };
                 return diaryDetailData.ToList()[0];
             }

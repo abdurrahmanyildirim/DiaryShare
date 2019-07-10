@@ -15,5 +15,6 @@ namespace DiaryShare.Entities.ComplexTypes
         public string LastName { get; set; }
         public string ProfilPhotoPath { get; set; }  
         public DateTime CreatedDate { get; set; }
+        public string Title { get; set; }
     }
 }

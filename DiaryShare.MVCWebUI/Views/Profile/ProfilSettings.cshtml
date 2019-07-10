@@ -67,8 +67,7 @@
 
 
 @section scripts{
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
     <script>
         function uploadImage(ımageFile) {
             $('#imageProfile')[0].src = window.URL.createObjectURL(ımageFile);

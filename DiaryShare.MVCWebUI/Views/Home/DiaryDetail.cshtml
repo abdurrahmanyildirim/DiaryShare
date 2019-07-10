@@ -18,11 +18,12 @@
                         <h3> @Model.Diary.FirstName @Model.Diary.LastName</h3>
                     </div>
                     <div>
+                        <h4>@Model.Diary.Title</h4>
                         <p> @Model.Diary.DiaryContent</p>
                     </div>
                     <br />
                 </div>
-                <small>@Model.Diary.CreatedDate</small>
+                <small>@Model.Diary.CreatedDate.ToLongDateString()</small>
             </div>
 
             <hr />
@@ -70,7 +71,7 @@
                                             <br />
 
                                         </div>
-                                        <small>@item.ReviewDate</small>
+                                        <small>@item.ReviewDate.ToLongDateString()</small>
                                     </td>
                                 </tr>
                             }
@@ -110,7 +111,7 @@
                             $("#reviews").html("");
                             $.each(response, function (index, value) {
                                 $("#reviews").append(
-                                    "<tr><td><div><a href=/Profile/Main/" + value.AccountID + " style='text - decoration: none; color: black'><img class='thumbnail pull-left' style='width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;' src=" + value.ProfilPhotoPath + " alt=" + value.FirstName + "-" + value.LastName + " /></a></div><div style='margin-top:-15px;margin-left:80px'><a id='aHover' href=/Profile/Main/" + value.AccountID + " style='text-decoration:none;color:black'><div><h3>" + value.FirstName + " " + value.LastName + "</h3></div></a><div><p>" + value.Description + "</p> </div><br /> </div><small>" +value.ReviewDate +"</small></td ></tr > ");
+                                    "<tr><td><div><a href=/Profile/Main/" + value.AccountID + " style='text - decoration: none; color: black'><img class='thumbnail pull-left' style='width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;' src=" + value.ProfilPhotoPath + " alt=" + value.FirstName + "-" + value.LastName + " /></a></div><div style='margin-top:-15px;margin-left:80px'><a id='aHover' href=/Profile/Main/" + value.AccountID + " style='text-decoration:none;color:black'><div><h3>" + value.FirstName + " " + value.LastName + "</h3></div></a><div><p>" + value.Description + "</p> </div><br /> </div><small>" +value.ReviewDate+"</small></td ></tr > ");
                             });
                         })
                     }).then(function () {
