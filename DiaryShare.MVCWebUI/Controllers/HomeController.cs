@@ -61,7 +61,6 @@ namespace DiaryShare.MVCWebUI.Controllers
             DiaryForDetailDto diaryForDetailDto = Mapper.Map<DiaryForDetailDto>(_diaryService.GetChosenDiary(id));
 
             //Veri tabanındaki hatalı kurgulamadan dolayı aşağıdaki kötü kod yazılmıştır. Allah Affetsin :)
-            //List<ReviewsForDiariesDto> reviewsForDiariesDto =GetReviews(id) ;
 
             DiaryDetailViewModel diaryDetailViewModel = new DiaryDetailViewModel
             {

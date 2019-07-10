@@ -26,14 +26,11 @@ namespace DiaryShare.MVCWebUI
         {
             MessageMap messageMap = _messageMapService.GetMap(ownID, targetID);
             messageMap.LastMessageDate = DateTime.Now;
-
-            MessageMap updateMessageMap = _messageMapService.GetMap(targetID, ownID);
-            if (updateMessageMap != null)
-            {
-                updateMessageMap.LastMessageDate = DateTime.Now;
-                _messageMapService.Update(updateMessageMap);
-            }
             _messageMapService.Update(messageMap);
+
+            MessageMap targetMessageMap = _messageMapService.GetMap(targetID, ownID);
+            targetMessageMap.LastMessageDate = DateTime.Now;
+            _messageMapService.Update(targetMessageMap);
 
             _messageService.Add(new Message
             {
@@ -66,7 +63,7 @@ namespace DiaryShare.MVCWebUI
                 }
             }
 
-            Clients.All.updateMessageMaps(messageMaps,targetID);
+            Clients.All.updateMessageMaps(messageMaps.OrderByDescending(x => x.LastMessageDate).ToList(), targetID);
         }
     }
 }

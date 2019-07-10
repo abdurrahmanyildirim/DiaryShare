@@ -52,7 +52,7 @@
 
 
 @section scripts{
-    @*<script src="~/Scripts/jquery.signalR-2.4.1.js"></script>*@
+
     @System.Web.Optimization.Scripts.Render("~/bundles/signalR")
     <script src="~/SignalR/Hubs"></script>
     <script>
@@ -68,6 +68,7 @@
                 } else if ($("#mainAccountID").val() == ownID) {
                     $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;' >" + message + "</div>");
                     slideDown();
+                
                 } else if ($("#mainAccountID").val() == targetID && $("#activeAccountID").val() != ownID) {
                     var quantity = $("#countOfNonReadMessage-" + ownID).val();
                     if (quantity == 0) {
@@ -92,7 +93,9 @@
             //            if (value.CountOfIsNotReadMessage > 0) {
             //                countNonReadMessages = value.CountOfIsNotReadMessage;
             //            }
-            //            $("#messagingMaps").append("<tr><td class='messagingAccount'><a class='isClick' data-id='" + value.AccountID + "' href='#' style='text-decoration:none;color:black'>" + value.FirstName + " " + value.LastName + "<span id='count-" + value.AccountID + "' class='badge progress-bar-danger'>" + value.CountOfIsNotReadMessage + "</span><input id='countOfNonReadMessage-" + value.AccountID + "' type='hidden' value=" + countNonReadMessages + " /></a></td></tr>");
+            //            $("#messagingMaps").append('<tr><td class="messagingAccount"><a class="isClick" data-id="' + value.AccountID + '" href="#" style="text-decoration:none;color:black">' + value.FirstName + ' ' + value.LastName + '<span id="count-' + value.AccountID + '" class="badge progress-bar-danger">' + value.CountOfIsNotReadMessage + '</span><input id="countOfNonReadMessage-' + value.AccountID + '" type="hidden" value=' + countNonReadMessages + ' /></a></td></tr>');
+            //            //$("#messagingMaps").addClass("table")
+            //            //$("#messagingMaps").addClass("table-hover");
             //        });
             //    }
             //}

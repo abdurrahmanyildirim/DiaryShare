@@ -34,11 +34,10 @@ namespace DiaryShare.MVCWebUI.Controllers
                 if (_messageMapService.GetMap(ownID, id) == null)
                 {
                     _messageMapService.Add(new MessageMap { FromAccountID = ownID, LastMessageDate = DateTime.Now, ToAccountID = id });
-                    MessageMap updateMessageMap = _messageMapService.GetMap(id, ownID);
-                    if (updateMessageMap != null)
+                    MessageMap targetMessageMap = _messageMapService.GetMap(id, ownID);
+                    if (targetMessageMap == null)
                     {
-                        updateMessageMap.LastMessageDate = DateTime.Now;
-                        _messageMapService.Update(updateMessageMap);
+                        _messageMapService.Add(new MessageMap { FromAccountID = id, LastMessageDate = DateTime.Now, ToAccountID = ownID });
                     }
                 }
             }

@@ -62,14 +62,14 @@ namespace DiaryShare.MVCWebUI.Controllers
 
             if (!ModelState.IsValid)
             {
-                TempData["RegisterMessage"] = "Bir hata meydana geldi";
-                return RedirectToAction("Register");
+                ViewBag.RegisterMessage = "Bir hata meydana geldi";
+                return View();
             }
 
             if (_accountService.UserExists(account.Email))
             {
-                TempData["RegisterMessage"] = "Bu Email başka bir kullanıcı tarafından alınmıştır.";
-                return RedirectToAction("Register");
+                ViewBag.RegisterMessage = "Bu Email başka bir kullanıcı tarafından alınmıştır.";
+                return View();
             }
 
             Account newAccount = new Account
@@ -85,12 +85,7 @@ namespace DiaryShare.MVCWebUI.Controllers
             };
 
             _accountService.Register(newAccount, account.Password);
-
-            return RedirectToAction("SuccessRegister");
-        }
-
-        public ActionResult SuccessRegister()
-        {
+            ViewBag.RegisterMessage = "Üyelik işlemi tamamlanmıştır. Giriş yapabilirsiniz.";
             return View();
         }
 
@@ -119,7 +114,7 @@ namespace DiaryShare.MVCWebUI.Controllers
                 return View();
             }
             int id = (int)Session["userID"];
-            if (!_accountService.ChangePassword(_accountService.GetAccount(id),account.Password))
+            if (!_accountService.ChangePassword(_accountService.GetAccount(id), account.Password))
             {
                 ViewBag.Info = "Yeni şifre eski şifre ile aynı olamaz!";
                 return View();
