@@ -35,27 +35,26 @@
                 </div>
 
                 <div class="form-group">
-                    @*<textarea class="form-control" placeholder="Günlük" required></textarea>*@
                     @Html.TextAreaFor(x => x.DiaryContent, new { @class = "form-control", placeholder = "Günlük", required = "required", style = "resize:none;height:300px" })
                     @Html.ValidationMessageFor(x => x.DiaryContent)
                 </div>
 
                 <div class="form-group">
-                    <div class="container-fluid">
-                        <div class="col-md-4 pull-left">
-                            <div id="public" style="background-color:red;color:white;" class="btn btn-default btn-lg form-control">
+                    <div class="container-fluid" style="padding:0 0 0 0">
+                        <div class="col-md-4" style="padding:0 0 0 0" >
+                            <div id="public" style="background-color:dodgerblue;color:white;padding:4px 0 0 0" class="btn btn-default btn-lg form-control pull-left">
                                 Genel
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <div id="private" class="btn btn-default btn-lg form-control">
+                        <div class="col-md-4" style="padding:0 0 0 0">
+                            <div id="private" class="btn btn-default btn-lg form-control" style="padding:4px 0 0 0">
                                 Özel
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <div id="protected" class="btn btn-default btn-lg form-control">
+                        <div class="col-md-4" style="padding:0 0 0 0">
+                            <div id="protected" class="btn btn-default btn-lg form-control" style="padding:4px 0 0 0">
                                 Korumalı
                             </div>
                         </div>
@@ -66,11 +65,9 @@
                 <div class="form-group">
                     <input type="submit" class="btn btn-success form-control" value="Günlüğü Kaydet" />
                 </div>
-
             }
 
         </div>
-
     </div>
 </div>
 
@@ -86,20 +83,20 @@
         $(function () {
             $("#private").click(function () {
                 $('#statusID').attr('value', 2);
-                $("#private").css({ "background-color": "red", "color": "white" })
+                $("#private").css({ "background-color": "dodgerblue", "color": "white" })
                 $("#public").css({ "background-color": "white", "color": "black" })
                 $("#protected").css({ "background-color": "white", "color": "black" })
             })
             $("#public").click(function () {
                 $('#statusID').attr('value', 1);
-                $("#public").css({ "background-color": "red", "color": "white" })
+                $("#public").css({ "background-color": "dodgerblue", "color": "white" })
                 $("#private").css({ "background-color": "white", "color": "black" })
                 $("#protected").css({ "background-color": "white", "color": "black" })
             })
 
             $("#protected").click(function () {
                 $('#statusID').attr('value', 3);
-                $("#protected").css({ "background-color": "red", "color": "white" })
+                $("#protected").css({ "background-color": "dodgerblue", "color": "white" })
                 $("#private").css({ "background-color": "white", "color": "black" })
                 $("#public").css({ "background-color": "white", "color": "black" })
             })

@@ -6,8 +6,6 @@ using DiaryShare.MVCWebUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DiaryShare.MVCWebUI.Controllers
@@ -41,23 +39,17 @@ namespace DiaryShare.MVCWebUI.Controllers
             else
                 accountID = id;
 
+
             if (!isMain)
-            {
                 isFollower = _followerService.IsFollower((int)Session["userID"], accountID);
-            }
+
 
             if (isMain)
-            {
                 diariesForProfileDto = Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForOwnAccount(accountID));
-            }
             else if (isFollower)
-            {
                 diariesForProfileDto = Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForFollower(accountID));
-            }
             else
-            {
                 diariesForProfileDto = Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForPublic(accountID));
-            }
 
             AccountForProfileDto accountForProfileDto = Mapper.Map<AccountForProfileDto>(_accountService.GetAccount(accountID));
             int followerCount = _followerService.GetFollowerCount(accountID);
@@ -150,7 +142,6 @@ namespace DiaryShare.MVCWebUI.Controllers
                     FromAccountID = fromAccountID,
                     ToAccountID = id
                 });
-                //TODO: Request'ten dönen veri ekrana basılacak.
                 return Json(Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForFollower(id)), JsonRequestBehavior.AllowGet);
             }
             else

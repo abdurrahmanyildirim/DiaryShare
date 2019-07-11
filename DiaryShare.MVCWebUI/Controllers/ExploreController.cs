@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
 using DiaryShare.BLL.Abstract;
 using DiaryShare.Entities.ComplexTypes;
-using DiaryShare.Entities.Concrete;
 using DiaryShare.MVCWebUI.Dtos;
 using DiaryShare.MVCWebUI.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DiaryShare.MVCWebUI.Controllers
@@ -27,7 +23,7 @@ namespace DiaryShare.MVCWebUI.Controllers
 
         public ActionResult Search(string key)
         {
-            List<AccountForFollowerListDto> accounts = Mapper.Map<List<AccountForFollowerListDto>>(_accountService.GetAccountsBySearchKey(key));
+            List<AccountForFollowerListDto> accounts = Mapper.Map<List<AccountForFollowerListDto>>(_accountService.GetAccountsBySearchKey(key.Trim()));
 
             SearchViewModel searchViewModel = new SearchViewModel
             {

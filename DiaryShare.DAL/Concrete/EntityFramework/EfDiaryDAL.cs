@@ -63,7 +63,7 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                                                                   FirstName = a.FirstName,
                                                                   LastName = a.LastName,
                                                                   ProfilPhotoPath = a.ProfilPhotoPath,
-                                                                  Title=d.Title
+                                                                  Title = d.Title
                                                               };
                 return diaryDetailData.ToList()[0];
             }
@@ -76,6 +76,7 @@ namespace DiaryShare.DAL.Concrete.EntityFramework
                 IQueryable<MainPageData> diaries = (from d in context.Diaries
                                                     join a in context.Accounts
                                                     on d.AccountID equals a.AccountID
+                                                    where d.DiaryStatus.StatusName == "Public"
                                                     orderby d.Reviews.Count descending
                                                     select new MainPageData
                                                     {
