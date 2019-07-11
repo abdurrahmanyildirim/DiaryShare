@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Profile";
+    
     string btnStyle;
     string statu;
     var colorOfBtn = 1;
@@ -9,7 +10,6 @@
     {
         btnStyle = "color:white;background-color:darkred";
         statu = "Takipten Çık";
-
     }
     else
     {
@@ -145,6 +145,8 @@
 @section scripts {
 
     <script>
+
+
         $(document).ready(function () {
             $("#followingsMain").click(function () {
                 var link = "/Profile/GetListOfFollowings/" + @Model.AccountInfo.AccountID;
@@ -168,6 +170,7 @@
             })
 
 
+
             $("#followBtn").click(function () {
                 if ($("#statusInfo").val() == 2) {
                     $('#statusInfo').attr('value', 1);
@@ -178,13 +181,27 @@
                     $("#followBtn").html("Takip Et");
                     $('#statusInfo').attr('value', 2);
                 }
+                
+                var imageUrl ="@Model.AccountInfo.ProfilPhotoPath.ToString()";
+                var firstName = "@Model.AccountInfo.FirstName.ToString()";
+                var lastName = "@Model.AccountInfo.LastName.ToString()";
+                var accountID = @Model.AccountInfo.AccountID;
 
                 $.ajax({
                     method: "post",
                     url: "/Profile/ChangeToFollower/" +@Model.AccountInfo.AccountID,
                     dataType: "json",
                     success: (function (response) {
+                        $("#profileDiaries").html("");
 
+                        if (response[0] != null) {
+                            $.each(response, function (index, value) {
+                                $("#profileDiaries").append("<tr><td><div><img class='thumbnail pull-left' style='width:60px;height:60px;border-radius:30px; border:1px solid grey;margin-left:5px;margin-top:5px;' src=" + imageUrl + " alt=" + firstName +" "+ lastName + " /></div ><div style='margin-top:-15px;margin-left:80px'><a id='aHover' href=/Profile/Main/" + accountID + " style='text-decoration:none;color:black'><div><h3>" + firstName + " " +  lastName + "</h3></div></a><div><a style='text-decoration:none;color:black' href=/Home/DiaryDetail/" + value.DiaryID +"><div><h4>" + value.Title + "</h4><p>" + value.DiaryContent + "</p></div><br /></a></div><br /></div><small>" + value.CreatedDate + "</small></td ></tr >");
+                                });
+                        } else {
+                            var info = "Henüz günlük paylaşımı yapılmadı.";
+                            $("#profileDiaries").append("<tr><td><div class='alert alert-info' >" + info + "</div></td></tr>");
+                        }
                     })
                 })
             })
