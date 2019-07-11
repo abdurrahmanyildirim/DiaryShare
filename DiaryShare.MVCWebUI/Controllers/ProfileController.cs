@@ -137,7 +137,7 @@ namespace DiaryShare.MVCWebUI.Controllers
         }
 
         [HttpPost]
-        public void ChangeToFollower(int id)
+        public JsonResult ChangeToFollower(int id)
         {
             int fromAccountID = (int)Session["userID"];
             Follower follower = _followerService.GetFollower(fromAccountID, id);
@@ -150,14 +150,14 @@ namespace DiaryShare.MVCWebUI.Controllers
                     FromAccountID = fromAccountID,
                     ToAccountID = id
                 });
-
-                //return Json(Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForFollower(id)), JsonRequestBehavior.AllowGet);
+                //TODO: Request'ten dönen veri ekrana basılacak.
+                return Json(Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForFollower(id)), JsonRequestBehavior.AllowGet);
             }
             else
             {
                 _followerService.Delete(follower);
 
-                //return Json(Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForPublic(id)), JsonRequestBehavior.AllowGet);
+                return Json(Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForPublic(id)), JsonRequestBehavior.AllowGet);
             }
 
         }

@@ -24,7 +24,7 @@
 
     <div class="panel panel-info">
         <div id="backButton" class="panel panel-heading" style="display:none">
-            <a  href="@Url.Action("Main","Profile",new {id=Model.AccountInfo.AccountID })">
+            <a href="@Url.Action("Main","Profile",new {id=Model.AccountInfo.AccountID })">
                 <div class="backButton" style="width:40px;height:40px;border-radius:20px;text-align:center;vertical-align:middle;padding-top:10px;">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                 </div>
@@ -33,11 +33,11 @@
         <div class="panel-body">
             <div id="followContent" style="display:none">
                 <div id="followerButton" class="col-md-6" style="text-align:center;height:40px;padding-top:13px;">
-                    <a style="text-decoration:none;color:black" class="followAccountButton" href="#" onclick="loadFollowers()">Takipçiler</a>
+                    <a style="text-decoration:none;color:black" class="followAccountButton" href="#" onclick="loadRelations('/Profile/GetListOfFollowers/' + @Model.AccountInfo.AccountID)">Takipçiler</a>
                 </div>
 
                 <div id="followingButton" class="col-md-6" style="text-align:center;height:40px;padding-top:13px;">
-                    <a style="text-decoration:none;color:black" class="followAccountButton" href="#" onclick="loadFollowings()">Takip Edilenler</a>
+                    <a style="text-decoration:none;color:black" class="followAccountButton" href="#" onclick="loadRelations('/Profile/GetListOfFollowings/'+ @Model.AccountInfo.AccountID)">Takip Edilenler</a>
                 </div>
             </div>
             <div id="mainProfileContent">
@@ -147,13 +147,15 @@
     <script>
         $(document).ready(function () {
             $("#followingsMain").click(function () {
-                loadFollowings();
+                var link = "/Profile/GetListOfFollowings/" + @Model.AccountInfo.AccountID;
+                loadRelations(link);
                 $("#followingButton").css({ "background-color": "dodgerblue", "font-weight": "bold" });
                 $("#followingButton").children().css("color", "white");
             })
 
             $("#followersMain").click(function () {
-                loadFollowers();
+                var link = "/Profile/GetListOfFollowers/" + @Model.AccountInfo.AccountID;
+                loadRelations(link);
                 $("#followerButton").css({ "background-color": "dodgerblue", "font-weight": "bold" });
                 $("#followerButton").children().css("color", "white");
             })
@@ -180,36 +182,18 @@
                 $.ajax({
                     method: "post",
                     url: "/Profile/ChangeToFollower/" +@Model.AccountInfo.AccountID,
-                    dataType: "json"
+                    dataType: "json",
+                    success: (function (response) {
+
+                    })
                 })
             })
         })
 
-        function loadFollowers() {
+         function loadRelations(link) {
             $.ajax({
                     method: "post",
-                    url: "/Profile/GetListOfFollowers/" + @Model.AccountInfo.AccountID,
-                    dataType: "json",
-                    success: (function (response) {
-                        $("#mainProfileContent").html("");
-                        $("#followContent").show();
-                        $("#backButton").show();
-                        $("#mainLook").hide();
-                        if (response[0] == null) {
-                            $("#mainProfileContent").append("<table class='table table-hover'><tr><td><div class='alert alert-info'>Bu hesabın henüz takipçisi yok.</div></td></tr></table>");
-                        } else {
-                            $.each(response, function (index, value) {
-                                $("#mainProfileContent").append("<table class='table table-hover'><tr><td><a style='text-decoration:none;color:black' href='/Profile/Main/" + value.AccountID + "' ><div class='col-md-2'><img class='thumbnail' style='width:80px;height:80px;border-radius:40px;' src='" + value.ProfilPhotoPath + "' alt='" + value.FirstName + "' /></div><div class='col-md-10'>" + value.FirstName + " " + value.LastName + "<br />" + value.PersonelInfo + "</div></a></td></tr></table>");
-                            })
-                        }
-                    })
-                })
-        }
-
-        function loadFollowings() {
-            $.ajax({
-                    method: "post",
-                    url: "/Profile/GetListOfFollowings/" + @Model.AccountInfo.AccountID,
+                    url: link,
                     dataType: "json",
                     success: (function (response) {
                         $("#mainProfileContent").html("");
