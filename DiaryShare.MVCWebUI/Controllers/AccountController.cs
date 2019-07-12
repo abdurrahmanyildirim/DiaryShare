@@ -7,7 +7,7 @@ using System.Web.Security;
 
 namespace DiaryShare.MVCWebUI.Controllers
 {
-    [AllowAnonymous]
+    
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
@@ -17,11 +17,13 @@ namespace DiaryShare.MVCWebUI.Controllers
             _accountService = accountService;
         }
 
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(AccountForLoginDto account)
@@ -47,11 +49,13 @@ namespace DiaryShare.MVCWebUI.Controllers
             return View("Login");
         }
 
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(AccountForRegisterDto account)
@@ -86,6 +90,7 @@ namespace DiaryShare.MVCWebUI.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -101,6 +106,7 @@ namespace DiaryShare.MVCWebUI.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin,Client")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangeToPassword(AccountForChangePasswordDto account)

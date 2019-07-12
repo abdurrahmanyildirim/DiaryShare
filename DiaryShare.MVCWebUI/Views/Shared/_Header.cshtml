@@ -2,8 +2,8 @@
 <nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <a class="navbar-brand" href="@Url.Action("Index","Home")"> DiaryShare </a>
+        <div class="navbar-header" style="margin-right:8px;margin-left:18px">
+            <a class="navbar-brand" href="@Url.Action("Index","Home")"><p style="font-family:Algerian;font-size:30pt"> D.S </p></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,14 +18,12 @@
                 <div class="nav navbar-nav" style="margin-top:10px;padding-bottom:-20px">
                     @using (Html.BeginForm("Search", "Explore", FormMethod.Get))
                     {
-
                         <div class="col-md-10">
                             <input type="search" name="key" class="form-control mr-sm-2" required placeholder="ARA" />
                         </div>
                         <div class="col-md-2">
                             <input type="submit" value="Ara" class="btn btn-default" />
                         </div>
-
                     }
                 </div>
             }
