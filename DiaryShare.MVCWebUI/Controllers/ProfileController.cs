@@ -3,6 +3,7 @@ using DiaryShare.BLL.Abstract;
 using DiaryShare.Entities.Concrete;
 using DiaryShare.MVCWebUI.Dtos;
 using DiaryShare.MVCWebUI.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
