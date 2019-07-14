@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace DiaryShare.MVCWebUI.Controllers
 {
-    [Authorize(Roles ="Admin,Client")]
+    [Authorize(Roles = "Admin,Client")]
     public class DiaryController : Controller
     {
         private readonly IDiaryService _diaryService;
@@ -38,6 +38,12 @@ namespace DiaryShare.MVCWebUI.Controllers
                 Title = diaryContent[0],
                 DiaryStatusID = int.Parse(diaryContent[2])
             };
+
+            if (diary.DiaryStatusID > 3 || diary.DiaryStatusID < 1)
+            {
+                ViewBag.Info = string.Format($"{diary.Title} isimli günlüğün statüsü belirtilen aralıkta olmadığı için kayıt edilememiştir.");
+                return View();
+            }
 
             _diaryService.Add(diary);
 
