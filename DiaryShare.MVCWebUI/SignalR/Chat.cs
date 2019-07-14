@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using DiaryShare.BLL.Abstract;
 using DiaryShare.BLL.DependencyResolvers.Ninject;
-using DiaryShare.Entities.ComplexTypes;
 using DiaryShare.Entities.Concrete;
 using DiaryShare.MVCWebUI.Dtos;
 using Microsoft.AspNet.SignalR;
@@ -50,20 +48,20 @@ namespace DiaryShare.MVCWebUI
             Clients.All.loadMessagingContent(messages, ownID);
         }
 
-        public void Update(int targetID)
-        {
-            List<MessagePageData> messageMaps = _messageMapService.GetMessages(targetID);
+        //public void Update(int targetID)
+        //{
+        //    List<MessagePageData> messageMaps = _messageMapService.GetMessages(targetID);
 
-            for (int i = 0; i < messageMaps.Count; i++)
-            {
-                int otherAccountID = messageMaps[i].AccountID;
-                if (messageMaps.Where(x => x.AccountID == otherAccountID).ToList().Count > 1 && messageMaps[i].FromAccountID == targetID)
-                {
-                    messageMaps.Remove(messageMaps[i]);
-                }
-            }
+        //    for (int i = 0; i < messageMaps.Count; i++)
+        //    {
+        //        int otherAccountID = messageMaps[i].AccountID;
+        //        if (messageMaps.Where(x => x.AccountID == otherAccountID).ToList().Count > 1 && messageMaps[i].FromAccountID == targetID)
+        //        {
+        //            messageMaps.Remove(messageMaps[i]);
+        //        }
+        //    }
 
-            Clients.All.updateMessageMaps(messageMaps.OrderByDescending(x => x.LastMessageDate).ToList(), targetID);
-        }
+        //    Clients.All.updateMessageMaps(messageMaps.OrderByDescending(x => x.LastMessageDate).ToList(), targetID);
+        //}
     }
 }
