@@ -8,5 +8,6 @@ namespace DiaryShare.BLL.Abstract
     {
         List<MessagingContentForMessagePage> GetMessages(int ownID, int anotherAccountID);
         void Add(Message message);
+        int GetNonReadMessagesCount(int ID);
     }
 }

@@ -44,5 +44,9 @@ namespace DiaryShare.BLL.Concrete
             return messages.OrderBy(x => x.SendDate).ToList();
         }
 
+        public int GetNonReadMessagesCount(int ID)
+        {
+            return _messageDal.GetAll(x => x.MessageMap.ToAccountID == ID && x.IsRead == false).Count;
+        }
     }
 }

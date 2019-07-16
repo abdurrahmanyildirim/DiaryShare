@@ -55,6 +55,13 @@ namespace DiaryShare.MVCWebUI.Controllers
 
             return View(new MessagePageViewModel { AccountsOfMessages = messageMaps.OrderByDescending(x => x.LastMessageDate).ToList(), MainAccountID = (int)Session["userID"] });
         }
+
+        public PartialViewResult _MessageNotification()
+        {
+            int messagesCount = _messageService.GetNonReadMessagesCount((int)Session["userID"]);
+
+            return PartialView(messagesCount);
+        }
     }
 }
 

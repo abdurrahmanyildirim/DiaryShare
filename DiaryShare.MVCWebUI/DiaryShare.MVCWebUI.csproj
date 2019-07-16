@@ -220,6 +220,7 @@
     <Content Include="Views\Explore\Search.cshtml" />
     <Content Include="Views\Explore\Bests.cshtml" />
     <Content Include="Views\Account\ChangeToPassword.cshtml" />
+    <Content Include="Views\Message\_MessageNotification.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
