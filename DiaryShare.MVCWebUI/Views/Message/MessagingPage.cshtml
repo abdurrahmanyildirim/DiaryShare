@@ -63,10 +63,10 @@
 
             chat.client.addMessage = function (message, targetID, ownID) {
                 if ($("#activeAccountID").val() == ownID) {
-                    $("#messagingContent").append("<div class='col-md-7 pull-left alert alert-success' style='height:auto;' >" + message + "</div>");
+                    $("#messagingContent").append("<div class='col-md-7 pull-left alert alert-success' style='height:auto;word-wrap: break-word;' >" + message + "</div>");
                     slideDown();
                 } else if ($("#mainAccountID").val() == ownID) {
-                    $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;' >" + message + "</div>");
+                    $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;word-wrap: break-word;' >" + message + "</div>");
                     slideDown();
                 
                 } else if ($("#mainAccountID").val() == targetID && $("#activeAccountID").val() != ownID) {
@@ -133,7 +133,7 @@
                 if (ownID == $("#mainAccountID").val()) {
                     $("#messagingContent").html("");
                     $.each(response, function (index, value) {
-                        $("#messagingContent").append("<div class='" + value.MessagePosition + " alert alert-success' style='height:auto;' >" + value.MessageContent + "</div>");
+                        $("#messagingContent").append("<div class='" + value.MessagePosition + " alert alert-success' style='height:auto;word-wrap: break-word;' >" + value.MessageContent + "</div>");
                     });
                     slideDown();
                 }
