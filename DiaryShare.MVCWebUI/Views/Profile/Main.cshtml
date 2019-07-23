@@ -115,12 +115,11 @@
 
                                                 <h3><span> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</span></h3>
                                             </a>
-                                            @*TODO: Günlüğü silmek için yönlendirme yazılacak*@
                                             <div style="margin:-35px 0 0 570px">
                                                 <div class="dropdown">
-                                                    <a  href="#" class="dropdown-toggle" data-toggle="dropdown"><span style="font-size:20px;color:grey" class="glyphicon glyphicon-option-vertical"></span></a>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span style="font-size:20px" class="glyphicon glyphicon-option-vertical"></span></a>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="#">Günlüğü Sil</a></li>
+                                                        <li><a onclick="removeDiary(@item.DiaryID)" href="#">Günlüğü Sil</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -155,8 +154,6 @@
 @section scripts {
 
     <script>
-
-
         $(document).ready(function () {
             $("#followingsMain").click(function () {
                 var link = "/Profile/GetListOfFollowings/" + @Model.AccountInfo.AccountID;
@@ -179,8 +176,6 @@
                 $(this).css("color","white")
             })
 
-
-
             $("#followBtn").click(function () {
                 if ($("#statusInfo").val() == 2) {
                     $('#statusInfo').attr('value', 1);
@@ -191,13 +186,25 @@
                     $("#followBtn").html("Takip Et");
                     $('#statusInfo').attr('value', 2);
                 }
+                loadDiaries();
+            })
+        })
 
-                var imageUrl ="@Model.AccountInfo.ProfilPhotoPath.ToString()";
-                var firstName = "@Model.AccountInfo.FirstName.ToString()";
-                var lastName = "@Model.AccountInfo.LastName.ToString()";
-                var accountID = @Model.AccountInfo.AccountID;
+        function removeDiary(diaryID) {
+            $.ajax({
+                method: "post",
+                url: "/Profile/RemoveDiary/" + diaryID,
+                dataType: "json"
+            }).done(loadDiaries())
+        }
 
-                $.ajax({
+        function loadDiaries() {
+             var imageUrl ="@Model.AccountInfo.ProfilPhotoPath.ToString()";
+             var firstName = "@Model.AccountInfo.FirstName.ToString()";
+             var lastName = "@Model.AccountInfo.LastName.ToString()";
+             var accountID = @Model.AccountInfo.AccountID;
+
+           $.ajax({
                     method: "post",
                     url: "/Profile/ChangeToFollower/" +@Model.AccountInfo.AccountID,
                     dataType: "json",
@@ -214,9 +221,8 @@
                             $("#profileDiaries").append("<tr><td><div class='alert alert-info' >" + info + "</div></td></tr>");
                         }
                     })
-                })
             })
-        })
+        }
 
          function loadRelations(link) {
             $.ajax({

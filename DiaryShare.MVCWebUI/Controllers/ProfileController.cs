@@ -153,5 +153,11 @@ namespace DiaryShare.MVCWebUI.Controllers
             }
 
         }
+
+        [HttpPost]
+        public void RemoveDiary(int id)
+        {
+            _diaryService.Delete(id);
+        }
     }
 }

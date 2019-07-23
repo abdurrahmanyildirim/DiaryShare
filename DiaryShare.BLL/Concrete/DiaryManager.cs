@@ -24,6 +24,11 @@ namespace DiaryShare.BLL.Concrete
             _diaryDAL.Add(diary);
         }
 
+        public void Delete(int diaryID)
+        {
+            _diaryDAL.Delete(new Diary { DiaryID = diaryID });
+        }
+
         public List<MainPageData> GetHasMostReviewDiaries()
         {
             return _diaryDAL.GetHasMostReviewDiaries();

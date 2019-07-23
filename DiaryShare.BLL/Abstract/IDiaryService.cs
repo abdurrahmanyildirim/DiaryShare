@@ -13,5 +13,6 @@ namespace DiaryShare.BLL.Abstract
         List<Diary> GetDiariesForFollower(int id);
         void Add(Diary diary);
         List<MainPageData> GetHasMostReviewDiaries();
+        void Delete(int diaryID);
     }
 }
