@@ -35,22 +35,30 @@ namespace DiaryShare.MVCWebUI.Controllers
                 {
                     _messageMapService.Add(new MessageMap { FromAccountID = ownID, LastMessageDate = DateTime.Now, ToAccountID = id });
                     MessageMap targetMessageMap = _messageMapService.GetMap(id, ownID);
+
                     if (targetMessageMap == null)
-                    {
                         _messageMapService.Add(new MessageMap { FromAccountID = id, LastMessageDate = DateTime.Now, ToAccountID = ownID });
-                    }
                 }
             }
 
             List<MessagePageData> messageMaps = _messageMapService.GetMessages(ownID);
+
+            int[] indexOfDeletedMaps = new int[0];
 
             for (int i = 0; i < messageMaps.Count; i++)
             {
                 int otherAccountID = messageMaps[i].AccountID;
                 if (messageMaps.Where(x => x.AccountID == otherAccountID).ToList().Count > 1 && messageMaps[i].FromAccountID == ownID)
                 {
-                    messageMaps.Remove(messageMaps[i]);
+                    Array.Resize(ref indexOfDeletedMaps, indexOfDeletedMaps.Length + 1);
+                    indexOfDeletedMaps[indexOfDeletedMaps.Length - 1] = i;
                 }
+            }
+
+            Array.Sort(indexOfDeletedMaps);
+            for (int i = indexOfDeletedMaps.Length - 1; i > -1; i--)
+            {
+                messageMaps.Remove(messageMaps[indexOfDeletedMaps[i]]);
             }
 
             return View(new MessagePageViewModel { AccountsOfMessages = messageMaps.OrderByDescending(x => x.LastMessageDate).ToList(), MainAccountID = (int)Session["userID"] });

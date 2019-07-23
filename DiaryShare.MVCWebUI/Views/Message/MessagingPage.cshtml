@@ -68,7 +68,6 @@
                 } else if ($("#mainAccountID").val() == ownID) {
                     $("#messagingContent").append("<div class='col-md-7 pull-right alert alert-success' style='height:auto;word-wrap: break-word;' >" + message + "</div>");
                     slideDown();
-                
                 } else if ($("#mainAccountID").val() == targetID && $("#activeAccountID").val() != ownID) {
                     var quantity = $("#countOfNonReadMessage-" + ownID).val();
                     if (quantity == 0) {
@@ -80,11 +79,18 @@
                         $("#count-" + ownID).html(quantity);
                     }
                 }
+
+                if ($("#activeAccountID").val() == ownID || $("#mainAccountID").val() == ownID) {
+                    chat.server.updateMessage(ownID, targetID);
+                }
+
                 //if ($("#mainAccountID").val() == targetID) {
                 //    chat.server.update(targetID);
                 //}
             }
 
+            chat.client.updateFunction = function () {
+            }
             //chat.client.updateMessageMaps = function (response, targetID) {
             //    if ($("#mainAccountID").val() == targetID) {
             //        $("#messagingMaps").html("");

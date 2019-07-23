@@ -2,6 +2,15 @@
 
 //$(document).ready(function () {
 
+    //$(".headerButtons").children().click(function () {
+    //    $(".headerButtons").removeClass("active");
+    //    $(this).addClass("active");
+    //})
+
+    //$("#settingsButton").click(function () {
+    //    $("#settingsButton").children().css("transform", "rotate(45deg)");
+    //})
+
 //    var chat = $.connection.chat;
 
 //    chat.client.addMessage = function (message, targetID, ownID) {

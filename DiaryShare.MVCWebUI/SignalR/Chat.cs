@@ -27,6 +27,7 @@ namespace DiaryShare.MVCWebUI
             _messageMapService.Update(messageMap);
 
             MessageMap targetMessageMap = _messageMapService.GetMap(targetID, ownID);
+
             targetMessageMap.LastMessageDate = DateTime.Now;
             _messageMapService.Update(targetMessageMap);
 
@@ -46,6 +47,12 @@ namespace DiaryShare.MVCWebUI
         {
             List<MessageForMessageContentDto> messages = Mapper.Map<List<MessageForMessageContentDto>>(_messageService.GetMessages(ownID, targetID));
             Clients.All.loadMessagingContent(messages, ownID);
+        }
+
+        public void UpdateMessage(int ownID, int targetID)
+        {
+            _messageService.ChangeIsReadOfMessage(ownID, targetID);
+            Clients.All.updateFunction();
         }
 
         //public void Update(int targetID)

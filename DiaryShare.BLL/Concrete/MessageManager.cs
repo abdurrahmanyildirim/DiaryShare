@@ -44,6 +44,17 @@ namespace DiaryShare.BLL.Concrete
             return messages.OrderBy(x => x.SendDate).ToList();
         }
 
+        public void ChangeIsReadOfMessage(int ownID, int targetID)
+        {
+            List<Message> messages = _messageDal.GetAll(x => x.MessageMap.FromAccountID == ownID && x.MessageMap.ToAccountID == targetID && x.IsRead==false);
+
+            foreach (Message message in messages)
+            {
+                message.IsRead = true;
+                _messageDal.Update(message);
+            }
+        }
+
         public int GetNonReadMessagesCount(int ID)
         {
             return _messageDal.GetAll(x => x.MessageMap.ToAccountID == ID && x.IsRead == false).Count;

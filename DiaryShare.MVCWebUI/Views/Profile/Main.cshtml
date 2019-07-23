@@ -30,7 +30,7 @@
                 </div>
             </a>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="word-wrap:break-word">
             <div id="followContent" style="display:none">
                 <div id="followerButton" class="col-md-6" style="text-align:center;height:40px;padding-top:13px;">
                     <a style="text-decoration:none;color:black" class="followAccountButton" href="#" onclick="loadRelations('/Profile/GetListOfFollowers/' + @Model.AccountInfo.AccountID)">Takipçiler</a>
@@ -58,7 +58,7 @@
                 </div>
                 <br />
                 <div class="col-md-12">
-                    <small>@Model.AccountInfo.MemberDate.ToShortDateString() Tarihinde Katıldı.</small>
+                    <small><strong> @Model.AccountInfo.MemberDate.ToLongDateString()</strong> Tarihinde Katıldı.</small>
 
                     @if (!Model.IsOwnProfile)
                     {
@@ -112,10 +112,19 @@
                                         </div>
                                         <div style="margin-top:-15px;margin-left:80px">
                                             <a id="aHover" href="@Url.Action("Main","Profile",new { id=Model.AccountInfo.AccountID})" style="text-decoration:none;color:black">
-                                                <div>
-                                                    <h3> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</h3>
-                                                </div>
+
+                                                <h3><span> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</span></h3>
                                             </a>
+                                            @*TODO: Günlüğü silmek için yönlendirme yazılacak*@
+                                            <div style="margin:-35px 0 0 570px">
+                                                <div class="dropdown">
+                                                    <a  href="#" class="dropdown-toggle" data-toggle="dropdown"><span style="font-size:20px;color:grey" class="glyphicon glyphicon-option-vertical"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#">Günlüğü Sil</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
                                             <div>
                                                 <a style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
                                                     <div>
@@ -127,6 +136,7 @@
                                             </div>
                                             <br />
                                         </div>
+
                                         <small>@item.CreatedDate.ToLongDateString()</small>
                                     </td>
                                 </tr>

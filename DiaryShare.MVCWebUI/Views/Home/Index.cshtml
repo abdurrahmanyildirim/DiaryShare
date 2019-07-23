@@ -10,7 +10,7 @@
         <div class="panel-heading">
             <h4 style="text-align:center">ANA SAYFA</h4>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="word-break:break-word">
             @if (Model.MainPageDatas.Count <= 0)
             {
                 <div class="alert alert-info">
@@ -24,7 +24,7 @@
                         foreach (var item in Model.MainPageDatas)
                         {
 
-                            <tr>
+                            <tr style="word-wrap:break-word">
                                 <td>
                                     <div>
                                         <a href="@Url.Action("Main","Profile",new { id=item.AccountID})" style="text-decoration:none;color:black">
