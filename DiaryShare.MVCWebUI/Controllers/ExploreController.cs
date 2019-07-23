@@ -23,11 +23,9 @@ namespace DiaryShare.MVCWebUI.Controllers
 
         public ActionResult Search(string key)
         {
-            List<AccountForFollowerListDto> accounts = Mapper.Map<List<AccountForFollowerListDto>>(_accountService.GetAccountsBySearchKey(key.Trim()));
-
             SearchViewModel searchViewModel = new SearchViewModel
             {
-                Accounts = accounts
+                Accounts = Mapper.Map<List<AccountForFollowerListDto>>(_accountService.GetAccountsBySearchKey(key.Trim()))
             };
             return View(searchViewModel);
         }

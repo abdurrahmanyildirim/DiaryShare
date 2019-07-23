@@ -7,7 +7,7 @@ using System.Web.Security;
 
 namespace DiaryShare.MVCWebUI.Controllers
 {
-    
+
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
@@ -28,25 +28,27 @@ namespace DiaryShare.MVCWebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(AccountForLoginDto account)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var accountInDb = _accountService.Login(account.Email, account.Password);
-                if (accountInDb != null)
-                {
-                    FormsAuthentication.SetAuthCookie(accountInDb.Email, false);
-                    Request.Cookies[".ASPXAUTH"].Expires = DateTime.Now.AddDays(5);
-                    Session["userID"] = accountInDb.AccountID;
-
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    TempData["Message"] = "Geçersiz Email veya Şifre";
-                    return View("Login");
-                }
+                TempData["Message"] = "Hatalı Giriş Tespit Edildi.";
+                return View("Login");
             }
-            TempData["Message"] = "Hatalı Giriş Tespit Edildi.";
-            return View("Login");
+
+            var accountInDb = _accountService.Login(account.Email, account.Password);
+            if (accountInDb != null)
+            {
+                FormsAuthentication.SetAuthCookie(accountInDb.Email, false);
+                Request.Cookies[".ASPXAUTH"].Expires = DateTime.Now.AddDays(5);
+                Session["userID"] = accountInDb.AccountID;
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["Message"] = "Geçersiz Email veya Şifre";
+                return View("Login");
+            }
+
         }
 
         [AllowAnonymous]

@@ -60,8 +60,6 @@ namespace DiaryShare.MVCWebUI.Controllers
 
             DiaryForDetailDto diaryForDetailDto = Mapper.Map<DiaryForDetailDto>(_diaryService.GetChosenDiary(id));
 
-            //Veri tabanındaki hatalı kurgulamadan dolayı aşağıdaki kötü kod yazılmıştır. Allah Affetsin :)
-
             DiaryDetailViewModel diaryDetailViewModel = new DiaryDetailViewModel
             {
                 Diary = diaryForDetailDto,
@@ -80,6 +78,7 @@ namespace DiaryShare.MVCWebUI.Controllers
             return Json(GetReviews(review.DiaryID), JsonRequestBehavior.AllowGet);
         }
 
+        //Veri tabanındaki hatalı kurgulamadan dolayı aşağıdaki kötü kod yazılmıştır. Allah Affetsin :)
         private List<ReviewsForDiariesDto> GetReviews(int id)
         {
             List<Review> reviews = _reviewService.ReviewsByDiary(id).OrderBy(x => x.ReviewDate).ToList();

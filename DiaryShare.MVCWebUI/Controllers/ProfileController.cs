@@ -36,15 +36,15 @@ namespace DiaryShare.MVCWebUI.Controllers
             List<DiaryForProfileDto> diariesForProfileDto;
 
             if (id == 0 || accountID == id)
+            {
                 isMain = true;
+            }
             else
+            {
                 accountID = id;
-
-
-            if (!isMain)
                 isFollower = _followerService.IsFollower((int)Session["userID"], accountID);
-
-
+            }
+              
             if (isMain)
                 diariesForProfileDto = Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForOwnAccount(accountID));
             else if (isFollower)
@@ -100,7 +100,6 @@ namespace DiaryShare.MVCWebUI.Controllers
         {
             Account account = _accountService.GetAccount((int)Session["userID"]);
 
-            string lastName = accountForModify.LastName.Trim();
             if (accountForModify.FirstName.Trim() == "" || accountForModify.LastName.Trim() == "")
             {
                 ViewBag.Info = "İsim veya Soyisim boş bırakılamaz.";
@@ -148,7 +147,6 @@ namespace DiaryShare.MVCWebUI.Controllers
             else
             {
                 _followerService.Delete(follower);
-
                 return Json(Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForPublic(id)), JsonRequestBehavior.AllowGet);
             }
 
