@@ -3,7 +3,6 @@ using DiaryShare.BLL.Abstract;
 using DiaryShare.Entities.Concrete;
 using DiaryShare.MVCWebUI.Dtos;
 using DiaryShare.MVCWebUI.ViewModels;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -117,10 +116,10 @@ namespace DiaryShare.MVCWebUI.Controllers
                 account.ProfilPhotoPath = accountForModify.ImagePath;
             }
 
-
             account.PersonelInfo = accountForModify.PersonelInfo;
             account.FirstName = accountForModify.FirstName;
             account.LastName = accountForModify.LastName;
+
             _accountService.Update(account);
 
             ViewBag.Info = "Profil ayarları değiştirildi.";
@@ -149,7 +148,6 @@ namespace DiaryShare.MVCWebUI.Controllers
                 _followerService.Delete(follower);
                 return Json(Mapper.Map<List<DiaryForProfileDto>>(_diaryService.GetDiariesForPublic(id)), JsonRequestBehavior.AllowGet);
             }
-
         }
 
         [HttpPost]

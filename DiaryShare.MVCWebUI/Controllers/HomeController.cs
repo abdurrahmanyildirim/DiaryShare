@@ -35,14 +35,13 @@ namespace DiaryShare.MVCWebUI.Controllers
 
         public ActionResult Index()
         {
-
             int userID = (int)Session["userID"];
 
-            List<Follower> followers = _followerService.GetFollowings(userID).ToList();
+            List<Follower> followings = _followerService.GetFollowings(userID).ToList();
 
             MainPageViewModel mainPageViewModel = new MainPageViewModel
             {
-                MainPageDatas = _diaryService.GetDiariesByAccount(followers)
+                MainPageDatas = _diaryService.GetDiariesByAccount(followings)
             };
 
             return View(mainPageViewModel);
@@ -69,6 +68,7 @@ namespace DiaryShare.MVCWebUI.Controllers
             return View(diaryDetailViewModel);
         }
 
+        [HttpPost]
         public JsonResult RequestToReview(Review review)
         {
             review.FromAccount = (int)Session["userID"];

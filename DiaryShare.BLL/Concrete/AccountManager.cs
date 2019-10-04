@@ -12,51 +12,51 @@ namespace DiaryShare.BLL.Concrete
 {
     public class AccountManager : IAccountService
     {
-        private IAccountDal _accountDAL;
+        private IAccountDal _accountDal;
 
-        public AccountManager(IAccountDal accountDAL)
+        public AccountManager(IAccountDal accountDal)
         {
-            _accountDAL = accountDAL;
+            _accountDal = accountDal;
         }
 
         public List<Account> GetAccountsHasMostFollowers()
         {
-            return _accountDAL.GetAccountsHasMostFollowers();
+            return _accountDal.GetAccountsHasMostFollowers();
         }
 
         public List<Account> GetAccountsBySearchKey(string key)
         {
-            return _accountDAL.GetAll(x => x.FirstName.ToLower().Contains(key.ToLower()) || x.LastName.ToLower().Contains(key.ToLower()) || x.Email.ToLower().Contains(key.ToLower()) || key.ToLower().Contains(x.FirstName.ToLower()) || key.ToLower().Contains(x.LastName.ToLower()) || (key.ToLower().Contains(x.FirstName.ToLower()) && key.ToLower().Contains(x.LastName.ToLower())));
+            return _accountDal.GetAll(x => x.FirstName.ToLower().Contains(key.ToLower()) || x.LastName.ToLower().Contains(key.ToLower()) || x.Email.ToLower().Contains(key.ToLower()) || key.ToLower().Contains(x.FirstName.ToLower()) || key.ToLower().Contains(x.LastName.ToLower()) || (key.ToLower().Contains(x.FirstName.ToLower()) && key.ToLower().Contains(x.LastName.ToLower())));
         }
 
         public List<Account> GetFollowerAccounts(int id)
         {
-            return _accountDAL.GetFollowerAccounts(id);
+            return _accountDal.GetFollowerAccounts(id);
         }
 
         public List<Account> GetFollowingAccounts(int id)
         {
-            return _accountDAL.GetFollowingAccounts(id);
+            return _accountDal.GetFollowingAccounts(id);
         }
 
         public Account GetAccountByEmailWithRole(string email)
         {
-            return _accountDAL.GetAccountByEmailWithRole(email);
+            return _accountDal.GetAccountByEmailWithRole(email);
         }
 
         public void Update(Account account)
         {
-            _accountDAL.Update(account);
+            _accountDal.Update(account);
         }
 
         public Account GetAccount(int id)
         {
-            return _accountDAL.Get(x => x.AccountID == id);
+            return _accountDal.Get(x => x.AccountID == id);
         }
 
         public List<Account> GetTrendAccounts()
         {
-            return _accountDAL.GetTopAccounts().ToList();
+            return _accountDal.GetTopAccounts().ToList();
         }
 
         public bool ChangePassword(Account account, string password)
@@ -73,7 +73,7 @@ namespace DiaryShare.BLL.Concrete
             account.PasswordHash = passwordHash;
             account.PasswordSalt = passwordSalt;
 
-            _accountDAL.Update(account);
+            _accountDal.Update(account);
 
             return true;
         }
@@ -87,13 +87,13 @@ namespace DiaryShare.BLL.Concrete
             account.PasswordHash = passwordHash;
             account.PasswordSalt = passwordSalt;
 
-            _accountDAL.Add(account);
+            _accountDal.Add(account);
 
         }
 
         public Account Login(string email, string password)
         {
-            var account = _accountDAL.Get(x => x.Email == email);
+            var account = _accountDal.Get(x => x.Email == email);
             if (account == null)
             {
                 return null;
@@ -126,7 +126,7 @@ namespace DiaryShare.BLL.Concrete
 
         public bool UserExists(string email)
         {
-            if (_accountDAL.Get(x => x.Email == email) != null)
+            if (_accountDal.Get(x => x.Email == email) != null)
             {
                 return true;
             }

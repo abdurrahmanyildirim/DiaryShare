@@ -21,7 +21,6 @@
 
 
 <div class="col-md-offset-1 col-md-8">
-
     <div class="panel panel-info">
         <div id="backButton" class="panel panel-heading" style="display:none">
             <a href="@Url.Action("Main","Profile",new {id=Model.AccountInfo.AccountID })">
@@ -43,7 +42,7 @@
             <div id="mainProfileContent">
                 <div>
                     <div class="col-md-1">
-                        <img class="thumbnail pull-left" style="width:120px;height:120px;border-radius:60px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName-@Model.AccountInfo.LastName" />
+                        <img id="profile-photo" class="thumbnail pull-left" style="width:120px;height:120px;border-radius:60px; border:1px solid grey;margin-left:5px;margin-top:5px;" src="@Url.Content(Model.AccountInfo.ProfilPhotoPath)" alt="@Model.AccountInfo.FirstName-@Model.AccountInfo.LastName" />
 
                     </div>
                     <div class="col-md-7" style="margin-top:-15px;margin-left:80px">
@@ -115,15 +114,19 @@
 
                                                 <h3><span> @Model.AccountInfo.FirstName @Model.AccountInfo.LastName</span></h3>
                                             </a>
-                                            <div style="margin:-35px 0 0 570px">
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span style="font-size:20px" class="glyphicon glyphicon-option-vertical"></span></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a onclick="removeDiary(@item.DiaryID)" href="#">Günlüğü Sil</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                            @if (Model.IsOwnProfile)
+                                            {
+                                                <div style="margin:-35px 0 0 570px">
+                                                    <div class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span style="font-size:20px" class="glyphicon glyphicon-option-vertical"></span></a>
 
+                                                        <ul class="dropdown-menu">
+                                                            <li><a onclick="removeDiary(@item.DiaryID)" href="#">Günlüğü Sil</a></li>
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                            }
                                             <div>
                                                 <a style="text-decoration:none;color:black" href="@Url.Action("DiaryDetail","Home",new  { id=item.DiaryID})">
                                                     <div>
@@ -155,6 +158,9 @@
 
     <script>
         $(document).ready(function () {
+
+            showPhoto();
+
             $("#followingsMain").click(function () {
                 var link = "/Profile/GetListOfFollowings/" + @Model.AccountInfo.AccountID;
                 loadRelations(link);
@@ -243,6 +249,103 @@
                         }
                     })
                 })
+        }
+
+        function showPhoto() {
+            var myNode = document.querySelector('#profile-photo');
+
+            myNode.addEventListener('click', function (e) {
+
+                if (e.target.tagName === 'IMG') {
+
+                    var myOverlay = document.createElement('div');
+                    myOverlay.id = 'overlay';
+
+                    document.body.appendChild(myOverlay);
+
+                    //set up csss with javascript;
+                    myOverlay.style.position = 'absolute';
+                    myOverlay.style.top = 15 + 'px';
+                    myOverlay.style.backgroundColor = 'rgb(0,0,0,0.7)';
+                    myOverlay.style.cursor = 'pointer';
+
+                    //resize and position overlay
+                    myOverlay.style.width = window.innerWidth + 'px';
+                    myOverlay.style.height = window.innerHeight + 'px';
+                    myOverlay.style.top = window.pageYOffset + 'px';
+                    myOverlay.style.left = window.pageXOffset + 'px';
+
+                    //Create image element
+                    var imageSrc = e.target.src;
+                    var largeImage = document.createElement('img');
+                    largeImage.id = 'largeImage';
+                    largeImage.src = imageSrc.substr(22, imageSrc.length - 7);
+                    largeImage.style.display = 'block';
+                    largeImage.style.position = 'absolute';
+
+                    //wait until the has loaded
+                    largeImage.addEventListener('load', function () {
+
+                        //Resize if image taller
+                        if (this.height > window.innerHeight) {
+                            this.ratio = window.innerHeight / this.height;
+                            this.height = this.height * this.ratio;
+                            this.width = this.width * this.ratio;
+                        }
+
+                        //Resize if image wider
+                        if (this.width > window.innerWidth) {
+                            this.ratio = window.innerWidth / this.width;
+                            this.height = this.height * this.ratio;
+                            this.width = this.width * this.ratio;
+                        }
+
+                        center(this);
+
+                        myOverlay.appendChild(largeImage);
+
+                    });
+
+                    largeImage.addEventListener('click', function () {
+                        if (myOverlay) {
+                            myOverlay.parentNode.removeChild(myOverlay);
+                        }
+                    }, false);
+
+                    window.addEventListener('scroll', function () {
+                        if (myOverlay) {
+                            window.removeEventListener('resize', window, false);
+                            window.removeEventListener('scroll', window, false);
+                            myOverlay.style.top = window.pageYOffset + 'px';
+                            myOverlay.style.left = window.pageXOffset + 'px';
+
+                        }
+                    }, false)
+
+                    window.addEventListener('resize', function () {
+                        if (myOverlay) {
+                            myOverlay.style.width = this.window.innerWidth + 'px';
+                            myOverlay.style.height = this.window.innerHeight + 'px';
+                            myOverlay.style.left = this.window.pageXOffset + 'px';
+                            myOverlay.style.top = this.window.pageYOffset + 'px';
+                            center(myOverlay.firstChild)
+                        }
+                    })
+
+                } //target is an image
+
+
+            }, false)//Image click
+        }
+
+        function center(theImage) {
+            var difX = (window.innerWidth - theImage.width) / 2;
+            var difY = (window.innerHeight - theImage.height) / 2;
+
+            theImage.style.top = difY + 'px';
+            theImage.style.left = difX + 'px';
+
+            return theImage;
         }
 
     </script>
